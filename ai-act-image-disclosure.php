@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/wearetherope/ai-act-image-disclosure
  * Description:       Keeps the AI provenance marking of uploaded images (IPTC DigitalSourceType, XMP, C2PA), carries it into every generated size and shows it in the Media Library. Built for the EU AI Act article 50 marking obligation.
  * Version:           1.0.0
- * Requires at least: 6.0
+ * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            The Rope
  * Author URI:        https://therope.it

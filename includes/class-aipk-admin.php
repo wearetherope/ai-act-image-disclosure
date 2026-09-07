@@ -105,7 +105,8 @@ class AIPK_Admin {
 		if ( 'attachment' !== $post_type ) {
 			return;
 		}
-		$current = isset( $_GET['aipk_filter'] ) ? sanitize_key( wp_unslash( $_GET['aipk_filter'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only list filter, no state change.
+		$current = isset( $_GET['aipk_filter'] ) ? sanitize_key( wp_unslash( $_GET['aipk_filter'] ) ) : '';
 		echo '<label class="screen-reader-text" for="aipk_filter">' . esc_html__( 'Filter by AI provenance', 'ai-act-image-disclosure' ) . '</label>';
 		echo '<select name="aipk_filter" id="aipk_filter">';
 		foreach ( self::filter_options() as $value => $label ) {
@@ -182,7 +183,8 @@ class AIPK_Admin {
 		if ( ! is_admin() || ! $query->is_main_query() || 'attachment' !== $query->get( 'post_type' ) ) {
 			return;
 		}
-		$value = isset( $_GET['aipk_filter'] ) ? sanitize_key( wp_unslash( $_GET['aipk_filter'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only list filter, no state change.
+		$value = isset( $_GET['aipk_filter'] ) ? sanitize_key( wp_unslash( $_GET['aipk_filter'] ) ) : '';
 		$mq    = self::filter_meta_query( $value );
 		if ( $mq ) {
 			$query->set( 'meta_query', $mq ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
@@ -196,7 +198,7 @@ class AIPK_Admin {
 	 * @return array
 	 */
 	public static function apply_grid_filter( $args ) {
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- read-only filtering of a core AJAX query, capability checked by core.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing -- read-only filtering of a core AJAX query, capability checked by core.
 		$value = isset( $_REQUEST['query']['aipk_filter'] ) ? sanitize_key( wp_unslash( $_REQUEST['query']['aipk_filter'] ) ) : '';
 		$mq    = self::filter_meta_query( $value );
 		if ( $mq ) {
@@ -577,6 +579,7 @@ class AIPK_Admin {
 		$rows[] = array( __( 'Image editor', 'ai-act-image-disclosure' ), $editor ? $editor : __( 'none', 'ai-act-image-disclosure' ) );
 		$rows[] = array( __( 'Behaviour of the editor', 'ai-act-image-disclosure' ), __( 'Strips XMP and IPTC from every generated size; the plugin carries them back after generation.', 'ai-act-image-disclosure' ) );
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- reading the value of a core filter.
 		$threshold = apply_filters( 'big_image_size_threshold', 2560, array( 0, 0 ), '', 0 );
 		$rows[]    = array(
 			__( 'Big image threshold', 'ai-act-image-disclosure' ),
@@ -586,6 +589,7 @@ class AIPK_Admin {
 				: __( 'disabled', 'ai-act-image-disclosure' ),
 		);
 
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- reading the value of a core filter.
 		$formats = apply_filters( 'image_editor_output_format', array(), '', 'image/jpeg' );
 		if ( ! empty( $formats ) ) {
 			$rows[] = array( __( 'Output format conversion', 'ai-act-image-disclosure' ), implode( ', ', array_map( 'strval', $formats ) ) );

@@ -1,0 +1,24 @@
+name: Deploy to WordPress.org
+
+# Runs when a version tag is pushed (v1.0.0). Needs two repository secrets:
+# SVN_USERNAME and SVN_PASSWORD, the wordpress.org credentials of the plugin
+# owner. Assets in .wordpress-org/ are pushed to the SVN assets folder.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    name: Tag ${{ github.ref_name }} on WordPress.org
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: WordPress plugin deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: ai-act-image-disclosure
+          ASSETS_DIR: .wordpress-org

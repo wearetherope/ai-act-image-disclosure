@@ -56,7 +56,7 @@ class AIPK_Segments {
 	 * @return true|WP_Error
 	 */
 	public static function inject( $path, $bundle ) {
-		if ( ! is_readable( $path ) || ! is_writable( $path ) ) {
+		if ( ! is_readable( $path ) || ! wp_is_writable( $path ) ) {
 			return new WP_Error( 'aipk_unwritable', 'File is not writable.' );
 		}
 		if ( empty( $bundle['xmp'] ) && empty( $bundle['iptc'] ) ) {
@@ -83,8 +83,9 @@ class AIPK_Segments {
 		if ( false === file_put_contents( $tmp, $out ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 			return new WP_Error( 'aipk_write', 'Could not write temporary file.' );
 		}
-		if ( ! rename( $tmp, $path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rename
-			@unlink( $tmp ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		// Atomic replace: the derivative is never half-written while a visitor requests it.
+		if ( ! rename( $tmp, $path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
+			wp_delete_file( $tmp );
 			return new WP_Error( 'aipk_rename', 'Could not replace target file.' );
 		}
 		return true;

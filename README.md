@@ -23,7 +23,7 @@ It does not detect AI from pixels, does not copy C2PA manifests into derivatives
 
 ## Install
 
-Clone or download into `wp-content/plugins/ai-act-image-disclosure`, activate, then Media → AI Act Disclosure. Requires WordPress 6.0 and PHP 7.4.
+Clone or download into `wp-content/plugins/ai-act-image-disclosure`, activate, then Media → AI Act Disclosure. Requires WordPress 6.1 and PHP 7.4.
 
 ## Developers
 

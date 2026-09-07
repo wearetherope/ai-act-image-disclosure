@@ -1,14 +1,14 @@
-=== AI Act Image Disclosure: AI badge, label and provenance metadata for AI-generated images ===
+=== AI Act Image Disclosure ===
 Contributors: therope
 Tags: ai act, ai generated images, ai label, provenance, compliance
-Requires at least: 6.0
+Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Label AI-generated images with a badge, keep their provenance metadata in every size and see it in the Media Library. EU AI Act article 50, done.
+AI badge, label and provenance metadata for AI-generated images: keep the marking in every size and see it in the Media Library. EU AI Act art. 50.
 
 == Description ==
 
