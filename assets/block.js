@@ -13,8 +13,8 @@
 		ServerSideRender = wp.serverSideRender;
 
 	wp.blocks.registerBlockType( 'aipk/disclosure', {
-		title: __( 'AI disclosure notice', 'ai-act-image-disclosure' ),
-		description: __( 'A transparency notice about AI-generated images on this site, with an optional count.', 'ai-act-image-disclosure' ),
+		title: __( 'AI disclosure notice', 'ai-act-image-marking' ),
+		description: __( 'A transparency notice about AI-generated images on this site, with an optional count.', 'ai-act-image-marking' ),
 		icon: 'visibility',
 		category: 'widgets',
 		attributes: {
@@ -31,14 +31,14 @@
 					null,
 					el(
 						PanelBody,
-						{ title: __( 'Notice', 'ai-act-image-disclosure' ) },
+						{ title: __( 'Notice', 'ai-act-image-marking' ) },
 						el( TextareaControl, {
-							label: __( 'Text (empty = plugin setting)', 'ai-act-image-disclosure' ),
+							label: __( 'Text (empty = plugin setting)', 'ai-act-image-marking' ),
 							value: a.text,
 							onChange: function ( v ) { props.setAttributes( { text: v } ); }
 						} ),
 						el( ToggleControl, {
-							label: __( 'Show the number of AI images', 'ai-act-image-disclosure' ),
+							label: __( 'Show the number of AI images', 'ai-act-image-marking' ),
 							checked: a.count,
 							onChange: function ( v ) { props.setAttributes( { count: v } ); }
 						} )
@@ -46,7 +46,7 @@
 				),
 				ServerSideRender
 					? el( ServerSideRender, { block: 'aipk/disclosure', attributes: a } )
-					: el( 'p', null, a.text || __( 'AI disclosure notice', 'ai-act-image-disclosure' ) )
+					: el( 'p', null, a.text || __( 'AI disclosure notice', 'ai-act-image-marking' ) )
 			);
 		},
 		save: function () {

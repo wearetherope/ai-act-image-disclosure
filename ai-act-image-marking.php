@@ -10,7 +10,7 @@
  * Author URI:        https://therope.it
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-act-image-disclosure
+ * Text Domain:       ai-act-image-marking
  * Domain Path:       /languages
  *
  * Copyright (C) 2026 The Chain S.r.l. (The Rope)
@@ -57,7 +57,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
  * and WordPress 6.7+ wants translations loaded no earlier than init.
  */
 function aipk_init() {
-	load_plugin_textdomain( 'ai-act-image-disclosure', false, dirname( plugin_basename( AIPK_FILE ) ) . '/languages' );
+	load_plugin_textdomain( 'ai-act-image-marking', false, dirname( plugin_basename( AIPK_FILE ) ) . '/languages' );
 	AIPK_Options::init();
 	AIPK_Processor::init();
 	AIPK_Frontend::init();

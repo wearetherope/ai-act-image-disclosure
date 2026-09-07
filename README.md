@@ -1,6 +1,6 @@
 # AI Act Image Marking
 
-WordPress plugin for the EU AI Act, article 50. It **marks** AI-generated images that lack the IPTC marking, **keeps** the marking (XMP, IPTC) in every image size WordPress generates, **discloses** it on the page (AI badge with provenance popup, label, notice, schema.org) and **documents** it in the Media Library (classification, filters, export). Repository slug `ai-act-image-disclosure`, plugin name AI Act Image Marking.
+WordPress plugin for the EU AI Act, article 50. It **marks** AI-generated images that lack the IPTC marking, **keeps** the marking (XMP, IPTC) in every image size WordPress generates, **discloses** it on the page (AI badge with provenance popup, label, notice, schema.org) and **documents** it in the Media Library (classification, filters, export). Plugin slug `ai-act-image-marking`; the repository keeps its original name.
 
 Made by [The Rope](https://therope.it). GPL-2.0-or-later.
 
@@ -24,7 +24,7 @@ It does not detect AI from pixels, does not copy C2PA manifests into derivatives
 
 ## Install
 
-Clone or download into `wp-content/plugins/ai-act-image-disclosure`, activate, then Media → AI Act Marking. Requires WordPress 6.1 and PHP 7.4.
+Clone or download into `wp-content/plugins/ai-act-image-marking`, activate, then Media → AI Act Marking. Requires WordPress 6.1 and PHP 7.4.
 
 ## Developers
 
@@ -49,7 +49,7 @@ CSS hooks: `.aipk-wrap`, `.aipk-ai-badge`, `.aipk-pos-{bottom-right|bottom-left|
 for f in $(git ls-files '*.php'); do php -l "$f"; done
 ```
 
-The GitHub workflow lints every PHP file on PHP 7.4 to 8.4 and runs the WordPress Plugin Check. Translations: `languages/ai-act-image-disclosure.pot`, Italian included.
+The GitHub workflow lints every PHP file on PHP 7.4 to 8.4 and runs the WordPress Plugin Check. Translations: `languages/ai-act-image-marking.pot`, Italian included.
 
 ## Marking files before upload
 

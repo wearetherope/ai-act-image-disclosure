@@ -263,21 +263,21 @@ class AIPK_Reader {
 	 */
 	public static function term_label( $term ) {
 		$labels = array(
-			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ai-act-image-disclosure' ),
-			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified', 'ai-act-image-disclosure' ),
-			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ai-act-image-disclosure' ),
-			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ai-act-image-disclosure' ),
-			'virtualRecording'                     => __( 'Virtual recording', 'ai-act-image-disclosure' ),
-			'digitalCapture'                       => __( 'Digital capture (camera)', 'ai-act-image-disclosure' ),
-			'negativeFilm'                         => __( 'Scanned negative', 'ai-act-image-disclosure' ),
-			'positiveFilm'                         => __( 'Scanned positive', 'ai-act-image-disclosure' ),
-			'print'                                => __( 'Scanned print', 'ai-act-image-disclosure' ),
-			'humanEdits'                           => __( 'Human edits', 'ai-act-image-disclosure' ),
-			'compositeCapture'                     => __( 'Composite of captures', 'ai-act-image-disclosure' ),
-			'algorithmicallyEnhanced'              => __( 'Algorithmically enhanced', 'ai-act-image-disclosure' ),
-			'dataDrivenMedia'                      => __( 'Data driven media', 'ai-act-image-disclosure' ),
-			'digitalArt'                           => __( 'Digital art', 'ai-act-image-disclosure' ),
-			'screenCapture'                        => __( 'Screen capture', 'ai-act-image-disclosure' ),
+			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ai-act-image-marking' ),
+			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified', 'ai-act-image-marking' ),
+			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ai-act-image-marking' ),
+			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ai-act-image-marking' ),
+			'virtualRecording'                     => __( 'Virtual recording', 'ai-act-image-marking' ),
+			'digitalCapture'                       => __( 'Digital capture (camera)', 'ai-act-image-marking' ),
+			'negativeFilm'                         => __( 'Scanned negative', 'ai-act-image-marking' ),
+			'positiveFilm'                         => __( 'Scanned positive', 'ai-act-image-marking' ),
+			'print'                                => __( 'Scanned print', 'ai-act-image-marking' ),
+			'humanEdits'                           => __( 'Human edits', 'ai-act-image-marking' ),
+			'compositeCapture'                     => __( 'Composite of captures', 'ai-act-image-marking' ),
+			'algorithmicallyEnhanced'              => __( 'Algorithmically enhanced', 'ai-act-image-marking' ),
+			'dataDrivenMedia'                      => __( 'Data driven media', 'ai-act-image-marking' ),
+			'digitalArt'                           => __( 'Digital art', 'ai-act-image-marking' ),
+			'screenCapture'                        => __( 'Screen capture', 'ai-act-image-marking' ),
 		);
 		return isset( $labels[ $term ] ) ? $labels[ $term ] : $term;
 	}

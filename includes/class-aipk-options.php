@@ -30,7 +30,7 @@ class AIPK_Options {
 			// Front end.
 			'frontend_attrs'         => 1,
 			'frontend_label'         => 0,
-			'label_text'             => __( 'Image generated with artificial intelligence', 'ai-act-image-disclosure' ),
+			'label_text'             => __( 'Image generated with artificial intelligence', 'ai-act-image-marking' ),
 			'badge_enabled'          => 0,
 			'badge_text'             => 'AI',
 			'badge_image'            => 0,         // attachment id of a custom badge image.
@@ -40,13 +40,13 @@ class AIPK_Options {
 			'badge_opacity'          => 55,
 			'badge_color'            => '#ffffff',
 			'badge_min_width'        => 200,
-			'badge_title'            => __( 'Image generated with artificial intelligence', 'ai-act-image-disclosure' ),
+			'badge_title'            => __( 'Image generated with artificial intelligence', 'ai-act-image-marking' ),
 			'popup_enabled'          => 1,         // click on the badge opens the provenance popup.
-			'popup_title'            => __( 'About this image', 'ai-act-image-disclosure' ),
+			'popup_title'            => __( 'About this image', 'ai-act-image-marking' ),
 			'credit_link'            => defined( 'AIPK_CREDIT_DEFAULT' ) ? (int) (bool) AIPK_CREDIT_DEFAULT : 0,
 			'schema_enabled'         => 1,         // ImageObject JSON-LD with digitalSourceType.
 			'footer_notice'          => 0,
-			'notice_text'            => __( 'Some images on this site are generated with artificial intelligence and are marked as such.', 'ai-act-image-disclosure' ),
+			'notice_text'            => __( 'Some images on this site are generated with artificial intelligence and are marked as such.', 'ai-act-image-marking' ),
 			'custom_css'             => '',
 		);
 	}
@@ -157,10 +157,10 @@ class AIPK_Options {
 	 */
 	public static function positions() {
 		return array(
-			'bottom-right' => __( 'Bottom right', 'ai-act-image-disclosure' ),
-			'bottom-left'  => __( 'Bottom left', 'ai-act-image-disclosure' ),
-			'top-right'    => __( 'Top right', 'ai-act-image-disclosure' ),
-			'top-left'     => __( 'Top left', 'ai-act-image-disclosure' ),
+			'bottom-right' => __( 'Bottom right', 'ai-act-image-marking' ),
+			'bottom-left'  => __( 'Bottom left', 'ai-act-image-marking' ),
+			'top-right'    => __( 'Top right', 'ai-act-image-marking' ),
+			'top-left'     => __( 'Top left', 'ai-act-image-marking' ),
 		);
 	}
 

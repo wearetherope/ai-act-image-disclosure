@@ -200,18 +200,18 @@ class AIPK_Frontend {
 	private static function popup( $id, $record, $o ) {
 		$dst  = $record['digital_source_type'] ? $record['digital_source_type'] : $record['c2pa_digital_source_type'];
 		$rows = array(
-			__( 'Type', 'ai-act-image-disclosure' )        => AIPK_Reader::term_label( $dst ),
-			__( 'Disclosure', 'ai-act-image-disclosure' )  => $record['description'],
-			__( 'Creator', 'ai-act-image-disclosure' )     => $record['creator'],
-			__( 'Credit', 'ai-act-image-disclosure' )      => $record['credit'],
-			__( 'Rights', 'ai-act-image-disclosure' )      => $record['rights'],
-			__( 'Generator', 'ai-act-image-disclosure' )   => implode( ', ', $record['generators'] ),
-			__( 'Marking', 'ai-act-image-disclosure' )     => implode(
+			__( 'Type', 'ai-act-image-marking' )        => AIPK_Reader::term_label( $dst ),
+			__( 'Disclosure', 'ai-act-image-marking' )  => $record['description'],
+			__( 'Creator', 'ai-act-image-marking' )     => $record['creator'],
+			__( 'Credit', 'ai-act-image-marking' )      => $record['credit'],
+			__( 'Rights', 'ai-act-image-marking' )      => $record['rights'],
+			__( 'Generator', 'ai-act-image-marking' )   => implode( ', ', $record['generators'] ),
+			__( 'Marking', 'ai-act-image-marking' )     => implode(
 				', ',
 				array_filter(
 					array(
 						'IPTC ' . $dst,
-						$record['has_c2pa'] ? __( 'C2PA manifest in the original', 'ai-act-image-disclosure' ) : '',
+						$record['has_c2pa'] ? __( 'C2PA manifest in the original', 'ai-act-image-marking' ) : '',
 					)
 				)
 			),
@@ -224,7 +224,7 @@ class AIPK_Frontend {
 		 */
 		$rows = apply_filters( 'aipk_popup_rows', $rows, $record );
 		$html = '<div id="' . esc_attr( $id ) . '" class="aipk-popup" role="dialog" aria-label="' . esc_attr( $o['popup_title'] ) . '" hidden>';
-		$html .= '<div class="aipk-popup-head"><span class="aipk-popup-title">' . esc_html( $o['popup_title'] ) . '</span><button type="button" class="aipk-popup-close" aria-label="' . esc_attr__( 'Close', 'ai-act-image-disclosure' ) . '">&times;</button></div>';
+		$html .= '<div class="aipk-popup-head"><span class="aipk-popup-title">' . esc_html( $o['popup_title'] ) . '</span><button type="button" class="aipk-popup-close" aria-label="' . esc_attr__( 'Close', 'ai-act-image-marking' ) . '">&times;</button></div>';
 		$html .= '<dl class="aipk-popup-rows">';
 		foreach ( $rows as $label => $value ) {
 			if ( '' === trim( (string) $value ) ) {
@@ -233,11 +233,11 @@ class AIPK_Frontend {
 			$html .= '<dt>' . esc_html( $label ) . '</dt><dd>' . esc_html( $value ) . '</dd>';
 		}
 		$html .= '</dl>';
-		$html .= '<p class="aipk-popup-note">' . esc_html__( 'Marked under EU Regulation 2024/1689 (AI Act), article 50.', 'ai-act-image-disclosure' ) . '</p>';
+		$html .= '<p class="aipk-popup-note">' . esc_html__( 'Marked under EU Regulation 2024/1689 (AI Act), article 50.', 'ai-act-image-marking' ) . '</p>';
 		if ( $o['credit_link'] ) {
 			$html .= '<p class="aipk-popup-credit">' . sprintf(
 				/* translators: 1: plugin name, 2: agency link */
-				esc_html__( 'Marked with %1$s by %2$s', 'ai-act-image-disclosure' ),
+				esc_html__( 'Marked with %1$s by %2$s', 'ai-act-image-marking' ),
 				'AI Act Image Marking',
 				'<a href="https://therope.it" rel="noopener">The Rope</a>'
 			) . '</p>';
@@ -400,7 +400,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAll();
 		if ( '1' === (string) $atts['count'] ) {
 			$n = count( AIPK_Processor::ai_ids() );
 			/* translators: %d: number of images */
-			$html .= '<p class="aipk-disclosure-count">' . esc_html( sprintf( _n( '%d image in the media library is marked as AI generated or AI modified.', '%d images in the media library are marked as AI generated or AI modified.', $n, 'ai-act-image-disclosure' ), $n ) ) . '</p>';
+			$html .= '<p class="aipk-disclosure-count">' . esc_html( sprintf( _n( '%d image in the media library is marked as AI generated or AI modified.', '%d images in the media library are marked as AI generated or AI modified.', $n, 'ai-act-image-marking' ), $n ) ) . '</p>';
 		}
 		return $html . '</div>';
 	}
@@ -413,7 +413,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAll();
 			return;
 		}
 		wp_register_script( 'aipk-block', AIPK_URL . 'assets/block.js', array( 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-components' ), AIPK_VERSION, true );
-		wp_set_script_translations( 'aipk-block', 'ai-act-image-disclosure' );
+		wp_set_script_translations( 'aipk-block', 'ai-act-image-marking' );
 		register_block_type(
 			'aipk/disclosure',
 			array(
