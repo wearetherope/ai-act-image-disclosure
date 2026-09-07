@@ -28,8 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # The check derives the plugin slug from the folder name. The repository is
+      # ai-act-image-disclosure but the plugin slug is ai-act-image-marking, so
+      # the distributable is staged in a folder with the right name.
+      - name: Stage the plugin under its slug
+        run: |
+          mkdir -p /tmp/stage/ai-act-image-marking
+          rsync -a --exclude-from=.distignore --exclude .git ./ /tmp/stage/ai-act-image-marking/
+          rm -rf ai-act-image-marking && cp -R /tmp/stage/ai-act-image-marking ai-act-image-marking
       - uses: wordpress/plugin-check-action@v1
         with:
+          build-dir: ai-act-image-marking
           exclude-directories: '.github,.wordpress-org'
           exclude-files: 'phpcs.xml.dist,.distignore,.gitignore'
           # load_plugin_textdomain() is kept on purpose for the bundled Italian translation.
