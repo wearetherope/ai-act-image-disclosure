@@ -4,7 +4,7 @@ Tags: ai act, ai generated images, ai label, provenance, compliance
 Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,7 +115,11 @@ Yes. XMP is written as an `iTXt` chunk in PNG and as an `XMP` chunk in WebP (cre
 
 = Does it slow down uploads? =
 
-Marginally: a few milliseconds per generated size, spent copying bytes. Nothing is re-encoded.
+Marginally: one read and one write per generated size, copying bytes. Nothing is re-encoded. On a large library use "Scan in background" (Action Scheduler when present, WP-Cron otherwise) or WP-CLI: `wp ai-provenance scan` processes tens of images per second in one process.
+
+= How does it behave on a large library? =
+
+Filters and counters use flat flags, not the serialized record, so the Media Library stays fast at tens of thousands of images. Scans run in time-bounded batches and release memory as they go. Each derivative is read once and written only when the marking is missing.
 
 == Screenshots ==
 
@@ -127,10 +131,17 @@ Marginally: a few milliseconds per generated size, spent copying bytes. Nothing 
 
 == Changelog ==
 
+= 1.0.1 =
+* Performance: one read per derivative, time-bounded batches, background scan with Action Scheduler or WP-Cron, cached counters, indexable flags for filters, chunked WP-CLI scan.
+* Fix: notice on records saved by earlier scans.
+
 = 1.0.0 =
 * First release: IPTC/XMP/C2PA provenance reading, marking carried into JPEG, PNG and WebP sizes, manual classification per image and in bulk that writes the IPTC digital source type, generator traces as "suspected AI", AI badge with provenance popup, per-image badge choice, text label, site notice, shortcode and block, schema.org digitalSourceType, Media Library column, panel, filters and export, library scan, WP-CLI, REST, Italian translation.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Faster scans and filters on large libraries, background scan. Re-scan once so filters pick up the new flags.
 
 = 1.0.0 =
 First release.

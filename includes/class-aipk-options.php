@@ -136,7 +136,12 @@ class AIPK_Options {
 	 * @return array
 	 */
 	public static function all() {
-		return wp_parse_args( (array) get_option( self::OPTION, array() ), self::defaults() );
+		static $cache = null;
+		if ( null === $cache ) {
+			$cache = wp_parse_args( (array) get_option( self::OPTION, array() ), self::defaults() );
+			add_action( 'update_option_' . self::OPTION, function () use ( &$cache ) { $cache = null; } );
+		}
+		return $cache;
 	}
 
 	/**

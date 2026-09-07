@@ -19,6 +19,11 @@ class AIPK_Processor {
 	const META_SIZES  = '_aipk_sizes';
 	const META_MANUAL = '_aipk_manual';
 	const META_DISCLOSE = '_aipk_disclose';
+	const META_SUSPECT  = '_aipk_suspect';
+	const META_MARKED   = '_aipk_marked';
+	const COUNTS_CACHE  = 'aipk_counts';
+	const BG_OPTION     = 'aipk_bg_scan';
+	const BG_HOOK       = 'aipk_bg_scan_run';
 
 	/**
 	 * Per-media visible disclosure: '' follows the settings, 'show' forces badge and label, 'hide' suppresses them.
@@ -66,6 +71,8 @@ class AIPK_Processor {
 		add_filter( 'wp_generate_attachment_metadata', array( __CLASS__, 'on_generate_metadata' ), 999, 2 );
 		add_filter( 'wp_update_attachment_metadata', array( __CLASS__, 'on_update_metadata' ), 999, 2 );
 		add_action( 'delete_attachment', array( __CLASS__, 'on_delete' ) );
+		add_filter( 'cron_schedules', array( __CLASS__, 'cron_schedule' ) ); // phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval -- one minute, only while a background scan is active.
+		add_action( self::BG_HOOK, array( __CLASS__, 'bg_run' ) );
 	}
 
 	/**
@@ -140,6 +147,10 @@ class AIPK_Processor {
 		$record['scanned_at'] = time();
 		update_post_meta( $attachment_id, self::META_KEY, $record );
 		update_post_meta( $attachment_id, self::META_AI, $record['ai'] ? '1' : '0' );
+		// Flat flags for indexable library filters and counters.
+		update_post_meta( $attachment_id, self::META_SUSPECT, ! empty( $record['suspect'] ) ? '1' : '0' );
+		update_post_meta( $attachment_id, self::META_MARKED, ( '' !== $record['digital_source_type'] || '' !== $record['c2pa_digital_source_type'] ) ? '1' : '0' );
+		delete_transient( self::COUNTS_CACHE );
 
 		$sizes          = self::inject_all( $attachment_id, $metadata, $original, $record, $bundle );
 		$sizes['_file'] = isset( $metadata['file'] ) ? $metadata['file'] : '';
@@ -273,17 +284,9 @@ class AIPK_Processor {
 				$result[ $size ] = 'missing';
 				continue;
 			}
-			$existing = AIPK_Reader::read( $path );
-			if ( ! $existing['readable'] ) {
-				$result[ $size ] = 'unsupported';
-				continue;
-			}
-			if ( '' !== $existing['digital_source_type'] && $existing['digital_source_type'] === $record['digital_source_type'] ) {
-				$result[ $size ] = 'kept';
-				continue;
-			}
-			$ok              = AIPK_Segments::inject( $path, $bundle );
-			$result[ $size ] = ( true === $ok ) ? 'injected' : 'error: ' . $ok->get_error_message();
+			// One read per derivative: check the tag as text, write only when missing.
+			$ok              = AIPK_Segments::ensure( $path, $bundle, $record['digital_source_type'] );
+			$result[ $size ] = is_wp_error( $ok ) ? 'error: ' . $ok->get_error_message() : $ok;
 		}
 		/**
 		 * Fires after derivatives were processed.
@@ -362,6 +365,9 @@ class AIPK_Processor {
 		delete_post_meta( $attachment_id, self::META_SIZES );
 		delete_post_meta( $attachment_id, self::META_MANUAL );
 		delete_post_meta( $attachment_id, self::META_DISCLOSE );
+		delete_post_meta( $attachment_id, self::META_SUSPECT );
+		delete_post_meta( $attachment_id, self::META_MARKED );
+		delete_transient( self::COUNTS_CACHE );
 	}
 
 	/**
@@ -372,24 +378,239 @@ class AIPK_Processor {
 	 */
 	public static function record( $attachment_id ) {
 		$r = get_post_meta( $attachment_id, self::META_KEY, true );
-		return is_array( $r ) ? $r : null;
+		return is_array( $r ) ? array_merge( AIPK_Reader::empty_record(), $r ) : null;
 	}
 
 	/**
-	 * Ids of AI images (for counters and exports).
+	 * Ids of AI images (export).
 	 *
 	 * @return int[]
 	 */
 	public static function ai_ids() {
-		return get_posts(
-			array(
-				'post_type'      => 'attachment',
-				'post_status'    => 'inherit',
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
-				'meta_key'       => self::META_AI, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'     => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-			)
+		global $wpdb;
+		return array_map( 'intval', $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = '1' ORDER BY post_id", self::META_AI ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	}
+
+	/**
+	 * Library counters, cached for ten minutes and invalidated on every scan.
+	 *
+	 * @return array images, scanned, ai, suspect, marked, unscanned
+	 */
+	public static function counts() {
+		$c = get_transient( self::COUNTS_CACHE );
+		if ( is_array( $c ) && isset( $c['images'] ) ) {
+			return $c;
+		}
+		global $wpdb;
+		$count_flag = function ( $key ) use ( $wpdb ) {
+			return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = '1'", $key ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		};
+		$c = array(
+			'images'  => (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png','image/webp')" ), // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			'scanned' => (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::META_KEY ) ), // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			'ai'      => $count_flag( self::META_AI ),
+			'suspect' => $count_flag( self::META_SUSPECT ),
+			'marked'  => $count_flag( self::META_MARKED ),
 		);
+		$c['unscanned'] = max( 0, $c['images'] - $c['scanned'] );
+		set_transient( self::COUNTS_CACHE, $c, 10 * MINUTE_IN_SECONDS );
+		return $c;
+	}
+
+	/**
+	 * Process ids until the batch or the time budget runs out.
+	 *
+	 * @param int[] $ids     Attachment ids.
+	 * @param float $seconds Time budget.
+	 * @return array{done:int,ai:int,ids:int[]} Processed count, AI count, processed ids.
+	 */
+	public static function run_batch( $ids, $seconds ) {
+		$start = microtime( true );
+		$done  = 0;
+		$ai    = 0;
+		$seen  = array();
+		foreach ( $ids as $id ) {
+			$r = self::process( (int) $id );
+			$done++;
+			$seen[] = (int) $id;
+			if ( $r && $r['ai'] ) {
+				$ai++;
+			}
+			if ( 0 === $done % 25 ) {
+				self::release_memory();
+			}
+			if ( microtime( true ) - $start > $seconds ) {
+				break;
+			}
+		}
+		return array(
+			'done' => $done,
+			'ai'   => $ai,
+			'ids'  => $seen,
+		);
+	}
+
+	/**
+	 * Keep long loops flat: drop the per-request object caches WordPress accumulates.
+	 */
+	public static function release_memory() {
+		AIPK_Segments::forget();
+		global $wp_object_cache;
+		if ( is_object( $wp_object_cache ) && ! wp_using_ext_object_cache() ) {
+			$wp_object_cache->cache = array();
+			if ( method_exists( $wp_object_cache, '__remoteset' ) ) {
+				$wp_object_cache->__remoteset();
+			}
+		}
+	}
+
+	/**
+	 * Seconds we may spend in one request: 80% of max_execution_time, capped.
+	 *
+	 * @param float $cap Upper bound.
+	 * @return float
+	 */
+	public static function time_budget( $cap ) {
+		$max = (int) ini_get( 'max_execution_time' );
+		$b   = $max > 0 ? $max * 0.8 : $cap;
+		return max( 3, min( $cap, $b ) );
+	}
+
+	/* ------------------------------------------------------ background scan */
+
+	/**
+	 * One-minute schedule, used only while a background scan is active.
+	 *
+	 * @param array $schedules Schedules.
+	 * @return array
+	 */
+	public static function cron_schedule( $schedules ) {
+		$schedules['aipk_minute'] = array(
+			'interval' => MINUTE_IN_SECONDS,
+			'display'  => __( 'Every minute (AI Act Image Marking scan)', 'ai-act-image-marking' ),
+		);
+		return $schedules;
+	}
+
+	/**
+	 * Start a background scan.
+	 *
+	 * @param bool $all Re-scan everything, or only unscanned images.
+	 */
+	public static function bg_start( $all ) {
+		$c = self::counts();
+		update_option(
+			self::BG_OPTION,
+			array(
+				'all'     => (bool) $all,
+				'offset'  => 0,
+				'done'    => 0,
+				'ai'      => 0,
+				'total'   => $all ? $c['images'] : $c['unscanned'],
+				'started' => time(),
+				'last'    => 0,
+			),
+			false
+		);
+		self::bg_schedule_next( 0 );
+		// First batch right away, so the user sees movement.
+		self::bg_run();
+	}
+
+	/**
+	 * Schedule the next tick: Action Scheduler when available (WooCommerce and
+	 * others ship it), else the one-minute WP-Cron event.
+	 *
+	 * @param int $delay Seconds.
+	 */
+	private static function bg_schedule_next( $delay ) {
+		if ( function_exists( 'as_schedule_single_action' ) && function_exists( 'as_has_scheduled_action' ) ) {
+			if ( ! as_has_scheduled_action( self::BG_HOOK, array(), 'ai-act-image-marking' ) ) {
+				as_schedule_single_action( time() + $delay, self::BG_HOOK, array(), 'ai-act-image-marking' );
+			}
+			return;
+		}
+		if ( ! wp_next_scheduled( self::BG_HOOK ) ) {
+			wp_schedule_event( time() + $delay, 'aipk_minute', self::BG_HOOK );
+		}
+	}
+
+	/**
+	 * Stop a background scan.
+	 */
+	public static function bg_stop() {
+		delete_option( self::BG_OPTION );
+		if ( function_exists( 'as_unschedule_all_actions' ) ) {
+			as_unschedule_all_actions( self::BG_HOOK, array(), 'ai-act-image-marking' );
+		}
+		$ts = wp_next_scheduled( self::BG_HOOK );
+		while ( $ts ) {
+			wp_unschedule_event( $ts, self::BG_HOOK );
+			$ts = wp_next_scheduled( self::BG_HOOK );
+		}
+	}
+
+	/**
+	 * Background scan state, or null when none is running.
+	 *
+	 * @return array|null
+	 */
+	public static function bg_status() {
+		$s = get_option( self::BG_OPTION );
+		return is_array( $s ) ? $s : null;
+	}
+
+	/**
+	 * One tick: process as many images as the time budget allows, then stop or chain.
+	 */
+	public static function bg_run() {
+		$s = self::bg_status();
+		if ( ! $s ) {
+			return;
+		}
+		/**
+		 * Upper bound of images per background tick.
+		 *
+		 * @param int $batch Default 200.
+		 */
+		$batch = max( 1, (int) apply_filters( 'aipk_bg_batch', 200 ) );
+		$args  = array(
+			'post_type'      => 'attachment',
+			'post_mime_type' => array( 'image/jpeg', 'image/png', 'image/webp' ),
+			'post_status'    => 'inherit',
+			'posts_per_page' => $batch,
+			'orderby'        => 'ID',
+			'order'          => 'ASC',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		);
+		if ( $s['all'] ) {
+			$args['offset'] = (int) $s['offset'];
+		} else {
+			$args['meta_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				array(
+					'key'     => self::META_KEY,
+					'compare' => 'NOT EXISTS',
+				),
+			);
+		}
+		$ids = get_posts( $args );
+		if ( empty( $ids ) ) {
+			self::bg_stop();
+			set_transient( 'aipk_bg_done', $s, DAY_IN_SECONDS );
+			return;
+		}
+		$res          = self::run_batch( $ids, self::time_budget( 25 ) );
+		$s['done']   += $res['done'];
+		$s['ai']     += $res['ai'];
+		$s['offset'] += $res['done'];
+		$s['last']    = time();
+		if ( $res['done'] >= count( $ids ) && count( $ids ) < $batch ) {
+			self::bg_stop();
+			set_transient( 'aipk_bg_done', $s, DAY_IN_SECONDS );
+			return;
+		}
+		update_option( self::BG_OPTION, $s, false );
+		self::bg_schedule_next( 5 );
 	}
 }

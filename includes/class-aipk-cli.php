@@ -32,34 +32,37 @@ class AIPK_CLI {
 	 * @param array $assoc_args Flags.
 	 */
 	public function scan( $args, $assoc_args ) {
-		$all  = isset( $assoc_args['all'] );
-		$dry  = isset( $assoc_args['dry-run'] );
-		$ids  = get_posts(
-			array(
-				'post_type'      => 'attachment',
-				'post_mime_type' => array( 'image/jpeg', 'image/png', 'image/webp' ),
-				'post_status'    => 'inherit',
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
-			)
-		);
+		global $wpdb;
+		$all = isset( $assoc_args['all'] );
+		$dry = isset( $assoc_args['dry-run'] );
+		if ( $all ) {
+			$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png','image/webp') ORDER BY ID" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		} else {
+			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT p.ID FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s WHERE p.post_type = 'attachment' AND p.post_mime_type IN ('image/jpeg','image/png','image/webp') AND m.meta_id IS NULL ORDER BY p.ID", AIPK_Processor::META_KEY ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		}
+		$n = count( $ids );
+		if ( $dry ) {
+			WP_CLI::success( sprintf( '%d attachments would be scanned.', $n ) );
+			return;
+		}
+		if ( ! $n ) {
+			WP_CLI::success( 'Nothing to scan.' );
+			return;
+		}
+		$bar  = \WP_CLI\Utils\make_progress_bar( 'Scanning', $n );
 		$n_ai = 0;
-		$n    = 0;
+		$i    = 0;
 		foreach ( $ids as $id ) {
-			if ( ! $all && AIPK_Processor::record( $id ) ) {
-				continue;
-			}
-			$n++;
-			if ( $dry ) {
-				WP_CLI::log( "would scan #$id " . basename( get_attached_file( $id ) ) );
-				continue;
-			}
-			$r = AIPK_Processor::process( $id );
+			$r = AIPK_Processor::process( (int) $id );
 			if ( $r && $r['ai'] ) {
 				$n_ai++;
-				WP_CLI::log( "#$id " . basename( get_attached_file( $id ) ) . ' -> ' . $r['digital_source_type'] );
+			}
+			$bar->tick();
+			if ( 0 === ++$i % 100 ) {
+				AIPK_Processor::release_memory();
 			}
 		}
+		$bar->finish();
 		WP_CLI::success( sprintf( '%d attachments scanned, %d marked as AI.', $n, $n_ai ) );
 	}
 

@@ -398,7 +398,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeAll();
 		);
 		$html  = '<div class="aipk-disclosure"><p>' . esc_html( $atts['text'] ) . '</p>';
 		if ( '1' === (string) $atts['count'] ) {
-			$n = count( AIPK_Processor::ai_ids() );
+			$n = (int) AIPK_Processor::counts()['ai'];
 			/* translators: %d: number of images */
 			$html .= '<p class="aipk-disclosure-count">' . esc_html( sprintf( _n( '%d image in the media library is marked as AI generated or AI modified.', '%d images in the media library are marked as AI generated or AI modified.', $n, 'ai-act-image-marking' ), $n ) ) . '</p>';
 		}

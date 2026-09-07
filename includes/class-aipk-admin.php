@@ -44,6 +44,7 @@ class AIPK_Admin {
 		add_action( 'admin_post_aipk_export', array( __CLASS__, 'export_csv' ) );
 		add_action( 'admin_post_aipk_quick', array( __CLASS__, 'quick_action' ) );
 		add_action( 'admin_post_aipk_reset', array( __CLASS__, 'reset_settings' ) );
+		add_action( 'admin_post_aipk_bg', array( __CLASS__, 'bg_action' ) );
 	}
 
 	/* ============================================================ helpers */
@@ -191,22 +192,15 @@ class AIPK_Admin {
 			case 'suspect':
 				return array(
 					array(
-						'key'     => AIPK_Processor::META_KEY,
-						'value'   => '"suspect";b:1',
-						'compare' => 'LIKE',
+						'key'   => AIPK_Processor::META_SUSPECT,
+						'value' => '1',
 					),
 				);
 			case 'marked':
 				return array(
 					array(
-						'key'     => AIPK_Processor::META_KEY,
-						'value'   => '"digital_source_type";s:',
-						'compare' => 'LIKE',
-					),
-					array(
-						'key'     => AIPK_Processor::META_KEY,
-						'value'   => '"digital_source_type";s:0:""',
-						'compare' => 'NOT LIKE',
+						'key'   => AIPK_Processor::META_MARKED,
+						'value' => '1',
 					),
 				);
 			case 'unmarked':
@@ -217,9 +211,8 @@ class AIPK_Admin {
 						'compare' => 'NOT EXISTS',
 					),
 					array(
-						'key'     => AIPK_Processor::META_KEY,
-						'value'   => '"digital_source_type";s:0:""',
-						'compare' => 'LIKE',
+						'key'   => AIPK_Processor::META_MARKED,
+						'value' => '0',
 					),
 				);
 			case 'unscanned':
@@ -782,18 +775,12 @@ class AIPK_Admin {
 	}
 
 	/**
-	 * Library counters.
+	 * Library counters (cached in the processor).
 	 *
 	 * @return array
 	 */
 	private static function stats() {
-		global $wpdb;
-		$images    = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png','image/webp')" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$scanned   = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", AIPK_Processor::META_KEY ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$ai        = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = '1'", AIPK_Processor::META_AI ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$suspect   = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value LIKE %s", AIPK_Processor::META_KEY, '%' . $wpdb->esc_like( '"suspect";b:1' ) . '%' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$unscanned = max( 0, $images - $scanned );
-		return compact( 'images', 'scanned', 'ai', 'suspect', 'unscanned' );
+		return AIPK_Processor::counts();
 	}
 
 	/**
@@ -878,6 +865,11 @@ class AIPK_Admin {
 		$o         = AIPK_Options::all();
 		$env       = self::environment();
 		$s         = self::stats();
+		$bg        = AIPK_Processor::bg_status();
+		$bg_done   = $bg ? null : get_transient( 'aipk_bg_done' );
+		if ( $bg_done ) {
+			delete_transient( 'aipk_bg_done' );
+		}
 		$badge_img = $o['badge_image'] ? wp_get_attachment_image_url( (int) $o['badge_image'], 'thumbnail' ) : '';
 		$warns     = count( array_filter( $env, function ( $r ) { return 'warn' === $r[0]; } ) );
 		$tabs      = array(
@@ -893,11 +885,37 @@ class AIPK_Admin {
 					<p><?php esc_html_e( 'Mark, keep and disclose AI-generated images. Every upload is processed automatically; scan the library once for what came before.', 'ai-act-image-marking' ); ?></p>
 				</div>
 				<div class="aipk-hero-actions">
-					<button type="button" class="button button-primary" id="aipk-scan" data-all="0"><?php esc_html_e( 'Scan new images', 'ai-act-image-marking' ); ?></button>
-					<button type="button" class="button" id="aipk-scan-all" data-all="1"><?php esc_html_e( 'Re-scan everything', 'ai-act-image-marking' ); ?></button>
+					<?php if ( $bg ) : ?>
+						<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=aipk_bg&do=stop' ), 'aipk_bg' ) ); ?>"><?php esc_html_e( 'Stop background scan', 'ai-act-image-marking' ); ?></a>
+					<?php else : ?>
+						<button type="button" class="button button-primary" id="aipk-scan" data-all="0"><?php esc_html_e( 'Scan new images', 'ai-act-image-marking' ); ?></button>
+						<button type="button" class="button" id="aipk-scan-all" data-all="1"><?php esc_html_e( 'Re-scan everything', 'ai-act-image-marking' ); ?></button>
+						<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=aipk_bg&do=start' ), 'aipk_bg' ) ); ?>" title="<?php esc_attr_e( 'Runs in the background (Action Scheduler when present, else WP-Cron), no need to keep this page open', 'ai-act-image-marking' ); ?>"><?php esc_html_e( 'Scan in background', 'ai-act-image-marking' ); ?></a>
+					<?php endif; ?>
 					<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=aipk_export' ), 'aipk_export' ) ); ?>"><?php esc_html_e( 'Export CSV', 'ai-act-image-marking' ); ?></a>
 				</div>
 			</div>
+			<?php if ( $bg ) : ?>
+				<div class="aipk-progress" aria-live="polite"><div class="aipk-progress-bar"><span style="width:<?php echo (int) ( $bg['total'] ? min( 100, round( $bg['done'] / $bg['total'] * 100 ) ) : 100 ); ?>%"></span></div>
+				<p><?php echo esc_html( sprintf(
+					/* translators: 1: processed, 2: total, 3: AI count */
+					__( 'Background scan running: %1$d of %2$d images, %3$d marked as AI. It continues while the site receives visits (WP-Cron); this page refreshes every minute.', 'ai-act-image-marking' ),
+					(int) $bg['done'],
+					(int) $bg['total'],
+					(int) $bg['ai']
+				) ); ?></p></div>
+				<meta http-equiv="refresh" content="60">
+			<?php elseif ( $bg_done ) : ?>
+				<div class="notice notice-success inline"><p><?php echo esc_html( sprintf(
+					/* translators: 1: processed, 2: AI count */
+					__( 'Background scan finished: %1$d images processed, %2$d marked as AI.', 'ai-act-image-marking' ),
+					(int) $bg_done['done'],
+					(int) $bg_done['ai']
+				) ); ?></p></div>
+			<?php endif; ?>
+			<?php if ( $s['images'] > 2000 && ! $bg ) : ?>
+				<p class="description aipk-hint"><?php esc_html_e( 'Large library: use the background scan, or WP-CLI for the fastest run:', 'ai-act-image-marking' ); ?> <code>wp ai-provenance scan</code></p>
+			<?php endif; ?>
 			<div id="aipk-scan-status" class="aipk-progress" hidden aria-live="polite"><div class="aipk-progress-bar"><span style="width:0"></span></div><p></p></div>
 
 			<div class="aipk-cards">
@@ -1118,7 +1136,7 @@ class AIPK_Admin {
 		}
 		$offset = isset( $_POST['offset'] ) ? max( 0, (int) $_POST['offset'] ) : 0;
 		$all    = ! empty( $_POST['all'] );
-		$batch  = 10;
+		$batch  = 100; // candidates per request; the time budget decides how many get done.
 		$args   = array(
 			'post_type'      => 'attachment',
 			'post_mime_type' => array( 'image/jpeg', 'image/png', 'image/webp' ),
@@ -1140,23 +1158,34 @@ class AIPK_Admin {
 		}
 		$q     = new WP_Query( $args );
 		$total = (int) $q->found_posts + ( $all ? 0 : $offset );
-		$ai    = 0;
-		foreach ( $q->posts as $id ) {
-			$r = AIPK_Processor::process( $id );
-			if ( $r && $r['ai'] ) {
-				$ai++;
-			}
-		}
-		$done = count( $q->posts );
+		$res   = AIPK_Processor::run_batch( $q->posts, AIPK_Processor::time_budget( 12 ) );
 		wp_send_json_success(
 			array(
-				'processed' => $done,
-				'ai'        => $ai,
-				'next'      => $offset + $done,
+				'processed' => $res['done'],
+				'ai'        => $res['ai'],
+				'next'      => $offset + $res['done'],
 				'total'     => $total,
-				'finished'  => $done < $batch,
+				'finished'  => count( $q->posts ) < $batch && $res['done'] >= count( $q->posts ),
 			)
 		);
+	}
+
+	/**
+	 * Start or stop the background scan.
+	 */
+	public static function bg_action() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Not allowed.', 'ai-act-image-marking' ) );
+		}
+		check_admin_referer( 'aipk_bg' );
+		$do = isset( $_GET['do'] ) ? sanitize_key( wp_unslash( $_GET['do'] ) ) : '';
+		if ( 'stop' === $do ) {
+			AIPK_Processor::bg_stop();
+		} else {
+			AIPK_Processor::bg_start( 'start_all' === $do );
+		}
+		wp_safe_redirect( self::url() );
+		exit;
 	}
 
 	/**

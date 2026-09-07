@@ -27,6 +27,14 @@ class AIPK_Segments {
 	const PNG_SIGNATURE = "\x89PNG\r\n\x1a\n";
 
 	/**
+	 * Small per-request cache of extracted bundles (the original is read by the
+	 * reader and again by the processor within the same call).
+	 *
+	 * @var array
+	 */
+	private static $cache = array();
+
+	/**
 	 * Extract the provenance bundle from a file.
 	 *
 	 * @param string $path Absolute path.
@@ -36,16 +44,117 @@ class AIPK_Segments {
 		if ( ! is_readable( $path ) ) {
 			return null;
 		}
+		clearstatcache( true, $path );
+		$key = $path . '|' . filemtime( $path ) . '|' . filesize( $path );
+		if ( isset( self::$cache[ $key ] ) ) {
+			return self::$cache[ $key ];
+		}
 		$format = self::detect_format( $path );
 		switch ( $format ) {
 			case 'jpeg':
-				return self::extract_jpeg( $path );
+				$bundle = self::extract_jpeg( $path );
+				break;
 			case 'png':
-				return self::extract_png( $path );
+				$bundle = self::extract_png( $path );
+				break;
 			case 'webp':
-				return self::extract_webp( $path );
+				$bundle = self::extract_webp( $path );
+				break;
+			default:
+				return null;
 		}
-		return null;
+		if ( count( self::$cache ) >= 4 ) {
+			array_shift( self::$cache );
+		}
+		self::$cache[ $key ] = $bundle;
+		return $bundle;
+	}
+
+	/**
+	 * Forget cached bundles (after writing a file).
+	 */
+	public static function forget() {
+		self::$cache = array();
+	}
+
+	/**
+	 * Make sure a derivative carries the given digital source type: one read,
+	 * a cheap text check, and a write only when needed.
+	 *
+	 * @param string $path   Derivative path.
+	 * @param array  $bundle Bundle to inject when missing.
+	 * @param string $term   Expected IPTC term (empty: only check that XMP is present).
+	 * @return string|WP_Error kept|injected|unsupported
+	 */
+	public static function ensure( $path, $bundle, $term ) {
+		$data = @file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( false === $data || strlen( $data ) < 12 ) {
+			return new WP_Error( 'aipk_read', 'Cannot read file.' );
+		}
+		$format = self::detect_format_data( $data );
+		if ( '' === $format ) {
+			return 'unsupported';
+		}
+		// The XMP packet is plain text inside the binary: a substring test is enough for "already marked".
+		$needle = 'digitalsourcetype/' . $term;
+		if ( '' !== $term && false !== strpos( $data, $needle ) && false !== stripos( $data, 'DigitalSourceType' ) ) {
+			return 'kept';
+		}
+		switch ( $format ) {
+			case 'jpeg':
+				$out = self::inject_jpeg( $path, $bundle, $data );
+				break;
+			case 'png':
+				$out = self::inject_png( $path, $bundle, $data );
+				break;
+			default:
+				$out = self::inject_webp( $path, $bundle, $data );
+		}
+		if ( is_wp_error( $out ) ) {
+			return $out;
+		}
+		$w = self::write_atomic( $path, $out );
+		return is_wp_error( $w ) ? $w : 'injected';
+	}
+
+	/**
+	 * Write a file through a temp copy, then replace.
+	 *
+	 * @param string $path Target.
+	 * @param string $out  Contents.
+	 * @return true|WP_Error
+	 */
+	private static function write_atomic( $path, $out ) {
+		$tmp = $path . '.aipk-tmp';
+		if ( false === file_put_contents( $tmp, $out ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			return new WP_Error( 'aipk_write', 'Could not write temporary file.' );
+		}
+		if ( ! copy( $tmp, $path ) ) {
+			wp_delete_file( $tmp );
+			return new WP_Error( 'aipk_replace', 'Could not replace target file.' );
+		}
+		wp_delete_file( $tmp );
+		self::forget();
+		return true;
+	}
+
+	/**
+	 * Format from the first bytes of loaded data.
+	 *
+	 * @param string $data File contents.
+	 * @return string jpeg|png|webp|''
+	 */
+	private static function detect_format_data( $data ) {
+		if ( "\xFF\xD8" === substr( $data, 0, 2 ) ) {
+			return 'jpeg';
+		}
+		if ( self::PNG_SIGNATURE === substr( $data, 0, 8 ) ) {
+			return 'png';
+		}
+		if ( 'RIFF' === substr( $data, 0, 4 ) && 'WEBP' === substr( $data, 8, 4 ) ) {
+			return 'webp';
+		}
+		return '';
 	}
 
 	/**
@@ -218,8 +327,10 @@ class AIPK_Segments {
 	 * @param array  $bundle Bundle.
 	 * @return string|WP_Error New file contents.
 	 */
-	private static function inject_jpeg( $path, $bundle ) {
-		$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	private static function inject_jpeg( $path, $bundle, $data = null ) {
+		if ( null === $data ) {
+			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		}
 		if ( false === $data || "\xFF\xD8" !== substr( $data, 0, 2 ) ) {
 			return new WP_Error( 'aipk_jpeg', 'Not a JPEG.' );
 		}
@@ -353,6 +464,37 @@ class AIPK_Segments {
 	}
 
 	/**
+	 * Walk PNG chunks of in-memory data (IDAT payloads not copied).
+	 *
+	 * @param string $data File contents.
+	 * @return array
+	 */
+	private static function png_chunks_data( $data ) {
+		$chunks = array();
+		$len    = strlen( $data );
+		$pos    = 8;
+		while ( $pos + 8 <= $len ) {
+			$clen  = unpack( 'N', substr( $data, $pos, 4 ) )[1];
+			$type  = substr( $data, $pos + 4, 4 );
+			$total = 12 + $clen;
+			if ( $pos + $total > $len ) {
+				break;
+			}
+			$chunks[] = array(
+				'type'   => $type,
+				'start'  => $pos,
+				'length' => $total,
+				'data'   => 'IDAT' === $type ? null : substr( $data, $pos + 8, $clen ),
+			);
+			$pos += $total;
+			if ( 'IEND' === $type ) {
+				break;
+			}
+		}
+		return $chunks;
+	}
+
+	/**
 	 * Extract from PNG (XMP in iTXt "XML:com.adobe.xmp"; C2PA in caBX).
 	 *
 	 * @param string $path File path.
@@ -404,15 +546,17 @@ class AIPK_Segments {
 	 * @param array  $bundle Bundle.
 	 * @return string|WP_Error
 	 */
-	private static function inject_png( $path, $bundle ) {
+	private static function inject_png( $path, $bundle, $data = null ) {
 		if ( empty( $bundle['xmp'] ) ) {
 			return new WP_Error( 'aipk_nothing', 'PNG carries XMP only.' );
 		}
-		$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( null === $data ) {
+			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		}
 		if ( false === $data || self::PNG_SIGNATURE !== substr( $data, 0, 8 ) ) {
 			return new WP_Error( 'aipk_png', 'Not a PNG.' );
 		}
-		$chunks = self::png_chunks( $path );
+		$chunks = self::png_chunks_data( $data );
 		$out    = self::PNG_SIGNATURE;
 		$done   = false;
 		foreach ( $chunks as $c ) {
@@ -498,11 +642,13 @@ class AIPK_Segments {
 	 * @param array  $bundle Bundle.
 	 * @return string|WP_Error
 	 */
-	private static function inject_webp( $path, $bundle ) {
+	private static function inject_webp( $path, $bundle, $data = null ) {
 		if ( empty( $bundle['xmp'] ) ) {
 			return new WP_Error( 'aipk_nothing', 'WebP carries XMP only.' );
 		}
-		$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( null === $data ) {
+			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		}
 		if ( false === $data || 'RIFF' !== substr( $data, 0, 4 ) ) {
 			return new WP_Error( 'aipk_webp', 'Not a WebP.' );
 		}

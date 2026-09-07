@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AI Act Image Disclosure 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 19:33+0200\n"
+"POT-Creation-Date: 2026-09-07 20:17+0200\n"
 "PO-Revision-Date: 2026-09-07 16:35+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: The Rope\n"
@@ -17,353 +17,357 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class-aipk-admin.php:68
+#: includes/class-aipk-admin.php:69
 msgid "Automatic (as declared by the file)"
 msgstr "Automatica (come dichiarato dal file)"
 
-#: includes/class-aipk-admin.php:69 includes/class-aipk-admin.php:1024
+#: includes/class-aipk-admin.php:70 includes/class-aipk-admin.php:1042
 #: includes/class-aipk-reader.php:266
 msgid "AI generated"
 msgstr "Generata con IA"
 
-#: includes/class-aipk-admin.php:70
+#: includes/class-aipk-admin.php:71
 msgid "AI modified (real elements plus AI)"
 msgstr "Modificata con AI (elementi reali più AI)"
 
-#: includes/class-aipk-admin.php:71 includes/class-aipk-admin.php:314
-#: includes/class-aipk-admin.php:525
+#: includes/class-aipk-admin.php:72 includes/class-aipk-admin.php:307
+#: includes/class-aipk-admin.php:518
 msgid "Not AI"
 msgstr "Non AI"
 
-#: includes/class-aipk-admin.php:82
+#: includes/class-aipk-admin.php:83
 msgid "Follow the settings"
 msgstr "Segui le impostazioni"
 
-#: includes/class-aipk-admin.php:83
+#: includes/class-aipk-admin.php:84
 msgid "Always show badge and label"
 msgstr "Mostra sempre bollino e dicitura"
 
-#: includes/class-aipk-admin.php:84
+#: includes/class-aipk-admin.php:85
 msgid "Never show them on this image"
 msgstr "Non mostrarli mai su questa immagine"
 
-#: includes/class-aipk-admin.php:95
+#: includes/class-aipk-admin.php:96
 msgid "All AI markings"
 msgstr "Tutte le marcature AI"
 
-#: includes/class-aipk-admin.php:96 includes/class-aipk-admin.php:906
+#: includes/class-aipk-admin.php:97 includes/class-aipk-admin.php:924
 msgid "AI generated or modified"
 msgstr "Generate o modificate con AI"
 
-#: includes/class-aipk-admin.php:97 includes/class-aipk-admin.php:116
-#: includes/class-aipk-admin.php:623 includes/class-aipk-admin.php:907
+#: includes/class-aipk-admin.php:98 includes/class-aipk-admin.php:117
+#: includes/class-aipk-admin.php:616 includes/class-aipk-admin.php:925
 msgid "Suspected AI, to confirm"
 msgstr "Sospetta AI, da confermare"
 
-#: includes/class-aipk-admin.php:98
+#: includes/class-aipk-admin.php:99
 msgid "With provenance marking"
 msgstr "Con marcatura di provenienza"
 
-#: includes/class-aipk-admin.php:99
+#: includes/class-aipk-admin.php:100
 msgid "Without marking"
 msgstr "Senza marcatura"
 
-#: includes/class-aipk-admin.php:100 includes/class-aipk-admin.php:508
-#: includes/class-aipk-admin.php:908
+#: includes/class-aipk-admin.php:101 includes/class-aipk-admin.php:501
+#: includes/class-aipk-admin.php:926
 msgid "Not scanned yet"
 msgstr "Non ancora analizzata"
 
-#: includes/class-aipk-admin.php:119
+#: includes/class-aipk-admin.php:120
 msgid "Not AI (set by hand)"
 msgstr "Non AI (impostato a mano)"
 
-#: includes/class-aipk-admin.php:124
+#: includes/class-aipk-admin.php:125
 msgid "No marking"
 msgstr "Nessuna marcatura"
 
-#: includes/class-aipk-admin.php:135
+#: includes/class-aipk-admin.php:136
 msgid "marked"
 msgstr "marcata"
 
-#: includes/class-aipk-admin.php:136
+#: includes/class-aipk-admin.php:137
 msgid "marking carried over"
 msgstr "marcatura riportata"
 
-#: includes/class-aipk-admin.php:137
+#: includes/class-aipk-admin.php:138
 msgid "marking written"
 msgstr "marcatura scritta"
 
-#: includes/class-aipk-admin.php:138
+#: includes/class-aipk-admin.php:139
 msgid "file missing"
 msgstr "file mancante"
 
-#: includes/class-aipk-admin.php:139
+#: includes/class-aipk-admin.php:140
 msgid "format not supported"
 msgstr "formato non supportato"
 
-#: includes/class-aipk-admin.php:140
+#: includes/class-aipk-admin.php:141
 msgid "skipped by settings"
 msgstr "esclusa dalle impostazioni"
 
-#: includes/class-aipk-admin.php:141
+#: includes/class-aipk-admin.php:142
 msgid "left untouched: carries a C2PA manifest"
 msgstr "lasciato intatto: porta un manifest C2PA"
 
-#: includes/class-aipk-admin.php:142
+#: includes/class-aipk-admin.php:143
 msgid "error"
 msgstr "errore"
 
-#: includes/class-aipk-admin.php:156
+#: includes/class-aipk-admin.php:157
 msgid "declared in the file (XMP)"
 msgstr "dichiarata nel file (XMP)"
 
-#: includes/class-aipk-admin.php:158
+#: includes/class-aipk-admin.php:159
 msgid "declared in the file (C2PA manifest)"
 msgstr "dichiarata nel file (manifest C2PA)"
 
-#: includes/class-aipk-admin.php:160
+#: includes/class-aipk-admin.php:161
 msgid "set by hand in the Media Library"
 msgstr "impostata a mano nella Libreria media"
 
-#: includes/class-aipk-admin.php:162 includes/class-aipk-admin.php:570
-#: includes/class-aipk-admin.php:821
+#: includes/class-aipk-admin.php:163 includes/class-aipk-admin.php:563
+#: includes/class-aipk-admin.php:808
 msgid "none"
 msgstr "nessuno"
 
-#: includes/class-aipk-admin.php:249 includes/class-aipk-admin.php:253
-#: includes/class-aipk-admin.php:488
+#: includes/class-aipk-admin.php:242 includes/class-aipk-admin.php:246
+#: includes/class-aipk-admin.php:481
 msgid "AI marking"
 msgstr "Marcatura AI"
 
-#: includes/class-aipk-admin.php:274 includes/class-aipk-admin.php:765
+#: includes/class-aipk-admin.php:267 includes/class-aipk-admin.php:758
 msgid "Not scanned"
 msgstr "Non analizzato"
 
-#: includes/class-aipk-admin.php:276
+#: includes/class-aipk-admin.php:269
 msgid "Scan now"
 msgstr "Analizza ora"
 
-#: includes/class-aipk-admin.php:288
+#: includes/class-aipk-admin.php:281
 msgid "set by hand"
 msgstr "impostata a mano"
 
-#: includes/class-aipk-admin.php:292
+#: includes/class-aipk-admin.php:285
 msgid "badge hidden"
 msgstr "bollino nascosto"
 
-#: includes/class-aipk-admin.php:294
+#: includes/class-aipk-admin.php:287
 msgid "badge forced"
 msgstr "bollino forzato"
 
-#: includes/class-aipk-admin.php:316
+#: includes/class-aipk-admin.php:309
 msgid "Show badge"
 msgstr "Mostra bollino"
 
-#: includes/class-aipk-admin.php:316
+#: includes/class-aipk-admin.php:309
 msgid "Hide badge"
 msgstr "Nascondi bollino"
 
-#: includes/class-aipk-admin.php:318
+#: includes/class-aipk-admin.php:311
 msgid "Mark as AI"
 msgstr "Segna come AI"
 
-#: includes/class-aipk-admin.php:333
+#: includes/class-aipk-admin.php:326
 msgid "Filter by AI marking"
 msgstr "Filtra per marcatura AI"
 
-#: includes/class-aipk-admin.php:380
+#: includes/class-aipk-admin.php:373
 msgid "AI marking: AI generated"
 msgstr "Marcatura AI: generata con AI"
 
-#: includes/class-aipk-admin.php:381
+#: includes/class-aipk-admin.php:374
 msgid "AI marking: AI modified"
 msgstr "Marcatura AI: modificata con AI"
 
-#: includes/class-aipk-admin.php:382
+#: includes/class-aipk-admin.php:375
 msgid "AI marking: not AI"
 msgstr "Marcatura AI: non AI"
 
-#: includes/class-aipk-admin.php:383
+#: includes/class-aipk-admin.php:376
 msgid "AI marking: back to automatic"
 msgstr "Marcatura AI: torna ad automatica"
 
-#: includes/class-aipk-admin.php:384
+#: includes/class-aipk-admin.php:377
 msgid "AI marking: re-scan"
 msgstr "Marcatura AI: rianalizza"
 
-#: includes/class-aipk-admin.php:385
+#: includes/class-aipk-admin.php:378
 msgid "AI badge: always show"
 msgstr "Bollino AI: mostra sempre"
 
-#: includes/class-aipk-admin.php:386
+#: includes/class-aipk-admin.php:379
 msgid "AI badge: never show"
 msgstr "Bollino AI: non mostrare mai"
 
-#: includes/class-aipk-admin.php:387
+#: includes/class-aipk-admin.php:380
 msgid "AI badge: follow the settings"
 msgstr "Bollino AI: segui le impostazioni"
 
-#: includes/class-aipk-admin.php:452 includes/class-aipk-admin.php:1072
-#: includes/class-aipk-admin.php:1085 includes/class-aipk-admin.php:1103
-#: includes/class-aipk-admin.php:1117 includes/class-aipk-admin.php:1167
-#: includes/class-aipk-admin.php:1180
+#: includes/class-aipk-admin.php:445 includes/class-aipk-admin.php:1090
+#: includes/class-aipk-admin.php:1103 includes/class-aipk-admin.php:1121
+#: includes/class-aipk-admin.php:1135 includes/class-aipk-admin.php:1178
+#: includes/class-aipk-admin.php:1196 includes/class-aipk-admin.php:1209
 msgid "Not allowed."
 msgstr "Non consentito."
 
-#: includes/class-aipk-admin.php:510
+#: includes/class-aipk-admin.php:503
 msgid "Scan file"
 msgstr "Analizza file"
 
-#: includes/class-aipk-admin.php:522
+#: includes/class-aipk-admin.php:515
 #, php-format
 msgid ""
 "The file carries traces of %s but no formal marking. Confirm to write it."
-msgstr "Il file porta tracce di %s ma nessuna marcatura formale. Conferma per scriverla."
+msgstr ""
+"Il file porta tracce di %s ma nessuna marcatura formale. Conferma per "
+"scriverla."
 
-#: includes/class-aipk-admin.php:525
+#: includes/class-aipk-admin.php:518
 msgid "Confirm: AI generated"
 msgstr "Conferma: generata con AI"
 
-#: includes/class-aipk-admin.php:529 includes/class-aipk-admin.php:1024
+#: includes/class-aipk-admin.php:522 includes/class-aipk-admin.php:1042
 #: includes/class-aipk-frontend.php:203
 msgid "Type"
 msgstr "Tipo"
 
-#: includes/class-aipk-admin.php:529
+#: includes/class-aipk-admin.php:522
 msgid "absent"
 msgstr "assente"
 
-#: includes/class-aipk-admin.php:530 includes/class-aipk-admin.php:885
-#: includes/class-aipk-admin.php:1025 includes/class-aipk-frontend.php:204
+#: includes/class-aipk-admin.php:523 includes/class-aipk-admin.php:877
+#: includes/class-aipk-admin.php:1043 includes/class-aipk-frontend.php:204
 msgid "Disclosure"
 msgstr "Dicitura"
 
-#: includes/class-aipk-admin.php:531 includes/class-aipk-frontend.php:205
+#: includes/class-aipk-admin.php:524 includes/class-aipk-frontend.php:205
 msgid "Creator"
 msgstr "Autore"
 
-#: includes/class-aipk-admin.php:532 includes/class-aipk-frontend.php:206
+#: includes/class-aipk-admin.php:525 includes/class-aipk-frontend.php:206
 msgid "Credit"
 msgstr "Credito"
 
-#: includes/class-aipk-admin.php:533 includes/class-aipk-frontend.php:207
+#: includes/class-aipk-admin.php:526 includes/class-aipk-frontend.php:207
 msgid "Rights"
 msgstr "Diritti"
 
-#: includes/class-aipk-admin.php:534
+#: includes/class-aipk-admin.php:527
 msgid "C2PA"
 msgstr "C2PA"
 
-#: includes/class-aipk-admin.php:534
+#: includes/class-aipk-admin.php:527
 msgid "present"
 msgstr "presente"
 
-#: includes/class-aipk-admin.php:535
+#: includes/class-aipk-admin.php:528
 msgid "Traces"
 msgstr "Tracce"
 
-#: includes/class-aipk-admin.php:536
+#: includes/class-aipk-admin.php:529
 msgid "Software"
 msgstr "Software"
 
-#: includes/class-aipk-admin.php:565
+#: includes/class-aipk-admin.php:558
 #, php-format
 msgid "Sizes marked: %1$d of %2$d"
 msgstr "Misure marcate: %1$d su %2$d"
 
-#: includes/class-aipk-admin.php:567
+#: includes/class-aipk-admin.php:560
 msgid "Generated sizes: nothing to carry"
 msgstr "Misure generate: niente da riportare"
 
-#: includes/class-aipk-admin.php:570
+#: includes/class-aipk-admin.php:563
 msgid "Blocks in the original:"
 msgstr "Blocchi nell'originale:"
 
-#: includes/class-aipk-admin.php:572
+#: includes/class-aipk-admin.php:565
 msgid "Original:"
 msgstr "Originale:"
 
-#: includes/class-aipk-admin.php:575
+#: includes/class-aipk-admin.php:568
 msgid "Scanned"
 msgstr "Analizzato"
 
-#: includes/class-aipk-admin.php:583
+#: includes/class-aipk-admin.php:576
 msgid "Classification"
 msgstr "Classificazione"
 
-#: includes/class-aipk-admin.php:588
+#: includes/class-aipk-admin.php:581
 msgid "Badge on this image"
 msgstr "Bollino su questa immagine"
 
-#: includes/class-aipk-admin.php:593
+#: includes/class-aipk-admin.php:586
 msgid "Apply"
 msgstr "Applica"
 
-#: includes/class-aipk-admin.php:593
+#: includes/class-aipk-admin.php:586
 msgid "Re-scan file"
 msgstr "Rianalizza il file"
 
-#: includes/class-aipk-admin.php:594
+#: includes/class-aipk-admin.php:587
 msgid ""
 "An AI classification writes the IPTC digital source type into the generated "
 "sizes and, unless the original carries a C2PA manifest, into the original "
 "too."
-msgstr "Una classificazione AI scrive il digital source type IPTC nelle misure generate e, se l'originale non porta un manifest C2PA, anche nell'originale."
+msgstr ""
+"Una classificazione AI scrive il digital source type IPTC nelle misure "
+"generate e, se l'originale non porta un manifest C2PA, anche nell'originale."
 
-#: includes/class-aipk-admin.php:616
+#: includes/class-aipk-admin.php:609
 msgid "AI"
 msgstr "IA"
 
-#: includes/class-aipk-admin.php:622
+#: includes/class-aipk-admin.php:615
 msgid "AI?"
 msgstr "AI?"
 
-#: includes/class-aipk-admin.php:628
+#: includes/class-aipk-admin.php:621
 msgid "Marked"
 msgstr "Marcata"
 
-#: includes/class-aipk-admin.php:651
+#: includes/class-aipk-admin.php:644
 msgid "Scanning…"
 msgstr "Analisi in corso…"
 
-#: includes/class-aipk-admin.php:652
+#: includes/class-aipk-admin.php:645
 msgid "Scan complete."
 msgstr "Analisi completata."
 
-#: includes/class-aipk-admin.php:653
+#: includes/class-aipk-admin.php:646
 msgid "Something went wrong."
 msgstr "Qualcosa è andato storto."
 
-#: includes/class-aipk-admin.php:655
+#: includes/class-aipk-admin.php:648
 #, php-format
 msgid "%1$d of %2$d scanned, %3$d marked as AI"
 msgstr "%1$d di %2$d analizzate, %3$d marcate come IA"
 
-#: includes/class-aipk-admin.php:656
+#: includes/class-aipk-admin.php:649
 msgid "Choose badge image"
 msgstr "Scegli l'immagine del bollino"
 
-#: includes/class-aipk-admin.php:657
+#: includes/class-aipk-admin.php:650
 msgid "Use this image"
 msgstr "Usa questa immagine"
 
-#: includes/class-aipk-admin.php:658
+#: includes/class-aipk-admin.php:651
 msgid "Reset every setting to its default?"
 msgstr "Riportare ogni impostazione al valore di default?"
 
-#: includes/class-aipk-admin.php:674 includes/class-aipk-admin.php:892
+#: includes/class-aipk-admin.php:667 includes/class-aipk-admin.php:884
 msgid "AI Act Image Marking"
 msgstr "AI Act Image Marking"
 
-#: includes/class-aipk-admin.php:675
+#: includes/class-aipk-admin.php:668
 msgid "AI Act Marking"
 msgstr "Marcatura AI Act"
 
-#: includes/class-aipk-admin.php:694
+#: includes/class-aipk-admin.php:687
 msgid "How it works"
 msgstr "Come funziona"
 
-#: includes/class-aipk-admin.php:695
+#: includes/class-aipk-admin.php:688
 msgid ""
 "WordPress keeps the uploaded original untouched but every size it generates "
 "loses XMP and IPTC. The plugin reads the provenance of the original (IPTC "
@@ -371,345 +375,416 @@ msgid ""
 "marking into each size. Images that carry no marking can be classified by "
 "hand: the classification is written into the files as an IPTC digital source "
 "type."
-msgstr "WordPress lascia intatto l'originale caricato ma ogni misura che genera perde XMP e IPTC. Il plugin legge la provenienza dell'originale (digital source type IPTC, manifest C2PA, crediti), la salva e copia la marcatura in ogni misura. Le immagini senza marcatura si possono classificare a mano: la classificazione viene scritta nei file come digital source type IPTC."
+msgstr ""
+"WordPress lascia intatto l'originale caricato ma ogni misura che genera "
+"perde XMP e IPTC. Il plugin legge la provenienza dell'originale (digital "
+"source type IPTC, manifest C2PA, crediti), la salva e copia la marcatura in "
+"ogni misura. Le immagini senza marcatura si possono classificare a mano: la "
+"classificazione viene scritta nei file come digital source type IPTC."
 
-#: includes/class-aipk-admin.php:701
+#: includes/class-aipk-admin.php:694
 msgid "Visible disclosure"
 msgstr "Dichiarazione visibile"
 
-#: includes/class-aipk-admin.php:702
+#: includes/class-aipk-admin.php:695
 msgid ""
 "The AI Act separates the machine-readable marking of the file from the "
 "visible disclosure on the page. The badge, its popup, the text label, the "
 "site notice and the [ai_act_disclosure] shortcode are tools for the visible "
 "part. Each image can follow the settings, always show the badge or never "
 "show it."
-msgstr "L'AI Act separa la marcatura leggibile dalle macchine nel file dalla dichiarazione visibile in pagina. Bollino, pannello, dicitura, avviso di sito e shortcode [ai_act_disclosure] sono gli strumenti per la parte visibile. Ogni immagine può seguire le impostazioni, mostrare sempre il bollino o non mostrarlo mai."
+msgstr ""
+"L'AI Act separa la marcatura leggibile dalle macchine nel file dalla "
+"dichiarazione visibile in pagina. Bollino, pannello, dicitura, avviso di "
+"sito e shortcode [ai_act_disclosure] sono gli strumenti per la parte "
+"visibile. Ogni immagine può seguire le impostazioni, mostrare sempre il "
+"bollino o non mostrarlo mai."
 
-#: includes/class-aipk-admin.php:708
+#: includes/class-aipk-admin.php:701
 msgid "Limits"
 msgstr "Limiti"
 
-#: includes/class-aipk-admin.php:709
+#: includes/class-aipk-admin.php:702
 msgid ""
 "C2PA manifests are never copied into resized files, since their signature "
 "covers the original bytes only. AVIF sizes are not written yet. Image "
 "optimizers that strip metadata undo the marking: disable that option or re-"
 "scan after they run. The plugin is not legal advice."
-msgstr "I manifest C2PA non vengono mai copiati nei file ridimensionati, perché la loro firma copre solo i byte dell'originale. Le misure AVIF non sono ancora scritte. Gli ottimizzatori di immagini che rimuovono i metadati annullano la marcatura: disattiva quell'opzione o rianalizza dopo la loro esecuzione. Il plugin non è un parere legale."
+msgstr ""
+"I manifest C2PA non vengono mai copiati nei file ridimensionati, perché la "
+"loro firma copre solo i byte dell'originale. Le misure AVIF non sono ancora "
+"scritte. Gli ottimizzatori di immagini che rimuovono i metadati annullano la "
+"marcatura: disattiva quell'opzione o rianalizza dopo la loro esecuzione. Il "
+"plugin non è un parere legale."
 
-#: includes/class-aipk-admin.php:722 includes/class-aipk-admin.php:768
+#: includes/class-aipk-admin.php:715 includes/class-aipk-admin.php:761
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: includes/class-aipk-admin.php:734
+#: includes/class-aipk-admin.php:727
 msgid "AI Act Image Marking is active."
 msgstr "AI Act Image Marking è attivo."
 
-#: includes/class-aipk-admin.php:734
+#: includes/class-aipk-admin.php:727
 msgid ""
 "New uploads are processed automatically. Scan the images you already have "
 "and choose how to disclose them."
-msgstr "I nuovi caricamenti vengono elaborati in automatico. Analizza le immagini che hai già e scegli come dichiararle."
+msgstr ""
+"I nuovi caricamenti vengono elaborati in automatico. Analizza le immagini "
+"che hai già e scegli come dichiararle."
 
-#: includes/class-aipk-admin.php:734
+#: includes/class-aipk-admin.php:727
 msgid "Open settings"
 msgstr "Apri le impostazioni"
 
-#: includes/class-aipk-admin.php:740
+#: includes/class-aipk-admin.php:733
 #, php-format
 msgid "%d image processed."
 msgid_plural "%d images processed."
 msgstr[0] "%d immagine elaborata."
 msgstr[1] "%d immagini elaborate."
 
-#: includes/class-aipk-admin.php:743
+#: includes/class-aipk-admin.php:736
 msgid "Settings reset to their defaults."
 msgstr "Impostazioni riportate ai valori di default."
 
-#: includes/class-aipk-admin.php:754 includes/class-aipk-admin.php:763
+#: includes/class-aipk-admin.php:747 includes/class-aipk-admin.php:756
 msgid "AI images"
 msgstr "Immagini AI"
 
-#: includes/class-aipk-admin.php:764
+#: includes/class-aipk-admin.php:757
 msgid "To confirm"
 msgstr "Da confermare"
 
-#: includes/class-aipk-admin.php:768
+#: includes/class-aipk-admin.php:761
 msgid "Badge on the page: on."
 msgstr "Bollino in pagina: attivo."
 
-#: includes/class-aipk-admin.php:768
+#: includes/class-aipk-admin.php:761
 msgid "Badge on the page: off."
 msgstr "Bollino in pagina: spento."
 
-#: includes/class-aipk-admin.php:805
+#: includes/class-aipk-admin.php:792
 msgid "Scaled copy served as full"
 msgstr "Copia ridimensionata servita come full"
 
-#: includes/class-aipk-admin.php:821
+#: includes/class-aipk-admin.php:808
 msgid "Image editor"
 msgstr "Editor immagini"
 
-#: includes/class-aipk-admin.php:821
+#: includes/class-aipk-admin.php:808
 msgid ""
 "It strips XMP and IPTC from every generated size; the plugin carries them "
 "back after generation."
-msgstr "Rimuove XMP e IPTC da ogni misura generata; il plugin li riporta dopo la generazione."
+msgstr ""
+"Rimuove XMP e IPTC da ogni misura generata; il plugin li riporta dopo la "
+"generazione."
 
-#: includes/class-aipk-admin.php:826
+#: includes/class-aipk-admin.php:813
 msgid "Big image threshold"
 msgstr "Soglia immagini grandi"
 
-#: includes/class-aipk-admin.php:829
+#: includes/class-aipk-admin.php:816
 #, php-format
 msgid ""
 "%d px. Larger uploads are served as a scaled copy, which is marked like "
 "every other size."
-msgstr "%d px. I caricamenti più grandi vengono serviti come copia ridimensionata, marcata come ogni altra misura."
+msgstr ""
+"%d px. I caricamenti più grandi vengono serviti come copia ridimensionata, "
+"marcata come ogni altra misura."
 
-#: includes/class-aipk-admin.php:830
+#: includes/class-aipk-admin.php:817
 msgid "Disabled: the original is served as full."
 msgstr "Disattivata: l'originale viene servito come full."
 
-#: includes/class-aipk-admin.php:836
+#: includes/class-aipk-admin.php:823
 msgid "Output format conversion"
 msgstr "Conversione del formato di uscita"
 
-#: includes/class-aipk-admin.php:836
+#: includes/class-aipk-admin.php:823
 msgid "AVIF sizes cannot be written yet and stay unmarked."
-msgstr "Le misure AVIF non possono ancora essere scritte e restano senza marcatura."
+msgstr ""
+"Le misure AVIF non possono ancora essere scritte e restano senza marcatura."
 
-#: includes/class-aipk-admin.php:858 includes/class-aipk-admin.php:859
+#: includes/class-aipk-admin.php:845 includes/class-aipk-admin.php:846
 msgid "Image optimizers"
 msgstr "Ottimizzatori di immagini"
 
-#: includes/class-aipk-admin.php:858
+#: includes/class-aipk-admin.php:845
 msgid ""
 "They rewrite image files after WordPress and may strip metadata: disable "
 "their \"strip metadata\" option, or re-scan the library after they run."
-msgstr "Riscrivono i file immagine dopo WordPress e possono rimuovere i metadati: disattiva la loro opzione \"strip metadata\" oppure rianalizza la libreria dopo la loro esecuzione."
+msgstr ""
+"Riscrivono i file immagine dopo WordPress e possono rimuovere i metadati: "
+"disattiva la loro opzione \"strip metadata\" oppure rianalizza la libreria "
+"dopo la loro esecuzione."
 
-#: includes/class-aipk-admin.php:859
+#: includes/class-aipk-admin.php:846
 msgid "None detected."
 msgstr "Nessuno rilevato."
 
-#: includes/class-aipk-admin.php:862 includes/class-aipk-admin.php:863
+#: includes/class-aipk-admin.php:849 includes/class-aipk-admin.php:850
 msgid "PHP"
 msgstr "PHP"
 
-#: includes/class-aipk-admin.php:862
+#: includes/class-aipk-admin.php:849
 msgid "IPTC parsing available."
 msgstr "lettura IPTC disponibile."
 
-#: includes/class-aipk-admin.php:863
+#: includes/class-aipk-admin.php:850
 msgid "iptcparse() unavailable: IPTC captions are not read (XMP still is)."
-msgstr "iptcparse() non disponibile: le didascalie IPTC non vengono lette (l'XMP sì)."
+msgstr ""
+"iptcparse() non disponibile: le didascalie IPTC non vengono lette (l'XMP sì)."
 
-#: includes/class-aipk-admin.php:866 includes/class-aipk-admin.php:867
+#: includes/class-aipk-admin.php:853 includes/class-aipk-admin.php:854
 msgid "Uploads folder"
 msgstr "Cartella uploads"
 
-#: includes/class-aipk-admin.php:866
+#: includes/class-aipk-admin.php:853
 msgid "Writable."
 msgstr "Scrivibile."
 
-#: includes/class-aipk-admin.php:867
+#: includes/class-aipk-admin.php:854
 msgid "Not writable: the marking cannot be carried into sizes."
 msgstr "Non scrivibile: la marcatura non può essere riportata nelle misure."
 
-#: includes/class-aipk-admin.php:884 includes/class-aipk-admin.php:1026
+#: includes/class-aipk-admin.php:876 includes/class-aipk-admin.php:1044
 #: includes/class-aipk-frontend.php:209
 msgid "Marking"
 msgstr "Marcatura"
 
-#: includes/class-aipk-admin.php:886 includes/class-aipk-admin.php:1043
+#: includes/class-aipk-admin.php:878 includes/class-aipk-admin.php:1061
 msgid "Environment"
 msgstr "Ambiente"
 
-#: includes/class-aipk-admin.php:893
+#: includes/class-aipk-admin.php:885
 msgid ""
 "Mark, keep and disclose AI-generated images. Every upload is processed "
 "automatically; scan the library once for what came before."
-msgstr "Marca, conserva e dichiara le immagini generate con AI. Ogni caricamento viene elaborato in automatico; analizza la libreria una volta per quello che c'era prima."
+msgstr ""
+"Marca, conserva e dichiara le immagini generate con AI. Ogni caricamento "
+"viene elaborato in automatico; analizza la libreria una volta per quello che "
+"c'era prima."
 
-#: includes/class-aipk-admin.php:896
+#: includes/class-aipk-admin.php:889
+msgid "Stop background scan"
+msgstr "Ferma la scansione in background"
+
+#: includes/class-aipk-admin.php:891
 msgid "Scan new images"
 msgstr "Analizza le immagini nuove"
 
-#: includes/class-aipk-admin.php:897
+#: includes/class-aipk-admin.php:892
 msgid "Re-scan everything"
 msgstr "Rianalizza tutto"
 
-#: includes/class-aipk-admin.php:898
+#: includes/class-aipk-admin.php:893
+msgid ""
+"Runs in the background (Action Scheduler when present, else WP-Cron), no "
+"need to keep this page open"
+msgstr "Gira in background (Action Scheduler se presente, altrimenti WP-Cron), senza tenere aperta questa pagina"
+
+#: includes/class-aipk-admin.php:893
+msgid "Scan in background"
+msgstr "Analizza in background"
+
+#: includes/class-aipk-admin.php:895
 msgid "Export CSV"
 msgstr "Esporta CSV"
 
-#: includes/class-aipk-admin.php:905
+#: includes/class-aipk-admin.php:902
+#, php-format
+msgid ""
+"Background scan running: %1$d of %2$d images, %3$d marked as AI. It "
+"continues while the site receives visits (WP-Cron); this page refreshes "
+"every minute."
+msgstr "Scansione in background in corso: %1$d immagini su %2$d, %3$d marcate come AI. Prosegue mentre il sito riceve visite (WP-Cron); questa pagina si aggiorna ogni minuto."
+
+#: includes/class-aipk-admin.php:911
+#, php-format
+msgid "Background scan finished: %1$d images processed, %2$d marked as AI."
+msgstr "Scansione in background terminata: %1$d immagini elaborate, %2$d marcate come AI."
+
+#: includes/class-aipk-admin.php:917
+msgid "Large library: use the background scan, or WP-CLI for the fastest run:"
+msgstr "Libreria grande: usa la scansione in background, oppure WP-CLI per la velocità massima:"
+
+#: includes/class-aipk-admin.php:923
 msgid "Images in the library"
 msgstr "Immagini nella libreria"
 
-#: includes/class-aipk-admin.php:912
+#: includes/class-aipk-admin.php:930
 msgid "Settings sections"
 msgstr "Sezioni delle impostazioni"
 
-#: includes/class-aipk-admin.php:923
+#: includes/class-aipk-admin.php:941
 msgid "Uploaded original"
 msgstr "Originale caricato"
 
-#: includes/class-aipk-admin.php:925
+#: includes/class-aipk-admin.php:943
 msgid "Leave it exactly as uploaded"
 msgstr "Lascialo esattamente come caricato"
 
-#: includes/class-aipk-admin.php:925
+#: includes/class-aipk-admin.php:943
 msgid "Recommended. The file the client sent is the file you keep."
 msgstr "Consigliato. Il file che ti hanno mandato è il file che conservi."
 
-#: includes/class-aipk-admin.php:926
+#: includes/class-aipk-admin.php:944
 msgid "Remove post-production traces, keep the marking"
 msgstr "Rimuovi le tracce di post-produzione, conserva la marcatura"
 
-#: includes/class-aipk-admin.php:926
+#: includes/class-aipk-admin.php:944
 msgid ""
 "Drops Camera Raw settings, document history, ancestors and the creator tool "
 "from the XMP. Provenance, description, credits and rights stay. Files with a "
 "C2PA manifest are never touched."
-msgstr "Toglie dall'XMP impostazioni Camera Raw, storia del documento, ancestors e creator tool. Provenienza, descrizione, crediti e diritti restano. I file con manifest C2PA non vengono mai toccati."
+msgstr ""
+"Toglie dall'XMP impostazioni Camera Raw, storia del documento, ancestors e "
+"creator tool. Provenienza, descrizione, crediti e diritti restano. I file "
+"con manifest C2PA non vengono mai toccati."
 
-#: includes/class-aipk-admin.php:928
+#: includes/class-aipk-admin.php:946
 msgid ""
 "When an image is classified as AI by hand, write the IPTC digital source "
 "type into the original too (never on files with a C2PA manifest)"
-msgstr "Quando un'immagine è classificata AI a mano, scrivi il digital source type IPTC anche nell'originale (mai sui file con manifest C2PA)"
+msgstr ""
+"Quando un'immagine è classificata AI a mano, scrivi il digital source type "
+"IPTC anche nell'originale (mai sui file con manifest C2PA)"
 
-#: includes/class-aipk-admin.php:932
+#: includes/class-aipk-admin.php:950
 msgid "Generated sizes"
 msgstr "Misure generate"
 
-#: includes/class-aipk-admin.php:935
+#: includes/class-aipk-admin.php:953
 msgid "Which images"
 msgstr "Quali immagini"
 
-#: includes/class-aipk-admin.php:936
+#: includes/class-aipk-admin.php:954
 msgid "AI generated and AI modified only"
 msgstr "Solo generate e modificate con AI"
 
-#: includes/class-aipk-admin.php:936 includes/class-aipk-admin.php:941
+#: includes/class-aipk-admin.php:954 includes/class-aipk-admin.php:959
 msgid "Recommended."
 msgstr "Consigliato."
 
-#: includes/class-aipk-admin.php:937
+#: includes/class-aipk-admin.php:955
 msgid "Every image with XMP or IPTC metadata"
 msgstr "Ogni immagine con metadati XMP o IPTC"
 
-#: includes/class-aipk-admin.php:937
+#: includes/class-aipk-admin.php:955
 msgid ""
 "Also carries photographer credits and captions, and with them any personal "
 "data the metadata may contain."
-msgstr "Riporta anche crediti e didascalie dei fotografi, e con loro eventuali dati personali contenuti nei metadati."
+msgstr ""
+"Riporta anche crediti e didascalie dei fotografi, e con loro eventuali dati "
+"personali contenuti nei metadati."
 
-#: includes/class-aipk-admin.php:940
+#: includes/class-aipk-admin.php:958
 msgid "What to carry"
 msgstr "Cosa riportare"
 
-#: includes/class-aipk-admin.php:941
+#: includes/class-aipk-admin.php:959
 msgid "The whole XMP and IPTC blocks"
 msgstr "I blocchi XMP e IPTC interi"
 
-#: includes/class-aipk-admin.php:942
+#: includes/class-aipk-admin.php:960
 msgid "Only the provenance fields"
 msgstr "Solo i campi di provenienza"
 
-#: includes/class-aipk-admin.php:942
+#: includes/class-aipk-admin.php:960
 msgid ""
 "Digital source type, description, creator, credit, rights, usage terms. "
 "About one kilobyte per file."
-msgstr "Digital source type, descrizione, autore, credito, diritti, termini d'uso. Circa un kilobyte per file."
+msgstr ""
+"Digital source type, descrizione, autore, credito, diritti, termini d'uso. "
+"Circa un kilobyte per file."
 
-#: includes/class-aipk-admin.php:943
+#: includes/class-aipk-admin.php:961
 msgid "Nothing"
 msgstr "Niente"
 
-#: includes/class-aipk-admin.php:943
+#: includes/class-aipk-admin.php:961
 msgid "Sizes stay as WordPress makes them."
 msgstr "Le misure restano come le fa WordPress."
 
-#: includes/class-aipk-admin.php:947
+#: includes/class-aipk-admin.php:965
 msgid "Sizes to mark"
 msgstr "Misure da marcare"
 
-#: includes/class-aipk-admin.php:951
+#: includes/class-aipk-admin.php:969
 msgid ""
 "Unchecked sizes stay unmarked. Sizes registered by the theme later are "
 "marked by default."
-msgstr "Le misure non selezionate restano senza marcatura. Le misure registrate dal tema in seguito vengono marcate di default."
+msgstr ""
+"Le misure non selezionate restano senza marcatura. Le misure registrate dal "
+"tema in seguito vengono marcate di default."
 
-#: includes/class-aipk-admin.php:960
+#: includes/class-aipk-admin.php:978
 msgid "AI badge on the image"
 msgstr "Bollino IA sull'immagine"
 
-#: includes/class-aipk-admin.php:961
+#: includes/class-aipk-admin.php:979
 msgid "Overlay a round, semi-transparent badge on AI generated images"
 msgstr ""
 "Sovrapponi un bollino rotondo semitrasparente alle immagini generate con IA"
 
-#: includes/class-aipk-admin.php:963 includes/class-aipk-admin.php:998
+#: includes/class-aipk-admin.php:981 includes/class-aipk-admin.php:1016
 msgid "Text"
 msgstr "Testo"
 
-#: includes/class-aipk-admin.php:964
+#: includes/class-aipk-admin.php:982
 msgid "Position"
 msgstr "Posizione"
 
-#: includes/class-aipk-admin.php:969
+#: includes/class-aipk-admin.php:987
 msgid "Diameter (px)"
 msgstr "Diametro (px)"
 
-#: includes/class-aipk-admin.php:970
+#: includes/class-aipk-admin.php:988
 msgid "Hide under (px wide)"
 msgstr "Nascondi sotto (px di larghezza)"
 
-#: includes/class-aipk-admin.php:971
+#: includes/class-aipk-admin.php:989
 msgid "Background"
 msgstr "Sfondo"
 
-#: includes/class-aipk-admin.php:972
+#: includes/class-aipk-admin.php:990
 msgid "Opacity (%)"
 msgstr "Opacità (%)"
 
-#: includes/class-aipk-admin.php:973
+#: includes/class-aipk-admin.php:991
 msgid "Text color"
 msgstr "Colore del testo"
 
-#: includes/class-aipk-admin.php:974
+#: includes/class-aipk-admin.php:992
 msgid "Tooltip and screen reader text"
 msgstr "Testo del tooltip e per screen reader"
 
-#: includes/class-aipk-admin.php:976
+#: includes/class-aipk-admin.php:994
 msgid "Badge image instead of text"
 msgstr "Immagine del bollino al posto del testo"
 
-#: includes/class-aipk-admin.php:978
+#: includes/class-aipk-admin.php:996
 msgid "Choose image"
 msgstr "Scegli immagine"
 
-#: includes/class-aipk-admin.php:979
+#: includes/class-aipk-admin.php:997
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: includes/class-aipk-admin.php:986
+#: includes/class-aipk-admin.php:1004
 msgid "Popup on the badge"
 msgstr "Pannello sul bollino"
 
-#: includes/class-aipk-admin.php:987
+#: includes/class-aipk-admin.php:1005
 msgid "A click on the badge opens a panel with the provenance of the image"
 msgstr "Un clic sul bollino apre un pannello con la provenienza dell'immagine"
 
-#: includes/class-aipk-admin.php:989
+#: includes/class-aipk-admin.php:1007
 msgid "Panel title"
 msgstr "Titolo del pannello"
 
-#: includes/class-aipk-admin.php:991
+#: includes/class-aipk-admin.php:1009
 msgid ""
 "Show a credit line in the panel: \"Marked with AI Act Image Marking by The "
 "Rope\", linking to therope.it"
@@ -717,34 +792,39 @@ msgstr ""
 "Mostra una riga di credito nel pannello: \"Marked with AI Act Image Marking "
 "by The Rope\", con link a therope.it"
 
-#: includes/class-aipk-admin.php:992
+#: includes/class-aipk-admin.php:1010
 msgid ""
 "The panel is plain HTML kept hidden until the badge is clicked, readable by "
 "search engines and assistive technology. The credit line is your choice and "
 "is off by default."
-msgstr "Il pannello è HTML semplice tenuto nascosto finché non si clicca il bollino, leggibile da motori di ricerca e tecnologie assistive. La riga di credito è una tua scelta ed è spenta di default."
+msgstr ""
+"Il pannello è HTML semplice tenuto nascosto finché non si clicca il bollino, "
+"leggibile da motori di ricerca e tecnologie assistive. La riga di credito è "
+"una tua scelta ed è spenta di default."
 
-#: includes/class-aipk-admin.php:996
+#: includes/class-aipk-admin.php:1014
 msgid "Text, notice, data"
 msgstr "Testo, avviso, dati"
 
-#: includes/class-aipk-admin.php:997
+#: includes/class-aipk-admin.php:1015
 msgid "Print a short text under AI generated images"
 msgstr "Stampa una breve dicitura sotto le immagini generate con IA"
 
-#: includes/class-aipk-admin.php:999
+#: includes/class-aipk-admin.php:1017
 msgid "Also used as disclosure for images classified by hand that carry none."
-msgstr "Usato anche come dicitura per le immagini classificate a mano che non ne hanno una."
+msgstr ""
+"Usato anche come dicitura per le immagini classificate a mano che non ne "
+"hanno una."
 
-#: includes/class-aipk-admin.php:1000
+#: includes/class-aipk-admin.php:1018
 msgid "Print a one-line transparency notice at the end of every page"
 msgstr "Stampa un avviso di trasparenza di una riga in fondo a ogni pagina"
 
-#: includes/class-aipk-admin.php:1001 assets/block.js:34
+#: includes/class-aipk-admin.php:1019 assets/block.js:34
 msgid "Notice"
 msgstr "Avviso"
 
-#: includes/class-aipk-admin.php:1002
+#: includes/class-aipk-admin.php:1020
 msgid ""
 "The same text is the default of the [ai_act_disclosure] shortcode and the "
 "\"AI disclosure notice\" block, which also show the number of AI images in "
@@ -754,12 +834,12 @@ msgstr ""
 "blocco \"Avviso di trasparenza AI\", che mostrano anche il numero di "
 "immagini AI in libreria."
 
-#: includes/class-aipk-admin.php:1003
+#: includes/class-aipk-admin.php:1021
 msgid "Add data-digital-source-type and data-ai-generated to image tags"
 msgstr ""
 "Aggiungi data-digital-source-type e data-ai-generated ai tag delle immagini"
 
-#: includes/class-aipk-admin.php:1004
+#: includes/class-aipk-admin.php:1022
 msgid ""
 "Print schema.org ImageObject data with digitalSourceType for the AI images "
 "on the page"
@@ -767,11 +847,11 @@ msgstr ""
 "Stampa i dati schema.org ImageObject con digitalSourceType per le immagini "
 "AI della pagina"
 
-#: includes/class-aipk-admin.php:1008
+#: includes/class-aipk-admin.php:1026
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: includes/class-aipk-admin.php:1010
+#: includes/class-aipk-admin.php:1028
 msgid ""
 "Printed after the plugin styles. Selectors: .aipk-wrap, .aipk-ai-"
 "badge, .aipk-pos-bottom-right (and the other corners), .aipk-popup, .aipk-"
@@ -781,46 +861,48 @@ msgstr ""
 "badge, .aipk-pos-bottom-right (e gli altri angoli), .aipk-popup, .aipk-"
 "label, .aipk-site-notice, .aipk-disclosure, img[data-ai-generated]."
 
-#: includes/class-aipk-admin.php:1016
+#: includes/class-aipk-admin.php:1034
 msgid "Live preview"
 msgstr "Anteprima dal vivo"
 
-#: includes/class-aipk-admin.php:1022 includes/class-aipk-frontend.php:227
+#: includes/class-aipk-admin.php:1040 includes/class-aipk-frontend.php:227
 msgid "Close"
 msgstr "Chiudi"
 
-#: includes/class-aipk-admin.php:1028 includes/class-aipk-frontend.php:236
+#: includes/class-aipk-admin.php:1046 includes/class-aipk-frontend.php:236
 msgid "Marked under EU Regulation 2024/1689 (AI Act), article 50."
 msgstr "Marcata ai sensi del Regolamento (UE) 2024/1689 (AI Act), articolo 50."
 
-#: includes/class-aipk-admin.php:1034
+#: includes/class-aipk-admin.php:1052
 msgid "Updates as you type. Click the badge to see the popup."
 msgstr "Si aggiorna mentre scrivi. Clicca il bollino per vedere il pannello."
 
-#: includes/class-aipk-admin.php:1051
+#: includes/class-aipk-admin.php:1069
 msgid "Tools"
 msgstr "Strumenti"
 
-#: includes/class-aipk-admin.php:1052
+#: includes/class-aipk-admin.php:1070
 msgid "Shortcode:"
 msgstr "Shortcode:"
 
-#: includes/class-aipk-admin.php:1052
+#: includes/class-aipk-admin.php:1070
 msgid "Block:"
 msgstr "Blocco:"
 
-#: includes/class-aipk-admin.php:1052 assets/block.js:16 assets/block.js:49
+#: includes/class-aipk-admin.php:1070 assets/block.js:16 assets/block.js:49
 msgid "AI disclosure notice"
 msgstr "Avviso di trasparenza AI"
 
-#: includes/class-aipk-admin.php:1053
+#: includes/class-aipk-admin.php:1071
 msgid "Reset all settings to defaults"
 msgstr "Riporta tutte le impostazioni ai default"
 
-#: includes/class-aipk-admin.php:1057
+#: includes/class-aipk-admin.php:1075
 msgid ""
 "Settings apply to every page immediately. Files already marked stay marked."
-msgstr "Le impostazioni valgono subito su ogni pagina. I file già marcati restano marcati."
+msgstr ""
+"Le impostazioni valgono subito su ogni pagina. I file già marcati restano "
+"marcati."
 
 #: includes/class-aipk-frontend.php:208
 msgid "Generator"
@@ -862,21 +944,25 @@ msgstr ""
 "Alcune immagini di questo sito sono generate con intelligenza artificiale e "
 "sono marcate come tali."
 
-#: includes/class-aipk-options.php:160
+#: includes/class-aipk-options.php:165
 msgid "Bottom right"
 msgstr "In basso a destra"
 
-#: includes/class-aipk-options.php:161
+#: includes/class-aipk-options.php:166
 msgid "Bottom left"
 msgstr "In basso a sinistra"
 
-#: includes/class-aipk-options.php:162
+#: includes/class-aipk-options.php:167
 msgid "Top right"
 msgstr "In alto a destra"
 
-#: includes/class-aipk-options.php:163
+#: includes/class-aipk-options.php:168
 msgid "Top left"
 msgstr "In alto a sinistra"
+
+#: includes/class-aipk-processor.php:490
+msgid "Every minute (AI Act Image Marking scan)"
+msgstr "Ogni minuto (scansione AI Act Image Marking)"
 
 #: includes/class-aipk-reader.php:267
 msgid "AI modified"
