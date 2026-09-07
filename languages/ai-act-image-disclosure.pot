@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 17:27+0200\n"
+"POT-Creation-Date: 2026-09-07 19:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,677 +18,805 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: includes/class-aipk-admin.php:54 includes/class-aipk-admin.php:58
-#: includes/class-aipk-admin.php:329
-msgid "AI marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:79
-msgid "Not scanned"
-msgstr ""
-
-#: includes/class-aipk-admin.php:90
-msgid "set by hand"
-msgstr ""
-
-#: includes/class-aipk-admin.php:109 includes/class-aipk-admin.php:147
-#: includes/class-aipk-admin.php:517 includes/class-aipk-admin.php:607
-msgid "Suspected AI, to confirm"
-msgstr ""
-
-#: includes/class-aipk-admin.php:112
-msgid "Not AI (set by hand)"
-msgstr ""
-
-#: includes/class-aipk-admin.php:117
-msgid "No marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:130
-msgid "Filter by AI marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:145
-msgid "All AI markings"
-msgstr ""
-
-#: includes/class-aipk-admin.php:146
-msgid "AI generated or modified"
-msgstr ""
-
-#: includes/class-aipk-admin.php:148
-msgid "With provenance marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:149
-msgid "Without marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:247
+#: includes/class-aipk-admin.php:68
 msgid "Automatic (as declared by the file)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:248 includes/class-aipk-reader.php:266
+#: includes/class-aipk-admin.php:69 includes/class-aipk-admin.php:1024
+#: includes/class-aipk-reader.php:266
 msgid "AI generated"
 msgstr ""
 
-#: includes/class-aipk-admin.php:249
+#: includes/class-aipk-admin.php:70
 msgid "AI modified (real elements plus AI)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:250 includes/class-aipk-admin.php:358
+#: includes/class-aipk-admin.php:71 includes/class-aipk-admin.php:314
+#: includes/class-aipk-admin.php:525
 msgid "Not AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:261
-msgid "Mark as AI generated"
+#: includes/class-aipk-admin.php:82
+msgid "Follow the settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:262
-msgid "Mark as AI modified"
+#: includes/class-aipk-admin.php:83
+msgid "Always show badge and label"
 msgstr ""
 
-#: includes/class-aipk-admin.php:263
-msgid "Mark as not AI"
+#: includes/class-aipk-admin.php:84
+msgid "Never show them on this image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:264
-msgid "Back to automatic marking"
+#: includes/class-aipk-admin.php:95
+msgid "All AI markings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:265
-msgid "Re-scan AI marking"
+#: includes/class-aipk-admin.php:96 includes/class-aipk-admin.php:906
+msgid "AI generated or modified"
 msgstr ""
 
-#: includes/class-aipk-admin.php:266
-msgid "Badge: always show on these images"
+#: includes/class-aipk-admin.php:97 includes/class-aipk-admin.php:116
+#: includes/class-aipk-admin.php:623 includes/class-aipk-admin.php:907
+msgid "Suspected AI, to confirm"
 msgstr ""
 
-#: includes/class-aipk-admin.php:267
-msgid "Badge: never show on these images"
+#: includes/class-aipk-admin.php:98
+msgid "With provenance marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:268
-msgid "Badge: follow the settings"
+#: includes/class-aipk-admin.php:99
+msgid "Without marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:312
+#: includes/class-aipk-admin.php:100 includes/class-aipk-admin.php:508
+#: includes/class-aipk-admin.php:908
+msgid "Not scanned yet"
+msgstr ""
+
+#: includes/class-aipk-admin.php:119
+msgid "Not AI (set by hand)"
+msgstr ""
+
+#: includes/class-aipk-admin.php:124
+msgid "No marking"
+msgstr ""
+
+#: includes/class-aipk-admin.php:135
+msgid "marked"
+msgstr ""
+
+#: includes/class-aipk-admin.php:136
+msgid "marking carried over"
+msgstr ""
+
+#: includes/class-aipk-admin.php:137
+msgid "marking written"
+msgstr ""
+
+#: includes/class-aipk-admin.php:138
+msgid "file missing"
+msgstr ""
+
+#: includes/class-aipk-admin.php:139
+msgid "format not supported"
+msgstr ""
+
+#: includes/class-aipk-admin.php:140
+msgid "skipped by settings"
+msgstr ""
+
+#: includes/class-aipk-admin.php:141
+msgid "left untouched: carries a C2PA manifest"
+msgstr ""
+
+#: includes/class-aipk-admin.php:142
+msgid "error"
+msgstr ""
+
+#: includes/class-aipk-admin.php:156
+msgid "declared in the file (XMP)"
+msgstr ""
+
+#: includes/class-aipk-admin.php:158
+msgid "declared in the file (C2PA manifest)"
+msgstr ""
+
+#: includes/class-aipk-admin.php:160
+msgid "set by hand in the Media Library"
+msgstr ""
+
+#: includes/class-aipk-admin.php:162 includes/class-aipk-admin.php:570
+#: includes/class-aipk-admin.php:821
+msgid "none"
+msgstr ""
+
+#: includes/class-aipk-admin.php:249 includes/class-aipk-admin.php:253
+#: includes/class-aipk-admin.php:488
+msgid "AI marking"
+msgstr ""
+
+#: includes/class-aipk-admin.php:274 includes/class-aipk-admin.php:765
+msgid "Not scanned"
+msgstr ""
+
+#: includes/class-aipk-admin.php:276
+msgid "Scan now"
+msgstr ""
+
+#: includes/class-aipk-admin.php:288
+msgid "set by hand"
+msgstr ""
+
+#: includes/class-aipk-admin.php:292
+msgid "badge hidden"
+msgstr ""
+
+#: includes/class-aipk-admin.php:294
+msgid "badge forced"
+msgstr ""
+
+#: includes/class-aipk-admin.php:316
+msgid "Show badge"
+msgstr ""
+
+#: includes/class-aipk-admin.php:316
+msgid "Hide badge"
+msgstr ""
+
+#: includes/class-aipk-admin.php:318
+msgid "Mark as AI"
+msgstr ""
+
+#: includes/class-aipk-admin.php:333
+msgid "Filter by AI marking"
+msgstr ""
+
+#: includes/class-aipk-admin.php:380
+msgid "AI marking: AI generated"
+msgstr ""
+
+#: includes/class-aipk-admin.php:381
+msgid "AI marking: AI modified"
+msgstr ""
+
+#: includes/class-aipk-admin.php:382
+msgid "AI marking: not AI"
+msgstr ""
+
+#: includes/class-aipk-admin.php:383
+msgid "AI marking: back to automatic"
+msgstr ""
+
+#: includes/class-aipk-admin.php:384
+msgid "AI marking: re-scan"
+msgstr ""
+
+#: includes/class-aipk-admin.php:385
+msgid "AI badge: always show"
+msgstr ""
+
+#: includes/class-aipk-admin.php:386
+msgid "AI badge: never show"
+msgstr ""
+
+#: includes/class-aipk-admin.php:387
+msgid "AI badge: follow the settings"
+msgstr ""
+
+#: includes/class-aipk-admin.php:452 includes/class-aipk-admin.php:1072
+#: includes/class-aipk-admin.php:1085 includes/class-aipk-admin.php:1103
+#: includes/class-aipk-admin.php:1117 includes/class-aipk-admin.php:1167
+#: includes/class-aipk-admin.php:1180
+msgid "Not allowed."
+msgstr ""
+
+#: includes/class-aipk-admin.php:510
+msgid "Scan file"
+msgstr ""
+
+#: includes/class-aipk-admin.php:522
+#, php-format
+msgid ""
+"The file carries traces of %s but no formal marking. Confirm to write it."
+msgstr ""
+
+#: includes/class-aipk-admin.php:525
+msgid "Confirm: AI generated"
+msgstr ""
+
+#: includes/class-aipk-admin.php:529 includes/class-aipk-admin.php:1024
+#: includes/class-aipk-frontend.php:203
+msgid "Type"
+msgstr ""
+
+#: includes/class-aipk-admin.php:529
+msgid "absent"
+msgstr ""
+
+#: includes/class-aipk-admin.php:530 includes/class-aipk-admin.php:885
+#: includes/class-aipk-admin.php:1025 includes/class-aipk-frontend.php:204
+msgid "Disclosure"
+msgstr ""
+
+#: includes/class-aipk-admin.php:531 includes/class-aipk-frontend.php:205
+msgid "Creator"
+msgstr ""
+
+#: includes/class-aipk-admin.php:532 includes/class-aipk-frontend.php:206
+msgid "Credit"
+msgstr ""
+
+#: includes/class-aipk-admin.php:533 includes/class-aipk-frontend.php:207
+msgid "Rights"
+msgstr ""
+
+#: includes/class-aipk-admin.php:534
+msgid "C2PA"
+msgstr ""
+
+#: includes/class-aipk-admin.php:534
+msgid "present"
+msgstr ""
+
+#: includes/class-aipk-admin.php:535
+msgid "Traces"
+msgstr ""
+
+#: includes/class-aipk-admin.php:536
+msgid "Software"
+msgstr ""
+
+#: includes/class-aipk-admin.php:565
+#, php-format
+msgid "Sizes marked: %1$d of %2$d"
+msgstr ""
+
+#: includes/class-aipk-admin.php:567
+msgid "Generated sizes: nothing to carry"
+msgstr ""
+
+#: includes/class-aipk-admin.php:570
+msgid "Blocks in the original:"
+msgstr ""
+
+#: includes/class-aipk-admin.php:572
+msgid "Original:"
+msgstr ""
+
+#: includes/class-aipk-admin.php:575
+msgid "Scanned"
+msgstr ""
+
+#: includes/class-aipk-admin.php:583
+msgid "Classification"
+msgstr ""
+
+#: includes/class-aipk-admin.php:588
+msgid "Badge on this image"
+msgstr ""
+
+#: includes/class-aipk-admin.php:593
+msgid "Apply"
+msgstr ""
+
+#: includes/class-aipk-admin.php:593
+msgid "Re-scan file"
+msgstr ""
+
+#: includes/class-aipk-admin.php:594
+msgid ""
+"An AI classification writes the IPTC digital source type into the generated "
+"sizes and, unless the original carries a C2PA manifest, into the original "
+"too."
+msgstr ""
+
+#: includes/class-aipk-admin.php:616
+msgid "AI"
+msgstr ""
+
+#: includes/class-aipk-admin.php:622
+msgid "AI?"
+msgstr ""
+
+#: includes/class-aipk-admin.php:628
+msgid "Marked"
+msgstr ""
+
+#: includes/class-aipk-admin.php:651
+msgid "Scanning…"
+msgstr ""
+
+#: includes/class-aipk-admin.php:652
+msgid "Scan complete."
+msgstr ""
+
+#: includes/class-aipk-admin.php:653
+msgid "Something went wrong."
+msgstr ""
+
+#: includes/class-aipk-admin.php:655
+#, php-format
+msgid "%1$d of %2$d scanned, %3$d marked as AI"
+msgstr ""
+
+#: includes/class-aipk-admin.php:656
+msgid "Choose badge image"
+msgstr ""
+
+#: includes/class-aipk-admin.php:657
+msgid "Use this image"
+msgstr ""
+
+#: includes/class-aipk-admin.php:658
+msgid "Reset every setting to its default?"
+msgstr ""
+
+#: includes/class-aipk-admin.php:674 includes/class-aipk-admin.php:892
+msgid "AI Act Image Marking"
+msgstr ""
+
+#: includes/class-aipk-admin.php:675
+msgid "AI Act Marking"
+msgstr ""
+
+#: includes/class-aipk-admin.php:694
+msgid "How it works"
+msgstr ""
+
+#: includes/class-aipk-admin.php:695
+msgid ""
+"WordPress keeps the uploaded original untouched but every size it generates "
+"loses XMP and IPTC. The plugin reads the provenance of the original (IPTC "
+"digital source type, C2PA manifest, credits), stores it, and copies the "
+"marking into each size. Images that carry no marking can be classified by "
+"hand: the classification is written into the files as an IPTC digital source "
+"type."
+msgstr ""
+
+#: includes/class-aipk-admin.php:701
+msgid "Visible disclosure"
+msgstr ""
+
+#: includes/class-aipk-admin.php:702
+msgid ""
+"The AI Act separates the machine-readable marking of the file from the "
+"visible disclosure on the page. The badge, its popup, the text label, the "
+"site notice and the [ai_act_disclosure] shortcode are tools for the visible "
+"part. Each image can follow the settings, always show the badge or never "
+"show it."
+msgstr ""
+
+#: includes/class-aipk-admin.php:708
+msgid "Limits"
+msgstr ""
+
+#: includes/class-aipk-admin.php:709
+msgid ""
+"C2PA manifests are never copied into resized files, since their signature "
+"covers the original bytes only. AVIF sizes are not written yet. Image "
+"optimizers that strip metadata undo the marking: disable that option or re-"
+"scan after they run. The plugin is not legal advice."
+msgstr ""
+
+#: includes/class-aipk-admin.php:722 includes/class-aipk-admin.php:768
+msgid "Settings"
+msgstr ""
+
+#: includes/class-aipk-admin.php:734
+msgid "AI Act Image Marking is active."
+msgstr ""
+
+#: includes/class-aipk-admin.php:734
+msgid ""
+"New uploads are processed automatically. Scan the images you already have "
+"and choose how to disclose them."
+msgstr ""
+
+#: includes/class-aipk-admin.php:734
+msgid "Open settings"
+msgstr ""
+
+#: includes/class-aipk-admin.php:740
 #, php-format
 msgid "%d image processed."
 msgid_plural "%d images processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-aipk-admin.php:348
-msgid "Not scanned yet."
+#: includes/class-aipk-admin.php:743
+msgid "Settings reset to their defaults."
 msgstr ""
 
-#: includes/class-aipk-admin.php:355
+#: includes/class-aipk-admin.php:754 includes/class-aipk-admin.php:763
+msgid "AI images"
+msgstr ""
+
+#: includes/class-aipk-admin.php:764
+msgid "To confirm"
+msgstr ""
+
+#: includes/class-aipk-admin.php:768
+msgid "Badge on the page: on."
+msgstr ""
+
+#: includes/class-aipk-admin.php:768
+msgid "Badge on the page: off."
+msgstr ""
+
+#: includes/class-aipk-admin.php:805
+msgid "Scaled copy served as full"
+msgstr ""
+
+#: includes/class-aipk-admin.php:821
+msgid "Image editor"
+msgstr ""
+
+#: includes/class-aipk-admin.php:821
+msgid ""
+"It strips XMP and IPTC from every generated size; the plugin carries them "
+"back after generation."
+msgstr ""
+
+#: includes/class-aipk-admin.php:826
+msgid "Big image threshold"
+msgstr ""
+
+#: includes/class-aipk-admin.php:829
 #, php-format
-msgid "The file carries traces of %s but no formal marking."
-msgstr ""
-
-#: includes/class-aipk-admin.php:358
-msgid "Confirm: AI generated"
-msgstr ""
-
-#: includes/class-aipk-admin.php:362
-msgid "Digital source type"
-msgstr ""
-
-#: includes/class-aipk-admin.php:362 includes/class-aipk-admin.php:370
-msgid "absent"
-msgstr ""
-
-#: includes/class-aipk-admin.php:363
-msgid "Source of the marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:364
-msgid "Disclosure text"
-msgstr ""
-
-#: includes/class-aipk-admin.php:365 includes/class-aipk-frontend.php:205
-msgid "Creator"
-msgstr ""
-
-#: includes/class-aipk-admin.php:366 includes/class-aipk-frontend.php:206
-msgid "Credit"
-msgstr ""
-
-#: includes/class-aipk-admin.php:367 includes/class-aipk-frontend.php:207
-msgid "Rights"
-msgstr ""
-
-#: includes/class-aipk-admin.php:368
-msgid "C2PA manifest"
-msgstr ""
-
-#: includes/class-aipk-admin.php:369
-msgid "present"
-msgstr ""
-
-#: includes/class-aipk-admin.php:371
-msgid "Generator traces"
-msgstr ""
-
-#: includes/class-aipk-admin.php:372
-msgid "Software"
-msgstr ""
-
-#: includes/class-aipk-admin.php:373
-msgid "Blocks in the original"
-msgstr ""
-
-#: includes/class-aipk-admin.php:385 includes/class-aipk-admin.php:629
-msgid "Original file"
-msgstr ""
-
-#: includes/class-aipk-admin.php:403 includes/class-aipk-admin.php:648
-msgid "Generated sizes"
-msgstr ""
-
-#: includes/class-aipk-admin.php:407 includes/class-aipk-admin.php:605
-msgid "Scanned"
-msgstr ""
-
-#: includes/class-aipk-admin.php:413
-msgid "Classification"
-msgstr ""
-
-#: includes/class-aipk-admin.php:417
-msgid "Apply"
-msgstr ""
-
-#: includes/class-aipk-admin.php:417
-msgid "Re-scan file"
-msgstr ""
-
-#: includes/class-aipk-admin.php:419
-msgid "Visible badge on this image"
-msgstr ""
-
-#: includes/class-aipk-admin.php:424
 msgid ""
-"A manual AI classification writes the IPTC digital source type into the "
-"generated sizes and, unless the original carries a C2PA manifest, into the "
-"original too."
+"%d px. Larger uploads are served as a scaled copy, which is marked like "
+"every other size."
 msgstr ""
 
-#: includes/class-aipk-admin.php:437
-msgid "Follow the settings"
+#: includes/class-aipk-admin.php:830
+msgid "Disabled: the original is served as full."
 msgstr ""
 
-#: includes/class-aipk-admin.php:438
-msgid "Always show badge and label"
+#: includes/class-aipk-admin.php:836
+msgid "Output format conversion"
 msgstr ""
 
-#: includes/class-aipk-admin.php:439
-msgid "Never show them on this image"
+#: includes/class-aipk-admin.php:836
+msgid "AVIF sizes cannot be written yet and stay unmarked."
 msgstr ""
 
-#: includes/class-aipk-admin.php:465
-msgid "declared in the file (XMP)"
+#: includes/class-aipk-admin.php:858 includes/class-aipk-admin.php:859
+msgid "Image optimizers"
 msgstr ""
 
-#: includes/class-aipk-admin.php:467
-msgid "declared in the file (C2PA manifest)"
-msgstr ""
-
-#: includes/class-aipk-admin.php:469
-msgid "set by hand in the Media Library"
-msgstr ""
-
-#: includes/class-aipk-admin.php:471 includes/class-aipk-admin.php:800
-#: includes/class-aipk-admin.php:838
-msgid "none"
-msgstr ""
-
-#: includes/class-aipk-admin.php:482
-msgid "marked"
-msgstr ""
-
-#: includes/class-aipk-admin.php:483
-msgid "marking carried over"
-msgstr ""
-
-#: includes/class-aipk-admin.php:484
-msgid "marking written"
-msgstr ""
-
-#: includes/class-aipk-admin.php:485
-msgid "file missing"
-msgstr ""
-
-#: includes/class-aipk-admin.php:486
-msgid "format not supported"
-msgstr ""
-
-#: includes/class-aipk-admin.php:487
-msgid "skipped by settings"
-msgstr ""
-
-#: includes/class-aipk-admin.php:488
-msgid "left untouched: carries a C2PA manifest"
-msgstr ""
-
-#: includes/class-aipk-admin.php:489
-msgid "error"
-msgstr ""
-
-#: includes/class-aipk-admin.php:510
-msgid "AI"
-msgstr ""
-
-#: includes/class-aipk-admin.php:516
-msgid "AI?"
-msgstr ""
-
-#: includes/class-aipk-admin.php:522
-msgid "Marked"
-msgstr ""
-
-#: includes/class-aipk-admin.php:543
-msgid "Scanning…"
-msgstr ""
-
-#: includes/class-aipk-admin.php:544
-msgid "Scan complete."
-msgstr ""
-
-#: includes/class-aipk-admin.php:545
-msgid "Something went wrong."
-msgstr ""
-
-#: includes/class-aipk-admin.php:547
-#, php-format
-msgid "%1$d of %2$d scanned, %3$d marked as AI"
-msgstr ""
-
-#: includes/class-aipk-admin.php:548
-msgid "Choose badge image"
-msgstr ""
-
-#: includes/class-aipk-admin.php:549
-msgid "Use this image"
-msgstr ""
-
-#: includes/class-aipk-admin.php:567 includes/class-aipk-admin.php:599
-msgid "AI Act Image Marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:568
-msgid "AI Act Marking"
-msgstr ""
-
-#: includes/class-aipk-admin.php:582
-msgid "Settings"
-msgstr ""
-
-#: includes/class-aipk-admin.php:600
+#: includes/class-aipk-admin.php:858
 msgid ""
-"Marks AI-generated images where the marking is missing, keeps it in every "
-"size WordPress generates, discloses it on the page and documents it in the "
-"Media Library. EU AI Act, article 50."
+"They rewrite image files after WordPress and may strip metadata: disable "
+"their \"strip metadata\" option, or re-scan the library after they run."
 msgstr ""
 
-#: includes/class-aipk-admin.php:602
-msgid "Library"
+#: includes/class-aipk-admin.php:859
+msgid "None detected."
 msgstr ""
 
-#: includes/class-aipk-admin.php:604
-msgid "Images in the library"
+#: includes/class-aipk-admin.php:862 includes/class-aipk-admin.php:863
+msgid "PHP"
 msgstr ""
 
-#: includes/class-aipk-admin.php:606
-msgid "Marked as AI"
+#: includes/class-aipk-admin.php:862
+msgid "IPTC parsing available."
 msgstr ""
 
-#: includes/class-aipk-admin.php:606 includes/class-aipk-admin.php:607
-msgid "show"
+#: includes/class-aipk-admin.php:863
+msgid "iptcparse() unavailable: IPTC captions are not read (XMP still is)."
 msgstr ""
 
-#: includes/class-aipk-admin.php:610
-msgid "Scan new images"
+#: includes/class-aipk-admin.php:866 includes/class-aipk-admin.php:867
+msgid "Uploads folder"
 msgstr ""
 
-#: includes/class-aipk-admin.php:611
-msgid "Re-scan the whole library"
+#: includes/class-aipk-admin.php:866
+msgid "Writable."
 msgstr ""
 
-#: includes/class-aipk-admin.php:612
-msgid "Export AI images (CSV)"
+#: includes/class-aipk-admin.php:867
+msgid "Not writable: the marking cannot be carried into sizes."
 msgstr ""
 
-#: includes/class-aipk-admin.php:615
-msgid ""
-"Scanning reads each original and carries the marking into sizes that lack "
-"it. It runs in small batches and can be repeated safely. The shortcode "
-"[ai_act_disclosure] and the \"AI disclosure notice\" block print a "
-"transparency notice with the count."
+#: includes/class-aipk-admin.php:884 includes/class-aipk-admin.php:1026
+#: includes/class-aipk-frontend.php:209
+msgid "Marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:617
+#: includes/class-aipk-admin.php:886 includes/class-aipk-admin.php:1043
 msgid "Environment"
 msgstr ""
 
-#: includes/class-aipk-admin.php:632
+#: includes/class-aipk-admin.php:893
+msgid ""
+"Mark, keep and disclose AI-generated images. Every upload is processed "
+"automatically; scan the library once for what came before."
+msgstr ""
+
+#: includes/class-aipk-admin.php:896
+msgid "Scan new images"
+msgstr ""
+
+#: includes/class-aipk-admin.php:897
+msgid "Re-scan everything"
+msgstr ""
+
+#: includes/class-aipk-admin.php:898
+msgid "Export CSV"
+msgstr ""
+
+#: includes/class-aipk-admin.php:905
+msgid "Images in the library"
+msgstr ""
+
+#: includes/class-aipk-admin.php:912
+msgid "Settings sections"
+msgstr ""
+
+#: includes/class-aipk-admin.php:923
 msgid "Uploaded original"
 msgstr ""
 
-#: includes/class-aipk-admin.php:635
-msgid "Leave it exactly as uploaded (recommended)"
+#: includes/class-aipk-admin.php:925
+msgid "Leave it exactly as uploaded"
 msgstr ""
 
-#: includes/class-aipk-admin.php:636
+#: includes/class-aipk-admin.php:925
+msgid "Recommended. The file the client sent is the file you keep."
+msgstr ""
+
+#: includes/class-aipk-admin.php:926
 msgid "Remove post-production traces, keep the marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:637
+#: includes/class-aipk-admin.php:926
 msgid ""
-"Cleaning drops Camera Raw settings, document history, ancestors and the "
-"creator tool from the XMP. Provenance, description, credits and rights stay. "
-"Files that carry a C2PA manifest are never touched, since any byte change "
-"would break its signature."
+"Drops Camera Raw settings, document history, ancestors and the creator tool "
+"from the XMP. Provenance, description, credits and rights stay. Files with a "
+"C2PA manifest are never touched."
 msgstr ""
 
-#: includes/class-aipk-admin.php:642
-msgid "Manual classification"
-msgstr ""
-
-#: includes/class-aipk-admin.php:643
+#: includes/class-aipk-admin.php:928
 msgid ""
 "When an image is classified as AI by hand, write the IPTC digital source "
-"type into the original file too (never on files with a C2PA manifest)"
+"type into the original too (never on files with a C2PA manifest)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:644
-msgid ""
-"Generated sizes always receive the marking. This turns a manual choice into "
-"a machine-readable marking that travels with the file."
+#: includes/class-aipk-admin.php:932
+msgid "Generated sizes"
 msgstr ""
 
-#: includes/class-aipk-admin.php:651
+#: includes/class-aipk-admin.php:935
 msgid "Which images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:654
-msgid "AI generated and AI modified images only (recommended)"
+#: includes/class-aipk-admin.php:936
+msgid "AI generated and AI modified only"
 msgstr ""
 
-#: includes/class-aipk-admin.php:655
-msgid "Every image that carries XMP or IPTC metadata"
+#: includes/class-aipk-admin.php:936 includes/class-aipk-admin.php:941
+msgid "Recommended."
 msgstr ""
 
-#: includes/class-aipk-admin.php:656
+#: includes/class-aipk-admin.php:937
+msgid "Every image with XMP or IPTC metadata"
+msgstr ""
+
+#: includes/class-aipk-admin.php:937
 msgid ""
-"The second option also carries photographer credits and captions, and with "
-"them any personal data the metadata may contain."
+"Also carries photographer credits and captions, and with them any personal "
+"data the metadata may contain."
 msgstr ""
 
-#: includes/class-aipk-admin.php:661
+#: includes/class-aipk-admin.php:940
 msgid "What to carry"
 msgstr ""
 
-#: includes/class-aipk-admin.php:664
-msgid "The whole XMP and IPTC blocks of the original (recommended)"
+#: includes/class-aipk-admin.php:941
+msgid "The whole XMP and IPTC blocks"
 msgstr ""
 
-#: includes/class-aipk-admin.php:665
+#: includes/class-aipk-admin.php:942
+msgid "Only the provenance fields"
+msgstr ""
+
+#: includes/class-aipk-admin.php:942
 msgid ""
-"Only the provenance fields: digital source type, description, creator, "
-"credit, rights, usage terms"
+"Digital source type, description, creator, credit, rights, usage terms. "
+"About one kilobyte per file."
 msgstr ""
 
-#: includes/class-aipk-admin.php:666
-msgid "Nothing: sizes stay as WordPress makes them"
+#: includes/class-aipk-admin.php:943
+msgid "Nothing"
 msgstr ""
 
-#: includes/class-aipk-admin.php:671
+#: includes/class-aipk-admin.php:943
+msgid "Sizes stay as WordPress makes them."
+msgstr ""
+
+#: includes/class-aipk-admin.php:947
 msgid "Sizes to mark"
 msgstr ""
 
-#: includes/class-aipk-admin.php:677
+#: includes/class-aipk-admin.php:951
 msgid ""
-"Unchecked sizes are left unmarked. Sizes registered by the theme later are "
+"Unchecked sizes stay unmarked. Sizes registered by the theme later are "
 "marked by default."
 msgstr ""
 
-#: includes/class-aipk-admin.php:683
-msgid "Disclosure on the page"
-msgstr ""
-
-#: includes/class-aipk-admin.php:686
+#: includes/class-aipk-admin.php:960
 msgid "AI badge on the image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:688
+#: includes/class-aipk-admin.php:961
 msgid "Overlay a round, semi-transparent badge on AI generated images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:691
+#: includes/class-aipk-admin.php:963 includes/class-aipk-admin.php:998
 msgid "Text"
 msgstr ""
 
-#: includes/class-aipk-admin.php:692
+#: includes/class-aipk-admin.php:964
 msgid "Position"
 msgstr ""
 
-#: includes/class-aipk-admin.php:699
+#: includes/class-aipk-admin.php:969
 msgid "Diameter (px)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:702
+#: includes/class-aipk-admin.php:970
+msgid "Hide under (px wide)"
+msgstr ""
+
+#: includes/class-aipk-admin.php:971
 msgid "Background"
 msgstr ""
 
-#: includes/class-aipk-admin.php:703
+#: includes/class-aipk-admin.php:972
 msgid "Opacity (%)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:704
+#: includes/class-aipk-admin.php:973
 msgid "Text color"
 msgstr ""
 
-#: includes/class-aipk-admin.php:705
-msgid "Hide on images narrower than (px)"
-msgstr ""
-
-#: includes/class-aipk-admin.php:708
-msgid "Badge image instead of text (optional)"
-msgstr ""
-
-#: includes/class-aipk-admin.php:710
-msgid "Choose image"
-msgstr ""
-
-#: includes/class-aipk-admin.php:711
-msgid "Remove"
-msgstr ""
-
-#: includes/class-aipk-admin.php:715
+#: includes/class-aipk-admin.php:974
 msgid "Tooltip and screen reader text"
 msgstr ""
 
-#: includes/class-aipk-admin.php:721
+#: includes/class-aipk-admin.php:976
+msgid "Badge image instead of text"
+msgstr ""
+
+#: includes/class-aipk-admin.php:978
+msgid "Choose image"
+msgstr ""
+
+#: includes/class-aipk-admin.php:979
+msgid "Remove"
+msgstr ""
+
+#: includes/class-aipk-admin.php:986
 msgid "Popup on the badge"
 msgstr ""
 
-#: includes/class-aipk-admin.php:723
-msgid ""
-"A click on the badge opens a small panel with the provenance of the image "
-"(type, disclosure, creator, credit, generator, marking)"
+#: includes/class-aipk-admin.php:987
+msgid "A click on the badge opens a panel with the provenance of the image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:724
+#: includes/class-aipk-admin.php:989
 msgid "Panel title"
 msgstr ""
 
-#: includes/class-aipk-admin.php:725
+#: includes/class-aipk-admin.php:991
 msgid ""
 "Show a credit line in the panel: \"Marked with AI Act Image Marking by The "
 "Rope\", linking to therope.it"
 msgstr ""
 
-#: includes/class-aipk-admin.php:726
+#: includes/class-aipk-admin.php:992
 msgid ""
 "The panel is plain HTML kept hidden until the badge is clicked, readable by "
-"search engines and assistive technology. The credit line is off by default "
-"and is your choice."
+"search engines and assistive technology. The credit line is your choice and "
+"is off by default."
 msgstr ""
 
-#: includes/class-aipk-admin.php:730
-msgid "Text label under the image"
+#: includes/class-aipk-admin.php:996
+msgid "Text, notice, data"
 msgstr ""
 
-#: includes/class-aipk-admin.php:731
+#: includes/class-aipk-admin.php:997
 msgid "Print a short text under AI generated images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:733
-msgid ""
-"This text is also used as disclosure for images classified by hand that "
-"carry none."
+#: includes/class-aipk-admin.php:999
+msgid "Also used as disclosure for images classified by hand that carry none."
 msgstr ""
 
-#: includes/class-aipk-admin.php:736
-msgid "Data attributes and structured data"
-msgstr ""
-
-#: includes/class-aipk-admin.php:738
-msgid "Add data-digital-source-type and data-ai-generated to image tags"
-msgstr ""
-
-#: includes/class-aipk-admin.php:739
-msgid ""
-"Print schema.org ImageObject data with digitalSourceType for the AI images "
-"on the page"
-msgstr ""
-
-#: includes/class-aipk-admin.php:740
-msgid ""
-"Invisible to visitors; read by themes, scripts, search engines and AI "
-"crawlers."
-msgstr ""
-
-#: includes/class-aipk-admin.php:744
-msgid "Site notice"
-msgstr ""
-
-#: includes/class-aipk-admin.php:745
+#: includes/class-aipk-admin.php:1000
 msgid "Print a one-line transparency notice at the end of every page"
 msgstr ""
 
-#: includes/class-aipk-admin.php:747
+#: includes/class-aipk-admin.php:1001 assets/block.js:34
+msgid "Notice"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1002
 msgid ""
 "The same text is the default of the [ai_act_disclosure] shortcode and the "
 "\"AI disclosure notice\" block, which also show the number of AI images in "
 "the library."
 msgstr ""
 
-#: includes/class-aipk-admin.php:750
+#: includes/class-aipk-admin.php:1003
+msgid "Add data-digital-source-type and data-ai-generated to image tags"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1004
+msgid ""
+"Print schema.org ImageObject data with digitalSourceType for the AI images "
+"on the page"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1008
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/class-aipk-admin.php:753
+#: includes/class-aipk-admin.php:1010
 msgid ""
 "Printed after the plugin styles. Selectors: .aipk-wrap, .aipk-ai-"
 "badge, .aipk-pos-bottom-right (and the other corners), .aipk-popup, .aipk-"
 "label, .aipk-site-notice, .aipk-disclosure, img[data-ai-generated]."
 msgstr ""
 
-#: includes/class-aipk-admin.php:769
-msgid "Scaled copy served as full"
+#: includes/class-aipk-admin.php:1016
+msgid "Live preview"
 msgstr ""
 
-#: includes/class-aipk-admin.php:800
-msgid "Image editor"
+#: includes/class-aipk-admin.php:1022 includes/class-aipk-frontend.php:227
+msgid "Close"
 msgstr ""
 
-#: includes/class-aipk-admin.php:801
-msgid "Behaviour of the editor"
+#: includes/class-aipk-admin.php:1028 includes/class-aipk-frontend.php:236
+msgid "Marked under EU Regulation 2024/1689 (AI Act), article 50."
 msgstr ""
 
-#: includes/class-aipk-admin.php:801
+#: includes/class-aipk-admin.php:1034
+msgid "Updates as you type. Click the badge to see the popup."
+msgstr ""
+
+#: includes/class-aipk-admin.php:1051
+msgid "Tools"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1052
+msgid "Shortcode:"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1052
+msgid "Block:"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1052 assets/block.js:16 assets/block.js:49
+msgid "AI disclosure notice"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1053
+msgid "Reset all settings to defaults"
+msgstr ""
+
+#: includes/class-aipk-admin.php:1057
 msgid ""
-"Strips XMP and IPTC from every generated size; the plugin carries them back "
-"after generation."
-msgstr ""
-
-#: includes/class-aipk-admin.php:805
-msgid "Big image threshold"
-msgstr ""
-
-#: includes/class-aipk-admin.php:808
-#, php-format
-msgid ""
-"%d px: larger uploads are served as a scaled copy, which is also marked."
-msgstr ""
-
-#: includes/class-aipk-admin.php:809
-msgid "disabled"
-msgstr ""
-
-#: includes/class-aipk-admin.php:814
-msgid "Output format conversion"
-msgstr ""
-
-#: includes/class-aipk-admin.php:816
-msgid ""
-"Sizes are converted to AVIF. The plugin cannot write XMP into AVIF yet, so "
-"those sizes stay unmarked."
-msgstr ""
-
-#: includes/class-aipk-admin.php:838
-msgid "Image optimizers detected"
-msgstr ""
-
-#: includes/class-aipk-admin.php:842
-#, php-format
-msgid ""
-"%s rewrites image files after WordPress generates them and may strip "
-"metadata. Disable its \"strip metadata\" option, or re-scan the library "
-"after optimization runs."
-msgstr ""
-
-#: includes/class-aipk-admin.php:847
-msgid ""
-"PHP iptcparse() is unavailable: IPTC captions will not be read (XMP still "
-"is)."
-msgstr ""
-
-#: includes/class-aipk-admin.php:861 includes/class-aipk-admin.php:874
-#: includes/class-aipk-admin.php:888 includes/class-aipk-admin.php:902
-#: includes/class-aipk-admin.php:952
-msgid "Not allowed."
-msgstr ""
-
-#: includes/class-aipk-frontend.php:203
-msgid "Type"
-msgstr ""
-
-#: includes/class-aipk-frontend.php:204
-msgid "Disclosure"
+"Settings apply to every page immediately. Files already marked stay marked."
 msgstr ""
 
 #: includes/class-aipk-frontend.php:208
 msgid "Generator"
 msgstr ""
 
-#: includes/class-aipk-frontend.php:209
-msgid "Marking"
-msgstr ""
-
 #: includes/class-aipk-frontend.php:214
 msgid "C2PA manifest in the original"
-msgstr ""
-
-#: includes/class-aipk-frontend.php:227
-msgid "Close"
-msgstr ""
-
-#: includes/class-aipk-frontend.php:236
-msgid "Marked under EU Regulation 2024/1689 (AI Act), article 50."
 msgstr ""
 
 #: includes/class-aipk-frontend.php:240
@@ -735,7 +863,7 @@ msgid "Top left"
 msgstr ""
 
 #: includes/class-aipk-reader.php:267
-msgid "AI modified (composite with AI generated elements)"
+msgid "AI modified"
 msgstr ""
 
 #: includes/class-aipk-reader.php:268
@@ -790,18 +918,10 @@ msgstr ""
 msgid "Screen capture"
 msgstr ""
 
-#: assets/block.js:16 assets/block.js:49
-msgid "AI disclosure notice"
-msgstr ""
-
 #: assets/block.js:17
 msgid ""
 "A transparency notice about AI-generated images on this site, with an "
 "optional count."
-msgstr ""
-
-#: assets/block.js:34
-msgid "Notice"
 msgstr ""
 
 #: assets/block.js:36

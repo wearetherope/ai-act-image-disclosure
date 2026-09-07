@@ -4,7 +4,7 @@ Tags: ai act, ai generated images, ai label, provenance, compliance
 Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,18 +127,10 @@ Marginally: a few milliseconds per generated size, spent copying bytes. Nothing 
 
 == Changelog ==
 
-= 1.1.0 =
-* Manual classification (AI generated, AI modified, not AI) per image and in bulk, writing the IPTC digital source type into sizes and original.
-* Generator traces: "Suspected AI, to confirm" for files without formal marking.
-* Provenance popup on the badge, badge image, per-image badge choice, site notice, shortcode and block, schema.org digitalSourceType, CSV export.
-
 = 1.0.0 =
-* First release: provenance reading (XMP, IPTC, C2PA detection), marking carried into JPEG, PNG and WebP sizes with configurable scope, mode and sizes, optional cleaning of the original, Media Library column, panel, badges and filter, front end badge, label and data attributes, custom CSS, library scan, WP-CLI, REST exposure.
+* First release: IPTC/XMP/C2PA provenance reading, marking carried into JPEG, PNG and WebP sizes, manual classification per image and in bulk that writes the IPTC digital source type, generator traces as "suspected AI", AI badge with provenance popup, per-image badge choice, text label, site notice, shortcode and block, schema.org digitalSourceType, Media Library column, panel, filters and export, library scan, WP-CLI, REST, Italian translation.
 
 == Upgrade Notice ==
-
-= 1.1.0 =
-Manual classification, provenance popup, per-image badge choice, schema.org and CSV export. Settings are kept.
 
 = 1.0.0 =
 First release.

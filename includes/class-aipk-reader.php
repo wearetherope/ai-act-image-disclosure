@@ -264,7 +264,7 @@ class AIPK_Reader {
 	public static function term_label( $term ) {
 		$labels = array(
 			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ai-act-image-disclosure' ),
-			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified (composite with AI generated elements)', 'ai-act-image-disclosure' ),
+			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified', 'ai-act-image-disclosure' ),
 			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ai-act-image-disclosure' ),
 			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ai-act-image-disclosure' ),
 			'virtualRecording'                     => __( 'Virtual recording', 'ai-act-image-disclosure' ),
