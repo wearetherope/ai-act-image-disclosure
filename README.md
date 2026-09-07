@@ -2,7 +2,7 @@
 
 WordPress plugin for the EU AI Act, article 50. It **marks** AI-generated images that lack the IPTC marking, **keeps** the marking (XMP, IPTC) in every image size WordPress generates, **discloses** it on the page (AI badge with provenance popup, label, notice, schema.org) and **documents** it in the Media Library (classification, filters, export). Repository slug `ai-act-image-disclosure`, plugin name AI Act Image Marking.
 
-Made by [The Rope](https://therope.it), out of its own AI image productions for eyewear brands. GPL-2.0-or-later.
+Made by [The Rope](https://therope.it). GPL-2.0-or-later.
 
 ## Why
 
@@ -51,9 +51,9 @@ for f in $(git ls-files '*.php'); do php -l "$f"; done
 
 The GitHub workflow lints every PHP file on PHP 7.4 to 8.4 and runs the WordPress Plugin Check. Translations: `languages/ai-act-image-disclosure.pot`, Italian included.
 
-## Companion tool
+## Marking files before upload
 
-The marking itself is written before upload. The Rope uses `tagga-ai`, a macOS script built on exiftool and c2patool that writes `DigitalSourceType`, the disclosure text, attribution and a C2PA manifest chained to the generator's one. Any DAM or exiftool command that writes `Iptc4xmpExt:DigitalSourceType` works.
+The plugin reads what the file declares. Most generators embed a C2PA manifest; any DAM or an exiftool command can write `Iptc4xmpExt:DigitalSourceType` before upload. Files without marking can be classified by hand in the Media Library.
 
 ## License
 
