@@ -7,7 +7,7 @@
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            The Rope
- * Author URI:        https://www.therope.it
+ * Author URI:        https://therope.it
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ai-act-image-disclosure

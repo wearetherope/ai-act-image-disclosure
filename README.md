@@ -2,7 +2,7 @@
 
 WordPress plugin for the EU AI Act, article 50: a visible **AI badge** or label on AI-generated images, the **provenance metadata** (IPTC `DigitalSourceType`, XMP, IPTC, C2PA detection) carried into every image size WordPress generates, and the whole audit trail in the **Media Library**.
 
-Made by [The Rope](https://www.therope.it) (The Chain S.r.l.), out of its own AI image productions for eyewear brands. GPL-2.0-or-later.
+Made by [The Rope](https://therope.it), out of its own AI image productions for eyewear brands. GPL-2.0-or-later.
 
 ## Why
 

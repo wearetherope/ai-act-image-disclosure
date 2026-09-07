@@ -64,7 +64,7 @@ Brands, e-commerce teams and agencies that publish AI-generated visuals (virtual
 * WP-CLI: `wp ai-provenance scan [--all] [--dry-run]`, `wp ai-provenance status <id>`.
 * CSS hooks: `.aipk-wrap`, `.aipk-ai-badge`, `.aipk-pos-bottom-right` (and the other corners), `.aipk-label`, `img[data-ai-generated]`.
 
-AI Act Image Disclosure is made by [The Rope](https://www.therope.it), a digital agency in Milan (The Chain S.r.l.), out of its own AI image productions for eyewear brands.
+AI Act Image Disclosure is made by [The Rope](https://therope.it), a digital agency in Milan, out of its own AI image productions for eyewear brands.
 
 == Installation ==
 
