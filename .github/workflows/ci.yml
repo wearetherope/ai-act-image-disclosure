@@ -31,3 +31,6 @@ jobs:
       - uses: wordpress/plugin-check-action@v1
         with:
           exclude-directories: '.github,.wordpress-org'
+          exclude-files: 'phpcs.xml.dist,.distignore,.gitignore'
+          # load_plugin_textdomain() is kept on purpose for the bundled Italian translation.
+          ignore-codes: 'PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound'
