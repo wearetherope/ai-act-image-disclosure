@@ -1,7 +1,8 @@
 <?php
 /**
  * Turns the raw bundle into a provenance record: IPTC digital source type,
- * disclosure text, attribution and C2PA generator names.
+ * disclosure text, attribution, C2PA generator names and generator
+ * signatures for images that carry no formal marking.
  *
  * @package AI_Act_Image_Disclosure
  */
@@ -29,30 +30,40 @@ class AIPK_Reader {
 	);
 
 	/**
+	 * Generator signatures: regex => label. Matched against software fields,
+	 * XMP text and PNG text chunks. A match is a hint, never a marking.
+	 *
+	 * @var array
+	 */
+	public static $signatures = array(
+		'/midjourney/i'                         => 'Midjourney',
+		'/dall[\s\-·]?e/i'                      => 'DALL·E',
+		'/adobe firefly|firefly/i'              => 'Adobe Firefly',
+		'/stable[\s\-]?diffusion|sd-?xl|automatic1111|invokeai|fooocus/i' => 'Stable Diffusion',
+		'/comfyui/i'                            => 'ComfyUI',
+		'/novelai/i'                            => 'NovelAI',
+		'/leonardo\.?ai/i'                      => 'Leonardo.ai',
+		'/ideogram/i'                           => 'Ideogram',
+		'/\bflux\b(\.1|[\s\-]?(pro|dev|schnell|kontext))/i' => 'Flux',
+		'/imagen|nano ?banana|gemini|google generative ai|google c2pa/i' => 'Google',
+		'/openai|gpt-?image|sora/i'             => 'OpenAI',
+		'/recraft/i'                            => 'Recraft',
+		'/runway/i'                             => 'Runway',
+		'/higgsfield/i'                         => 'Higgsfield',
+		'/krea\.?ai/i'                          => 'Krea',
+		'/bing image creator|microsoft designer/i' => 'Microsoft Designer',
+		'/canva ai|magic media/i'               => 'Canva AI',
+		'/synthid/i'                            => 'SynthID watermark',
+	);
+
+	/**
 	 * Read a file and return the provenance record.
 	 *
 	 * @param string $path Absolute path.
-	 * @return array Record (see fields below) with 'readable' false when the format is unsupported.
+	 * @return array Record with 'readable' false when the format is unsupported.
 	 */
 	public static function read( $path ) {
-		$record = array(
-			'readable'            => false,
-			'format'              => '',
-			'has_xmp'             => false,
-			'has_iptc'            => false,
-			'has_c2pa'            => false,
-			'digital_source_type' => '',
-			'ai'                  => false,
-			'description'         => '',
-			'creator'             => '',
-			'credit'              => '',
-			'rights'              => '',
-			'usage_terms'         => '',
-			'instructions'        => '',
-			'creator_tool'        => '',
-			'generators'          => array(),
-			'c2pa_digital_source_type' => '',
-		);
+		$record = self::empty_record();
 		$bundle = AIPK_Segments::extract( $path );
 		if ( null === $bundle ) {
 			return $record;
@@ -69,13 +80,76 @@ class AIPK_Reader {
 		if ( $record['has_iptc'] && '' === $record['description'] ) {
 			$record = array_merge( $record, self::parse_iptc( $bundle['iptc'] ) );
 		}
+		if ( ! empty( $bundle['exif']['Software'] ) ) {
+			$record['software'] = $bundle['exif']['Software'];
+		}
 		if ( $bundle['c2pa'] ) {
-			$record['generators'] = self::c2pa_generators( $bundle['c2pa_raw'] );
+			$record['generators']               = self::c2pa_generators( $bundle['c2pa_raw'] );
 			$record['c2pa_digital_source_type'] = self::c2pa_dst( $bundle['c2pa_raw'] );
 		}
-		$dst = $record['digital_source_type'] ? $record['digital_source_type'] : $record['c2pa_digital_source_type'];
-		$record['ai'] = in_array( $dst, self::$ai_terms, true );
+		$dst              = $record['digital_source_type'] ? $record['digital_source_type'] : $record['c2pa_digital_source_type'];
+		$record['ai']     = in_array( $dst, self::$ai_terms, true );
+		$record['source'] = $record['digital_source_type'] ? 'xmp' : ( $record['c2pa_digital_source_type'] ? 'c2pa' : '' );
+
+		// Signatures: where the marking is missing, say who probably made it.
+		$haystack = implode(
+			"\n",
+			array_filter(
+				array(
+					$record['software'],
+					$record['creator_tool'],
+					$record['description'],
+					$record['instructions'],
+					implode( "\n", $record['generators'] ),
+					implode( "\n", array_keys( $bundle['text'] ) ),
+					implode( "\n", $bundle['text'] ),
+					$record['has_xmp'] ? substr( $bundle['xmp'], 0, 20000 ) : '',
+				)
+			)
+		);
+		$found = array();
+		foreach ( self::$signatures as $re => $label ) {
+			if ( preg_match( $re, $haystack ) ) {
+				$found[ $label ] = true;
+			}
+		}
+		if ( isset( $bundle['text']['parameters'] ) || isset( $bundle['text']['prompt'] ) || isset( $bundle['text']['workflow'] ) ) {
+			$found[ isset( $bundle['text']['workflow'] ) ? 'ComfyUI' : 'Stable Diffusion' ] = true;
+		}
+		$record['signatures'] = array_keys( $found );
+		$record['suspect']    = ! $record['ai'] && '' === $dst && ! empty( $record['signatures'] );
 		return $record;
+	}
+
+	/**
+	 * Empty record.
+	 *
+	 * @return array
+	 */
+	public static function empty_record() {
+		return array(
+			'readable'                 => false,
+			'format'                   => '',
+			'has_xmp'                  => false,
+			'has_iptc'                 => false,
+			'has_c2pa'                 => false,
+			'digital_source_type'      => '',
+			'ai'                       => false,
+			'source'                   => '',
+			'description'              => '',
+			'creator'                  => '',
+			'credit'                   => '',
+			'rights'                   => '',
+			'usage_terms'              => '',
+			'instructions'             => '',
+			'creator_tool'             => '',
+			'software'                 => '',
+			'generators'               => array(),
+			'c2pa_digital_source_type' => '',
+			'signatures'               => array(),
+			'suspect'                  => false,
+			'manual'                   => '',
+		);
 	}
 
 	/**
@@ -107,8 +181,7 @@ class AIPK_Reader {
 			$xp->registerNamespace( 'rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' );
 			foreach ( $map as $key => $ns ) {
 				$xp->registerNamespace( 'n', $ns[0] );
-				$val = '';
-				// Element form: prefer x-default / first li, else text.
+				$val   = '';
 				$nodes = $xp->query( '//n:' . $ns[1] );
 				if ( $nodes && $nodes->length ) {
 					$el = $nodes->item( 0 );
@@ -119,7 +192,6 @@ class AIPK_Reader {
 					$val = ( $li && $li->length ) ? $li->item( 0 )->textContent : $el->textContent;
 				}
 				if ( '' === trim( (string) $val ) ) {
-					// Attribute form on rdf:Description.
 					$attr = $xp->query( '//rdf:Description/@n:' . $ns[1] );
 					if ( $attr && $attr->length ) {
 						$val = $attr->item( 0 )->nodeValue;
@@ -130,11 +202,8 @@ class AIPK_Reader {
 					$out[ $key ] = $val;
 				}
 			}
-		} else {
-			// Malformed packet: fall back to a regex on the one field that matters.
-			if ( preg_match( '#DigitalSourceType\s*(?:=\s*"|>\s*)([^"<\s]+)#', $xmp, $m ) ) {
-				$out['digital_source_type'] = $m[1];
-			}
+		} elseif ( preg_match( '#DigitalSourceType\s*(?:=\s*"|>\s*)([^"<\s]+)#', $xmp, $m ) ) {
+			$out['digital_source_type'] = $m[1];
 		}
 		if ( ! empty( $out['digital_source_type'] ) ) {
 			$out['digital_source_type'] = self::short_term( $out['digital_source_type'] );
@@ -153,16 +222,15 @@ class AIPK_Reader {
 		if ( ! function_exists( 'iptcparse' ) ) {
 			return $out;
 		}
-		// iptcparse() expects the APP13 payload without the "Photoshop 3.0" header? It expects the full segment data.
 		$parsed = @iptcparse( AIPK_Segments::PHOTOSHOP_HEADER . $irb ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		if ( ! is_array( $parsed ) ) {
 			return $out;
 		}
 		$fields = array(
-			'description' => '2#120',
-			'creator'     => '2#080',
-			'credit'      => '2#110',
-			'rights'      => '2#116',
+			'description'  => '2#120',
+			'creator'      => '2#080',
+			'credit'       => '2#110',
+			'rights'       => '2#116',
 			'instructions' => '2#040',
 		);
 		foreach ( $fields as $key => $code ) {
@@ -196,7 +264,7 @@ class AIPK_Reader {
 	public static function term_label( $term ) {
 		$labels = array(
 			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ai-act-image-disclosure' ),
-			'compositeWithTrainedAlgorithmicMedia' => __( 'Composite with AI generated elements', 'ai-act-image-disclosure' ),
+			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified (composite with AI generated elements)', 'ai-act-image-disclosure' ),
 			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ai-act-image-disclosure' ),
 			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ai-act-image-disclosure' ),
 			'virtualRecording'                     => __( 'Virtual recording', 'ai-act-image-disclosure' ),
@@ -216,10 +284,6 @@ class AIPK_Reader {
 
 	/**
 	 * Claim generator names from raw JUMBF/CBOR bytes.
-	 *
-	 * The CBOR map key "name" is encoded as 0x64 "name" followed by a text
-	 * string (major type 3). We read every such string; that is the list of
-	 * tools that signed a manifest in the store.
 	 *
 	 * @param string $raw JUMBF bytes.
 	 * @return string[]
@@ -246,7 +310,6 @@ class AIPK_Reader {
 	 * @return string
 	 */
 	public static function c2pa_dst( $raw ) {
-		// CBOR packs the next key right after the URI, so match the known vocabulary, longest first.
 		$terms = array(
 			'compositeWithTrainedAlgorithmicMedia', 'trainedAlgorithmicMedia', 'algorithmicallyEnhanced',
 			'compositeSynthetic', 'algorithmicMedia', 'compositeCapture', 'virtualRecording',

@@ -11,7 +11,7 @@
 	background: #2b3990;
 	color: #fff;
 }
-.aipk-badge-marked {
+.aipk-badge-marked, .aipk-badge-ai.aipk-badge-marked {
 	background: #dfe5f5;
 	color: #1d2452;
 }
@@ -64,4 +64,18 @@
 }
 .aipk-settings .notice.inline {
 	max-width: 880px;
+}
+.aipk-badge-suspect {
+	background: #f6e3a1;
+	color: #5c4500;
+}
+.aipk-suspect-row {
+	background: #fff8e5;
+	border-left: 3px solid #dba617;
+	padding: 6px 8px;
+	font-size: 12px;
+}
+.aipk-classify-row select,
+.aipk-disclose-row select {
+	max-width: 100%;
 }

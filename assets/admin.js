@@ -2,28 +2,40 @@
 ( function ( $ ) {
 	'use strict';
 
-	/* Re-scan one file from the attachment details panel. */
-	$( document ).on( 'click', '.aipk-rescan', function () {
-		var $btn = $( this ),
-			$panel = $btn.closest( '.aipk-panel' ),
-			id = $panel.data( 'id' );
-		$btn.prop( 'disabled', true );
-		$.post( AIPK.ajax, { action: 'aipk_rescan', id: id, nonce: $btn.data( 'nonce' ) } )
+	function panelPost( $btn, action, extra ) {
+		var $panel = $btn.closest( '.aipk-panel' ),
+			data = $.extend( { action: action, id: $panel.data( 'id' ), nonce: $panel.data( 'nonce' ) }, extra || {} );
+		$panel.find( 'button' ).prop( 'disabled', true );
+		$.post( AIPK.ajax, data )
 			.done( function ( res ) {
 				if ( res && res.success ) {
 					$panel.replaceWith( res.data.html );
 				} else {
-					$btn.prop( 'disabled', false );
-					window.alert( AIPK.i18n.error );
+					$panel.find( 'button' ).prop( 'disabled', false );
+					window.alert( ( res && res.data && res.data.message ) || AIPK.i18n.error );
 				}
 			} )
 			.fail( function () {
-				$btn.prop( 'disabled', false );
+				$panel.find( 'button' ).prop( 'disabled', false );
 				window.alert( AIPK.i18n.error );
 			} );
+	}
+
+	/* Attachment panel: re-scan, classify, confirm suspects, per-media badge. */
+	$( document ).on( 'click', '.aipk-rescan', function () {
+		panelPost( $( this ), 'aipk_rescan' );
+	} );
+	$( document ).on( 'click', '.aipk-classify', function () {
+		panelPost( $( this ), 'aipk_classify', { value: $( this ).data( 'value' ) } );
+	} );
+	$( document ).on( 'click', '.aipk-classify-apply', function () {
+		panelPost( $( this ), 'aipk_classify', { value: $( this ).closest( '.aipk-panel' ).find( '.aipk-classify-select' ).val() } );
+	} );
+	$( document ).on( 'change', '.aipk-disclose-select', function () {
+		panelPost( $( this ), 'aipk_disclose', { value: $( this ).val() } );
 	} );
 
-	/* Library scan on the settings page. */
+	/* Settings: library scan. */
 	$( document ).on( 'click', '#aipk-scan, #aipk-scan-all', function () {
 		var all = $( this ).data( 'all' ) === 1,
 			$status = $( '#aipk-scan-status' ),
@@ -61,7 +73,28 @@
 		step( 0 );
 	} );
 
-	/* Media grid: badge on tiles and a provenance filter in the toolbar. */
+	/* Settings: badge image chooser. */
+	$( document ).on( 'click', '#aipk-badge-image-choose', function ( e ) {
+		e.preventDefault();
+		if ( ! window.wp || ! wp.media ) {
+			return;
+		}
+		var frame = wp.media( { title: AIPK.i18n.choose, button: { text: AIPK.i18n.use }, multiple: false, library: { type: 'image' } } );
+		frame.on( 'select', function () {
+			var a = frame.state().get( 'selection' ).first().toJSON(),
+				url = ( a.sizes && a.sizes.thumbnail ) ? a.sizes.thumbnail.url : a.url;
+			$( '#aipk-badge-image' ).val( a.id );
+			$( '#aipk-badge-image-preview' ).html( '<img src="' + url + '" alt="" style="height:28px;vertical-align:middle">' );
+		} );
+		frame.open();
+	} );
+	$( document ).on( 'click', '#aipk-badge-image-clear', function ( e ) {
+		e.preventDefault();
+		$( '#aipk-badge-image' ).val( 0 );
+		$( '#aipk-badge-image-preview' ).empty();
+	} );
+
+	/* Media grid: badge on tiles and a marking filter in the toolbar. */
 	if ( window.wp && wp.media && wp.media.view ) {
 		var Attachment = wp.media.view.Attachment,
 			render = Attachment.prototype.render;
@@ -73,7 +106,7 @@
 			if ( a && a.badge ) {
 				this.$el.find( '.thumbnail' ).append(
 					$( '<span class="aipk-badge"></span>' )
-						.addClass( a.ai ? 'aipk-badge-ai' : 'aipk-badge-marked' )
+						.addClass( 'aipk-badge-' + a.kind )
 						.attr( 'title', a.title )
 						.text( a.badge )
 				);
@@ -88,11 +121,7 @@
 					var filters = {},
 						priority = 10;
 					$.each( AIPK.filters, function ( value, text ) {
-						filters[ value || 'all' ] = {
-							text: text,
-							props: { aipk_filter: value },
-							priority: priority
-						};
+						filters[ value || 'all' ] = { text: text, props: { aipk_filter: value }, priority: priority };
 						priority += 10;
 					} );
 					this.filters = filters;
@@ -109,11 +138,7 @@
 				}
 				this.toolbar.set(
 					'aipkFilter',
-					new wp.media.view.AttachmentFilters.Aipk( {
-						controller: this.controller,
-						model: this.collection.props,
-						priority: -75
-					} ).render()
+					new wp.media.view.AttachmentFilters.Aipk( { controller: this.controller, model: this.collection.props, priority: -75 } ).render()
 				);
 			};
 		}

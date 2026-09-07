@@ -1,6 +1,6 @@
-# AI Act Image Disclosure
+# AI Act Image Marking
 
-WordPress plugin for the EU AI Act, article 50: a visible **AI badge** or label on AI-generated images, the **provenance metadata** (IPTC `DigitalSourceType`, XMP, IPTC, C2PA detection) carried into every image size WordPress generates, and the whole audit trail in the **Media Library**.
+WordPress plugin for the EU AI Act, article 50. It **marks** AI-generated images that lack the IPTC marking, **keeps** the marking (XMP, IPTC) in every image size WordPress generates, **discloses** it on the page (AI badge with provenance popup, label, notice, schema.org) and **documents** it in the Media Library (classification, filters, export). Repository slug `ai-act-image-disclosure`, plugin name AI Act Image Marking.
 
 Made by [The Rope](https://therope.it), out of its own AI image productions for eyewear brands. GPL-2.0-or-later.
 
@@ -12,18 +12,19 @@ WordPress leaves the uploaded file untouched, but every generated size (thumbnai
 
 ## What it does
 
-- **Visible disclosure**: round semi-transparent "AI" badge in a chosen corner (text, diameter, colors, opacity, minimum width, tooltip, custom CSS), optional text label under the image, `data-ai-generated` and `data-digital-source-type` attributes on image tags.
+- **Visible disclosure**: round semi-transparent "AI" badge in a chosen corner (text or icon, diameter, colors, opacity, minimum width, tooltip, custom CSS) with a provenance popup kept as hidden HTML in the page; per-image choice (follow settings, always, never); optional text label, site notice, `[ai_act_disclosure]` shortcode and block; `data-ai-generated` and `data-digital-source-type` attributes; schema.org `ImageObject` with `digitalSourceType`.
 - **Machine-readable marking**: reads the provenance of the original (IPTC digital source type, description, creator, credit, rights, C2PA presence and signers) and copies the XMP and IPTC segments into every generated size without re-encoding. JPEG (APP1 + APP13), PNG (`iTXt`), WebP (`XMP` chunk, VP8X header created when missing).
+- **Manual classification** (AI generated, AI modified, not AI), per image and in bulk: an AI classification writes the IPTC digital source type into sizes and, without C2PA, into the original. Files with generator traces (Midjourney, DALL·E, Firefly, Stable Diffusion, ComfyUI, Google, OpenAI...) are listed as suspected AI, to confirm.
 - **Control**: which images (AI only, or every image with metadata), what to carry (full blocks or a minimal provenance packet), which sizes, and whether to clean post-production traces from the original while keeping the marking (never on files with a C2PA manifest).
 - **Media Library**: column and badge in list view, badge on grid tiles, read-only provenance panel in the attachment details, filter by provenance (list and grid), re-scan per file.
-- **Library scan** in batches (settings screen) and WP-CLI (`wp ai-provenance scan`).
+- **Library scan** in batches, CSV export, WP-CLI (`wp ai-provenance scan`).
 - **REST**: `_aipk_provenance` and `_aipk_ai` on the attachment endpoint.
 
 It does not detect AI from pixels, does not copy C2PA manifests into derivatives (their hard binding covers the original bytes only), and does not write AVIF yet.
 
 ## Install
 
-Clone or download into `wp-content/plugins/ai-act-image-disclosure`, activate, then Media → AI Act Disclosure. Requires WordPress 6.1 and PHP 7.4.
+Clone or download into `wp-content/plugins/ai-act-image-disclosure`, activate, then Media → AI Act Marking. Requires WordPress 6.1 and PHP 7.4.
 
 ## Developers
 
@@ -35,6 +36,8 @@ add_filter( 'aipk_should_preserve', fn( $want, $id, $record ) => $want, 10, 3 );
 add_filter( 'aipk_decorate_image', fn( $show, $record, $html ) => $show, 10, 3 );
 add_filter( 'aipk_badge_text', fn( $text, $record ) => $text, 10, 2 );
 add_filter( 'aipk_label_text', fn( $text, $record ) => $text, 10, 2 );
+add_filter( 'aipk_popup_rows', fn( $rows, $record ) => $rows, 10, 2 );
+define( 'AIPK_CREDIT_DEFAULT', true ); // wp-config.php: credit line in the popup on by default
 add_action( 'aipk_after_inject', fn( $id, $result ) => null, 10, 2 );
 ```
 

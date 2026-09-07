@@ -198,6 +198,16 @@ class AIPK_Segments {
 			}
 		}
 		$bundle['xmp_extended'] = $ext;
+		if ( function_exists( 'exif_read_data' ) ) {
+			$exif = @exif_read_data( $path, 'IFD0', true ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			if ( is_array( $exif ) && ! empty( $exif['IFD0'] ) ) {
+				foreach ( array( 'Software', 'Artist', 'ImageDescription', 'Copyright' ) as $k ) {
+					if ( ! empty( $exif['IFD0'][ $k ] ) && is_string( $exif['IFD0'][ $k ] ) ) {
+						$bundle['exif'][ $k ] = trim( $exif['IFD0'][ $k ] );
+					}
+				}
+			}
+		}
 		return $bundle;
 	}
 
@@ -370,6 +380,17 @@ class AIPK_Segments {
 				$bundle['c2pa_raw'] .= (string) $c['data'];
 				if ( false !== strpos( (string) $c['data'], 'c2pa' ) ) {
 					$bundle['c2pa'] = true;
+				}
+			} elseif ( in_array( $c['type'], array( 'tEXt', 'iTXt', 'zTXt' ), true ) ) {
+				// Generator signatures: "parameters" (Stable Diffusion), "prompt"/"workflow" (ComfyUI), "Software", "Comment".
+				$nul = strpos( (string) $c['data'], "\0" );
+				if ( false !== $nul ) {
+					$key = substr( $c['data'], 0, $nul );
+					$val = substr( $c['data'], $nul + 1, 400 );
+					if ( 'zTXt' === $c['type'] ) {
+						$val = '';
+					}
+					$bundle['text'][ $key ] = preg_replace( '/[^\x20-\x7E]/', ' ', (string) $val );
 				}
 			}
 		}
@@ -607,6 +628,59 @@ class AIPK_Segments {
 	}
 
 	/**
+	 * Set (or replace) Iptc4xmpExt:DigitalSourceType inside an XMP packet.
+	 * Builds a minimal packet when none is given or it cannot be parsed.
+	 *
+	 * @param string $xmp    Existing packet, may be empty.
+	 * @param string $term   IPTC term (e.g. trainedAlgorithmicMedia).
+	 * @param array  $fields Fallback fields for a new packet.
+	 * @return string
+	 */
+	public static function set_digital_source_type( $xmp, $term, $fields = array() ) {
+		$uri = 'http://cv.iptc.org/newscodes/digitalsourcetype/' . $term;
+		if ( '' === trim( (string) $xmp ) ) {
+			$fields['digital_source_type'] = $uri;
+			return self::build_xmp( $fields );
+		}
+		$prev = libxml_use_internal_errors( true );
+		$doc  = new DOMDocument();
+		$ok   = $doc->loadXML( $xmp, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING );
+		libxml_clear_errors();
+		libxml_use_internal_errors( $prev );
+		if ( ! $ok ) {
+			$fields['digital_source_type'] = $uri;
+			return self::build_xmp( $fields );
+		}
+		$ns  = 'http://iptc.org/std/Iptc4xmpExt/2008-02-29/';
+		$rdf = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+		$xp  = new DOMXPath( $doc );
+		$xp->registerNamespace( 'rdf', $rdf );
+		$xp->registerNamespace( 'i', $ns );
+		$done = false;
+		foreach ( $xp->query( '//i:DigitalSourceType' ) as $el ) {
+			$el->nodeValue = $uri;
+			$done          = true;
+		}
+		foreach ( $xp->query( '//rdf:Description/@i:DigitalSourceType' ) as $attr ) {
+			$attr->nodeValue = $uri;
+			$done            = true;
+		}
+		if ( ! $done ) {
+			$descs = $xp->query( '//rdf:Description' );
+			if ( $descs && $descs->length ) {
+				$d  = $descs->item( 0 );
+				$el = $doc->createElementNS( $ns, 'Iptc4xmpExt:DigitalSourceType', $uri );
+				$d->appendChild( $el );
+			} else {
+				$fields['digital_source_type'] = $uri;
+				return self::build_xmp( $fields );
+			}
+		}
+		$out = $doc->saveXML( $doc->documentElement );
+		return '<?xpacket begin="' . "\xEF\xBB\xBF" . '" id="W5M0MpCehiHzreSzNTczkc9d"?>' . $out . str_repeat( ' ', 200 ) . '<?xpacket end="w"?>';
+	}
+
+	/**
 	 * Remove post-production traces from an XMP packet: Camera Raw settings,
 	 * document history and ancestors, creator tool, dynamic media. The
 	 * provenance fields stay untouched.
@@ -682,6 +756,8 @@ class AIPK_Segments {
 			'iptc'         => '',
 			'c2pa'         => false,
 			'c2pa_raw'     => '',
+			'text'         => array(),
+			'exif'         => array(),
 		);
 	}
 

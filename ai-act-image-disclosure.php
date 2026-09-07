@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       AI Act Image Disclosure
+ * Plugin Name:       AI Act Image Marking
  * Plugin URI:        https://github.com/wearetherope/ai-act-image-disclosure
- * Description:       Keeps the AI provenance marking of uploaded images (IPTC DigitalSourceType, XMP, C2PA), carries it into every generated size and shows it in the Media Library. Built for the EU AI Act article 50 marking obligation.
+ * Description:       Mark, keep and disclose AI-generated images: writes the IPTC marking where it is missing, keeps it in every size WordPress generates, adds an AI badge with provenance popup and documents everything in the Media Library. EU AI Act, article 50.
  * Version:           1.0.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
@@ -30,7 +30,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AIPK_VERSION', '1.0.0' );
+define( 'AIPK_VERSION', '1.1.0' );
+// Set to true in wp-config.php to have the credit line in the provenance popup on by default.
+if ( ! defined( 'AIPK_CREDIT_DEFAULT' ) ) {
+	define( 'AIPK_CREDIT_DEFAULT', false );
+}
 define( 'AIPK_FILE', __FILE__ );
 define( 'AIPK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AIPK_URL', plugin_dir_url( __FILE__ ) );

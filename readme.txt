@@ -1,41 +1,45 @@
-=== AI Act Image Disclosure ===
+=== AI Act Image Marking ===
 Contributors: therope
 Tags: ai act, ai generated images, ai label, provenance, compliance
 Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-AI badge, label and provenance metadata for AI-generated images: keep the marking in every size and see it in the Media Library. EU AI Act art. 50.
+Mark, keep and disclose AI-generated images: IPTC marking written where missing and kept in every size, AI badge with provenance popup, Media Library audit. EU AI Act art. 50.
 
 == Description ==
 
 **Since 2 August 2026 the EU AI Act (article 50) requires AI-generated and AI-manipulated images to be marked in a machine-readable way and, when they show people or scenes that look real, to be disclosed visibly to the public.** If you publish virtual models, AI product shots, campaign visuals or any image made with Midjourney, Nano Banana, DALL·E, Firefly, Stable Diffusion or similar tools, this concerns your WordPress site.
 
-AI Act Image Disclosure gives you both halves of the obligation in one plugin.
+AI Act Image Marking does four things no other plugin does together: it **marks** files that lack the marking, **keeps** the marking in every size WordPress generates, **discloses** it on the page and **documents** it in the Media Library.
 
 = 1. The visible disclosure =
 
-* **AI badge**: a round, semi-transparent "AI" mark overlaid on every AI-generated image, in the corner you choose (bottom right by default). Text, diameter, colors, opacity and minimum image width are settings; a custom CSS box lets you restyle it completely.
-* **Text label**: an optional short line under AI images ("Image generated with artificial intelligence"), editable.
-* **Data attributes**: `data-ai-generated="true"` and `data-digital-source-type` on every AI image tag, so your theme, your product gallery or your JavaScript can add its own disclosure.
+* **AI badge**: a round, semi-transparent "AI" mark overlaid on AI-generated images, in the corner you choose. Text or your own icon, diameter, colors, opacity, minimum image width, tooltip; a custom CSS box restyles it completely.
+* **Provenance popup**: a click on the badge opens a small panel with type, disclosure text, creator, credit, generator and marking of that image. It is plain HTML kept hidden in the page, readable by assistive technology and search engines.
+* **Per image**: not every AI image needs the badge. Each attachment can follow the settings, always show it or never show it, one by one or in bulk.
+* **Text label** under AI images, **site notice** at the end of every page, and a `[ai_act_disclosure]` shortcode plus an "AI disclosure notice" block for your transparency page, with the count of AI images.
+* **Data attributes** (`data-ai-generated`, `data-digital-source-type`) and **schema.org ImageObject** with `digitalSourceType` for search engines and AI crawlers.
 
-= 2. The machine-readable marking =
+= 2. The machine-readable marking, written and kept =
 
 WordPress never touches the file you upload, but every size it generates (thumbnails, medium, large and the scaled copy it serves as "full") comes out of GD or Imagick **without XMP and IPTC**. The marking your generator or your DAM wrote into the original is gone from the images your pages actually show.
 
 * The plugin **reads** the provenance of each upload: the IPTC `DigitalSourceType` term (`trainedAlgorithmicMedia`, `compositeWithTrainedAlgorithmicMedia`, and the rest of the vocabulary), the disclosure text, creator, credit and rights, and whether a **C2PA / Content Credentials** manifest is present, with the names of the tools that signed it (Google, Adobe Lightroom, Photoshop, and so on).
 * It **carries the marking into every generated size**, byte for byte, without re-encoding pixels: JPEG, PNG and WebP.
 * You decide **what to carry** (the whole XMP and IPTC blocks, or only the provenance fields), **into which sizes**, and whether the **original** is left untouched or cleaned of post-production traces (Camera Raw settings, document history) while keeping the marking.
+* **Manual classification** for files that carry no marking (most retouched images lose it): "AI generated", "AI modified" or "not AI", per image or in bulk. An AI classification **writes the IPTC digital source type into the sizes and, unless the original carries a C2PA manifest, into the original**. A manual choice becomes a machine-readable marking that travels with the file.
+* **Generator traces**: files without a formal marking but with signs of Midjourney, DALL·E, Firefly, Stable Diffusion, ComfyUI, Google, OpenAI and others (software fields, PNG parameters, XMP) are listed as "Suspected AI, to confirm", never marked automatically.
 
 = 3. The audit trail in the Media Library =
 
 * A column and a badge in the list view, a badge on grid tiles.
 * A read-only **provenance panel** in the attachment details: digital source type, disclosure text, creator, credit, rights, C2PA signers, and which generated sizes carry the marking.
-* A **filter**: AI-generated images, images with provenance marking, images without.
-* A **library scan** for everything uploaded before the plugin, in small batches, or with WP-CLI.
+* A **filter**: AI generated or modified, suspected AI, with provenance marking, without.
+* **Bulk actions** to classify and to show or hide the badge, a **library scan** for everything uploaded before the plugin, a **CSV export** of the AI images for your audit file, and WP-CLI.
 * The record is exposed on the **REST API** attachment endpoint for headless themes.
 
 = What the plugin does not do =
@@ -59,18 +63,19 @@ Brands, e-commerce teams and agencies that publish AI-generated visuals (virtual
 = For developers =
 
 * `aipk_get_provenance( $attachment_id )` returns the record; `aipk_is_ai_generated( $attachment_id )` returns a boolean.
-* Filters: `aipk_should_preserve` (per attachment), `aipk_decorate_image` (badge and label per image), `aipk_badge_text`, `aipk_label_text`.
+* Filters: `aipk_should_preserve` (per attachment), `aipk_decorate_image` (badge and label per image), `aipk_badge_text`, `aipk_label_text`, `aipk_popup_rows`.
+* Constant `AIPK_CREDIT_DEFAULT` (wp-config.php) to start with the credit line in the popup enabled.
 * Action: `aipk_after_inject` with the per-size outcome.
 * WP-CLI: `wp ai-provenance scan [--all] [--dry-run]`, `wp ai-provenance status <id>`.
-* CSS hooks: `.aipk-wrap`, `.aipk-ai-badge`, `.aipk-pos-bottom-right` (and the other corners), `.aipk-label`, `img[data-ai-generated]`.
+* CSS hooks: `.aipk-wrap`, `.aipk-ai-badge`, `.aipk-pos-bottom-right` (and the other corners), `.aipk-popup`, `.aipk-label`, `.aipk-site-notice`, `.aipk-disclosure`, `img[data-ai-generated]`.
 
-AI Act Image Disclosure is made by [The Rope](https://therope.it), a digital agency in Milan, out of its own AI image productions for eyewear brands.
+AI Act Image Marking is made by [The Rope](https://therope.it), a digital agency in Milan, out of its own AI image productions for eyewear brands.
 
 == Installation ==
 
 1. Install from the Plugins screen or upload the folder to `/wp-content/plugins/`.
 2. Activate.
-3. Go to **Media → AI Act Disclosure**, turn on the badge if you want it, and run **Scan new images** to process what was uploaded before activation.
+3. Go to **Media → AI Act Marking**, turn on the badge if you want it, and run **Scan new images** to process what was uploaded before activation.
 
 Every new upload is processed automatically.
 
@@ -94,7 +99,15 @@ Smush, EWWW, ShortPixel, Imagify, TinyPNG, Optimole and LiteSpeed all have a "st
 
 = Can I style the badge? =
 
-Yes: text, corner, diameter, background color, opacity, text color, minimum image width, tooltip, plus a custom CSS box. Or turn the badge off and use the `data-ai-generated` attribute in your theme.
+Yes: text or your own icon, corner, diameter, background color, opacity, text color, minimum image width, tooltip, plus a custom CSS box. Or turn the badge off and use the `data-ai-generated` attribute in your theme.
+
+= Can I keep the badge off some AI images? =
+
+Yes. Every attachment has a "visible badge" choice: follow the settings, always show, never show. Bulk actions set it on many images at once.
+
+= What if a file has no marking at all? =
+
+Classify it by hand in the attachment details or with a bulk action. The plugin writes the IPTC digital source type into the generated sizes and, unless the original carries a C2PA manifest, into the original too. Files with generator traces are listed as "Suspected AI, to confirm" so you find them first.
 
 = Does it work with WebP and PNG sizes? =
 
@@ -106,18 +119,26 @@ Marginally: a few milliseconds per generated size, spent copying bytes. Nothing 
 
 == Screenshots ==
 
-1. Media Library list view with the AI provenance column and the filter.
-2. The provenance panel in the attachment details.
+1. Media Library list view with the AI marking column, filter and bulk actions.
+2. The marking panel in the attachment details: provenance, classification, per-image badge.
 3. Badges on grid tiles.
-4. The AI badge on the front end.
-5. Settings: original file, generated sizes, badge, label, custom CSS.
+4. The AI badge and the provenance popup on the front end.
+5. Settings: original file, generated sizes, badge, popup, label, notice, custom CSS.
 
 == Changelog ==
+
+= 1.1.0 =
+* Manual classification (AI generated, AI modified, not AI) per image and in bulk, writing the IPTC digital source type into sizes and original.
+* Generator traces: "Suspected AI, to confirm" for files without formal marking.
+* Provenance popup on the badge, badge image, per-image badge choice, site notice, shortcode and block, schema.org digitalSourceType, CSV export.
 
 = 1.0.0 =
 * First release: provenance reading (XMP, IPTC, C2PA detection), marking carried into JPEG, PNG and WebP sizes with configurable scope, mode and sizes, optional cleaning of the original, Media Library column, panel, badges and filter, front end badge, label and data attributes, custom CSS, library scan, WP-CLI, REST exposure.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Manual classification, provenance popup, per-image badge choice, schema.org and CSV export. Settings are kept.
 
 = 1.0.0 =
 First release.
