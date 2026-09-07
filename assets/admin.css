@@ -1,0 +1,67 @@
+.aipk-badge {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 3px;
+	font-size: 12px;
+	line-height: 1.7;
+	font-weight: 600;
+	white-space: nowrap;
+}
+.aipk-badge-ai {
+	background: #2b3990;
+	color: #fff;
+}
+.aipk-badge-marked {
+	background: #dfe5f5;
+	color: #1d2452;
+}
+.aipk-badge-none {
+	background: #f0f0f1;
+	color: #646970;
+	font-weight: 400;
+}
+.aipk-muted {
+	color: #646970;
+	font-size: 12px;
+}
+.aipk-dl {
+	margin: 0;
+	font-size: 12px;
+}
+.aipk-dl dt {
+	font-weight: 600;
+	margin-top: 6px;
+}
+.aipk-dl dd {
+	margin: 0;
+	word-break: break-word;
+}
+.compat-field-aipk .aipk-panel {
+	padding-top: 2px;
+}
+.media-modal .attachment-info .compat-field-aipk th {
+	vertical-align: top;
+}
+/* grid tiles */
+.attachment .thumbnail .aipk-badge {
+	position: absolute;
+	top: 6px;
+	left: 6px;
+	z-index: 2;
+	padding: 0 6px;
+	font-size: 11px;
+	line-height: 1.6;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+}
+/* settings */
+.aipk-settings .aipk-table {
+	max-width: 900px;
+	margin: 8px 0 12px;
+}
+.aipk-settings .aipk-table td:first-child {
+	width: 260px;
+	font-weight: 600;
+}
+.aipk-settings .notice.inline {
+	max-width: 880px;
+}

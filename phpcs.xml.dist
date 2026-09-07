@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="AI Act Image Disclosure">
+	<description>WordPress coding standards for AI Act Image Disclosure.</description>
+	<file>.</file>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<arg value="sp"/>
+	<arg name="extensions" value="php"/>
+	<config name="minimum_supported_wp_version" value="6.0"/>
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="WordPress">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ai-act-image-disclosure"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="aipk"/>
+				<element value="AIPK"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
