@@ -8,7 +8,7 @@ Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Mark, keep and disclose AI-generated images: IPTC marking written where missing and kept in every size, AI badge with provenance popup, Media Library audit. EU AI Act art. 50.
+Mark, keep and disclose AI-generated images: IPTC marking kept in every size, AI badge with provenance popup, Media Library audit. EU AI Act art. 50.
 
 == Description ==
 

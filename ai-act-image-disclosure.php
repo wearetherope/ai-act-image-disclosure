@@ -3,7 +3,7 @@
  * Plugin Name:       AI Act Image Marking
  * Plugin URI:        https://github.com/wearetherope/ai-act-image-disclosure
  * Description:       Mark, keep and disclose AI-generated images: writes the IPTC marking where it is missing, keeps it in every size WordPress generates, adds an AI badge with provenance popup and documents everything in the Media Library. EU AI Act, article 50.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            The Rope
