@@ -1,6 +1,6 @@
-=== AI Act Image Marking ===
+=== Ropemark Image Marking for the EU AI Act ===
 Contributors: therope
-Tags: ai act, ai generated images, ai label, provenance, compliance
+Tags: ai images, provenance, iptc, image metadata, media library
 Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -14,14 +14,14 @@ Mark, keep and disclose AI-generated images: IPTC marking kept in every size, AI
 
 **Since 2 August 2026 the EU AI Act (article 50) requires AI-generated and AI-manipulated images to be marked in a machine-readable way and, when they show people or scenes that look real, to be disclosed visibly to the public.** If you publish virtual models, AI product shots, campaign visuals or any image made with Midjourney, Nano Banana, DALL·E, Firefly, Stable Diffusion or similar tools, this concerns your WordPress site.
 
-AI Act Image Marking does four things no other plugin does together: it **marks** files that lack the marking, **keeps** the marking in every size WordPress generates, **discloses** it on the page and **documents** it in the Media Library.
+Ropemark does four things: it **marks** files that lack the IPTC marking, **keeps** the marking in every size WordPress generates, **discloses** it on the page and **documents** it in the Media Library.
 
 = 1. The visible disclosure =
 
-* **AI badge**: a round, semi-transparent "AI" mark overlaid on AI-generated images, in the corner you choose. Text or your own icon, diameter, colors, opacity, minimum image width, tooltip; a custom CSS box restyles it completely.
+* **AI badge**: a round, semi-transparent "AI" mark overlaid on AI-generated images, in the corner you choose. Text or your own icon, diameter, colors, opacity, minimum image width and tooltip are settings; the markup carries CSS classes your theme can restyle.
 * **Provenance popup**: a click on the badge opens a small panel with type, disclosure text, creator, credit, generator and marking of that image. It is plain HTML kept hidden in the page, readable by assistive technology and search engines.
 * **Per image**: not every AI image needs the badge. Each attachment can follow the settings, always show it or never show it, one by one or in bulk.
-* **Text label** under AI images, **site notice** at the end of every page, and a `[ai_act_disclosure]` shortcode plus an "AI disclosure notice" block for your transparency page, with the count of AI images.
+* **Text label** under AI images, **site notice** at the end of every page, and a `[ropemark_disclosure]` shortcode plus an "AI disclosure notice" block for your transparency page, with the count of AI images.
 * **Data attributes** (`data-ai-generated`, `data-digital-source-type`) and **schema.org ImageObject** with `digitalSourceType` for search engines and AI crawlers.
 
 = 2. The machine-readable marking, written and kept =
@@ -62,20 +62,20 @@ Brands, e-commerce teams and agencies that publish AI-generated visuals (virtual
 
 = For developers =
 
-* `aipk_get_provenance( $attachment_id )` returns the record; `aipk_is_ai_generated( $attachment_id )` returns a boolean.
-* Filters: `aipk_should_preserve` (per attachment), `aipk_decorate_image` (badge and label per image), `aipk_badge_text`, `aipk_label_text`, `aipk_popup_rows`.
-* Constant `AIPK_CREDIT_DEFAULT` (wp-config.php) to start with the credit line in the popup enabled.
-* Action: `aipk_after_inject` with the per-size outcome.
-* WP-CLI: `wp ai-provenance scan [--all] [--dry-run]`, `wp ai-provenance status <id>`.
-* CSS hooks: `.aipk-wrap`, `.aipk-ai-badge`, `.aipk-pos-bottom-right` (and the other corners), `.aipk-popup`, `.aipk-label`, `.aipk-site-notice`, `.aipk-disclosure`, `img[data-ai-generated]`.
+* `ropemark_get_provenance( $attachment_id )` returns the record; `ropemark_is_ai_generated( $attachment_id )` returns a boolean.
+* Filters: `ropemark_should_preserve` (per attachment), `ropemark_decorate_image` (badge and label per image), `ropemark_badge_text`, `ropemark_label_text`, `ropemark_popup_rows`.
+* Constant `ROPEMARK_CREDIT_DEFAULT` (wp-config.php) to start with the credit line in the popup enabled.
+* Action: `ropemark_after_inject` with the per-size outcome.
+* WP-CLI: `wp ropemark scan [--all] [--dry-run]`, `wp ropemark status <id>`.
+* CSS classes for the front end: `.ropemark-wrap`, `.ropemark-ai-badge`, `.ropemark-pos-bottom-right` (and the other corners), `.ropemark-popup`, `.ropemark-label`, `.ropemark-site-notice`, `.ropemark-disclosure`, `img[data-ai-generated]`.
 
-AI Act Image Marking is made by [The Rope](https://therope.it), a digital agency in Milan.
+Ropemark Image Marking for the EU AI Act is made by [The Rope](https://therope.it), a digital agency in Milan.
 
 == Installation ==
 
 1. Install from the Plugins screen or upload the folder to `/wp-content/plugins/`.
 2. Activate.
-3. Go to **Media → AI Act Marking**, turn on the badge if you want it, and run **Scan new images** to process what was uploaded before activation.
+3. Go to **Media → Ropemark**, turn on the badge if you want it, and run **Scan new images** to process what was uploaded before activation.
 
 Every new upload is processed automatically.
 
@@ -99,7 +99,7 @@ Smush, EWWW, ShortPixel, Imagify, TinyPNG, Optimole and LiteSpeed all have a "st
 
 = Can I style the badge? =
 
-Yes: text or your own icon, corner, diameter, background color, opacity, text color, minimum image width, tooltip, plus a custom CSS box. Or turn the badge off and use the `data-ai-generated` attribute in your theme.
+Yes: text or your own icon, corner, diameter, background color, opacity, text color, minimum image width and tooltip are settings. For anything else the badge, popup and label carry CSS classes (`.ropemark-ai-badge`, `.ropemark-popup`, `.ropemark-label`) that you can restyle from your theme stylesheet or the Customizer. You can also turn the badge off and use the `data-ai-generated` attribute in your theme.
 
 = Can I keep the badge off some AI images? =
 
@@ -115,7 +115,7 @@ Yes. XMP is written as an `iTXt` chunk in PNG and as an `XMP` chunk in WebP (cre
 
 = Does it slow down uploads? =
 
-Marginally: one read and one write per generated size, copying bytes. Nothing is re-encoded. On a large library use "Scan in background" (Action Scheduler when present, WP-Cron otherwise) or WP-CLI: `wp ai-provenance scan` processes tens of images per second in one process.
+Marginally: one read and one write per generated size, copying bytes. Nothing is re-encoded. On a large library use "Scan in background" (Action Scheduler when present, WP-Cron otherwise) or WP-CLI: `wp ropemark scan` processes tens of images per second in one process.
 
 = How does it behave on a large library? =
 
@@ -127,21 +127,14 @@ Filters and counters use flat flags, not the serialized record, so the Media Lib
 2. The marking panel in the attachment details: provenance, classification, per-image badge.
 3. Badges on grid tiles.
 4. The AI badge and the provenance popup on the front end.
-5. Settings: original file, generated sizes, badge, popup, label, notice, custom CSS.
+5. Settings: original file, generated sizes, badge, popup, label and site notice.
 
 == Changelog ==
 
 = 1.0.1 =
-* Performance: one read per derivative, time-bounded batches, background scan with Action Scheduler or WP-Cron, cached counters, indexable flags for filters, chunked WP-CLI scan.
-* Fix: notice on records saved by earlier scans.
-
-= 1.0.0 =
-* First release: IPTC/XMP/C2PA provenance reading, marking carried into JPEG, PNG and WebP sizes, manual classification per image and in bulk that writes the IPTC digital source type, generator traces as "suspected AI", AI badge with provenance popup, per-image badge choice, text label, site notice, shortcode and block, schema.org digitalSourceType, Media Library column, panel, filters and export, library scan, WP-CLI, REST, Italian translation.
+* First public release: IPTC/XMP/C2PA provenance reading, marking carried into JPEG, PNG and WebP sizes, manual classification per image and in bulk, generator traces as "suspected AI", AI badge with provenance popup, per-image badge choice, text label, site notice, shortcode and block, schema.org digitalSourceType, Media Library column, panel, filters and CSV export, foreground and background library scan, WP-CLI, REST.
 
 == Upgrade Notice ==
 
 = 1.0.1 =
-Faster scans and filters on large libraries, background scan. Re-scan once so filters pick up the new flags.
-
-= 1.0.0 =
-First release.
+First public release.

@@ -20,5 +20,5 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: ai-act-image-marking
+          SLUG: ropemark-image-marking-for-eu-ai-act
           ASSETS_DIR: .wordpress-org

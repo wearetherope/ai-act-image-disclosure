@@ -2,7 +2,7 @@
 /**
  * Settings storage and REST exposure of the provenance meta.
  *
- * @package AI_Act_Image_Disclosure
+ * @package Ropemark_Image_Marking
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,9 +10,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Options.
  */
-class AIPK_Options {
+class Ropemark_Options {
 
-	const OPTION = 'aipk_settings';
+	const OPTION = 'ropemark_settings';
 
 	/**
 	 * Defaults.
@@ -30,7 +30,7 @@ class AIPK_Options {
 			// Front end.
 			'frontend_attrs'         => 1,
 			'frontend_label'         => 0,
-			'label_text'             => __( 'Image generated with artificial intelligence', 'ai-act-image-marking' ),
+			'label_text'             => __( 'Image generated with artificial intelligence', 'ropemark-image-marking-for-eu-ai-act' ),
 			'badge_enabled'          => 0,
 			'badge_text'             => 'AI',
 			'badge_image'            => 0,         // attachment id of a custom badge image.
@@ -40,14 +40,13 @@ class AIPK_Options {
 			'badge_opacity'          => 55,
 			'badge_color'            => '#ffffff',
 			'badge_min_width'        => 200,
-			'badge_title'            => __( 'Image generated with artificial intelligence', 'ai-act-image-marking' ),
+			'badge_title'            => __( 'Image generated with artificial intelligence', 'ropemark-image-marking-for-eu-ai-act' ),
 			'popup_enabled'          => 1,         // click on the badge opens the provenance popup.
-			'popup_title'            => __( 'About this image', 'ai-act-image-marking' ),
-			'credit_link'            => defined( 'AIPK_CREDIT_DEFAULT' ) ? (int) (bool) AIPK_CREDIT_DEFAULT : 0,
+			'popup_title'            => __( 'About this image', 'ropemark-image-marking-for-eu-ai-act' ),
+			'credit_link'            => defined( 'ROPEMARK_CREDIT_DEFAULT' ) ? (int) (bool) ROPEMARK_CREDIT_DEFAULT : 0,
 			'schema_enabled'         => 1,         // ImageObject JSON-LD with digitalSourceType.
 			'footer_notice'          => 0,
-			'notice_text'            => __( 'Some images on this site are generated with artificial intelligence and are marked as such.', 'ai-act-image-marking' ),
-			'custom_css'             => '',
+			'notice_text'            => __( 'Some images on this site are generated with artificial intelligence and are marked as such.', 'ropemark-image-marking-for-eu-ai-act' ),
 		);
 	}
 
@@ -56,7 +55,7 @@ class AIPK_Options {
 	 */
 	public static function init() {
 		register_setting(
-			'aipk',
+			'ropemark',
 			self::OPTION,
 			array(
 				'type'              => 'array',
@@ -101,7 +100,7 @@ class AIPK_Options {
 		);
 		register_post_meta(
 			'attachment',
-			AIPK_Processor::META_KEY,
+			Ropemark_Processor::META_KEY,
 			array(
 				'single'        => true,
 				'type'          => 'object',
@@ -111,7 +110,7 @@ class AIPK_Options {
 		);
 		register_post_meta(
 			'attachment',
-			AIPK_Processor::META_AI,
+			Ropemark_Processor::META_AI,
 			array(
 				'single'        => true,
 				'type'          => 'string',
@@ -162,10 +161,10 @@ class AIPK_Options {
 	 */
 	public static function positions() {
 		return array(
-			'bottom-right' => __( 'Bottom right', 'ai-act-image-marking' ),
-			'bottom-left'  => __( 'Bottom left', 'ai-act-image-marking' ),
-			'top-right'    => __( 'Top right', 'ai-act-image-marking' ),
-			'top-left'     => __( 'Top left', 'ai-act-image-marking' ),
+			'bottom-right' => __( 'Bottom right', 'ropemark-image-marking-for-eu-ai-act' ),
+			'bottom-left'  => __( 'Bottom left', 'ropemark-image-marking-for-eu-ai-act' ),
+			'top-right'    => __( 'Top right', 'ropemark-image-marking-for-eu-ai-act' ),
+			'top-left'     => __( 'Top left', 'ropemark-image-marking-for-eu-ai-act' ),
 		);
 	}
 
@@ -208,8 +207,6 @@ class AIPK_Options {
 			$c         = isset( $input[ $k ] ) ? sanitize_hex_color( wp_unslash( $input[ $k ] ) ) : '';
 			$out[ $k ] = $c ? $c : $d[ $k ];
 		}
-		$css               = isset( $input['custom_css'] ) ? (string) wp_unslash( $input['custom_css'] ) : '';
-		$out['custom_css'] = wp_strip_all_tags( $css );
 		return $out;
 	}
 

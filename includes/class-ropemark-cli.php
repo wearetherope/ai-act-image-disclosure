@@ -2,7 +2,7 @@
 /**
  * WP-CLI commands.
  *
- * @package AI_Act_Image_Disclosure
+ * @package Ropemark_Image_Marking
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Scan and inspect image provenance from the command line.
  */
-class AIPK_CLI {
+class Ropemark_CLI {
 
 	/**
 	 * Scan the media library: read provenance and carry the marking into every size.
@@ -25,8 +25,8 @@ class AIPK_CLI {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp ai-provenance scan
-	 *     wp ai-provenance scan --all
+	 *     wp ropemark scan
+	 *     wp ropemark scan --all
 	 *
 	 * @param array $args       Positional.
 	 * @param array $assoc_args Flags.
@@ -38,7 +38,7 @@ class AIPK_CLI {
 		if ( $all ) {
 			$ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_mime_type IN ('image/jpeg','image/png','image/webp') ORDER BY ID" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		} else {
-			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT p.ID FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s WHERE p.post_type = 'attachment' AND p.post_mime_type IN ('image/jpeg','image/png','image/webp') AND m.meta_id IS NULL ORDER BY p.ID", AIPK_Processor::META_KEY ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT p.ID FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s WHERE p.post_type = 'attachment' AND p.post_mime_type IN ('image/jpeg','image/png','image/webp') AND m.meta_id IS NULL ORDER BY p.ID", Ropemark_Processor::META_KEY ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		}
 		$n = count( $ids );
 		if ( $dry ) {
@@ -53,13 +53,13 @@ class AIPK_CLI {
 		$n_ai = 0;
 		$i    = 0;
 		foreach ( $ids as $id ) {
-			$r = AIPK_Processor::process( (int) $id );
+			$r = Ropemark_Processor::process( (int) $id );
 			if ( $r && $r['ai'] ) {
 				$n_ai++;
 			}
 			$bar->tick();
 			if ( 0 === ++$i % 100 ) {
-				AIPK_Processor::release_memory();
+				Ropemark_Processor::release_memory();
 			}
 		}
 		$bar->finish();
@@ -78,12 +78,12 @@ class AIPK_CLI {
 	 */
 	public function status( $args ) {
 		$id = (int) $args[0];
-		$r  = AIPK_Processor::record( $id );
+		$r  = Ropemark_Processor::record( $id );
 		if ( ! $r ) {
-			WP_CLI::error( 'Not scanned yet. Run: wp ai-provenance scan --all' );
+			WP_CLI::error( 'Not scanned yet. Run: wp ropemark scan --all' );
 		}
 		WP_CLI::print_value( $r, array( 'format' => 'yaml' ) );
-		$sizes = get_post_meta( $id, AIPK_Processor::META_SIZES, true );
+		$sizes = get_post_meta( $id, Ropemark_Processor::META_SIZES, true );
 		if ( is_array( $sizes ) ) {
 			unset( $sizes['_file'] );
 			WP_CLI::print_value( $sizes, array( 'format' => 'yaml' ) );
@@ -91,4 +91,4 @@ class AIPK_CLI {
 	}
 }
 
-WP_CLI::add_command( 'ai-provenance', 'AIPK_CLI' );
+WP_CLI::add_command( 'ropemark', 'Ropemark_CLI' );

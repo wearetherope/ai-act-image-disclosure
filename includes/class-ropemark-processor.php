@@ -4,7 +4,7 @@
  * classification, writes the marking where it is missing, stores the record
  * and carries XMP/IPTC into every generated size.
  *
- * @package AI_Act_Image_Disclosure
+ * @package Ropemark_Image_Marking
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,18 +12,18 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Upload pipeline processor.
  */
-class AIPK_Processor {
+class Ropemark_Processor {
 
-	const META_KEY    = '_aipk_provenance';
-	const META_AI     = '_aipk_ai';
-	const META_SIZES  = '_aipk_sizes';
-	const META_MANUAL = '_aipk_manual';
-	const META_DISCLOSE = '_aipk_disclose';
-	const META_SUSPECT  = '_aipk_suspect';
-	const META_MARKED   = '_aipk_marked';
-	const COUNTS_CACHE  = 'aipk_counts';
-	const BG_OPTION     = 'aipk_bg_scan';
-	const BG_HOOK       = 'aipk_bg_scan_run';
+	const META_KEY    = '_ropemark_provenance';
+	const META_AI     = '_ropemark_ai';
+	const META_SIZES  = '_ropemark_sizes';
+	const META_MANUAL = '_ropemark_manual';
+	const META_DISCLOSE = '_ropemark_disclose';
+	const META_SUSPECT  = '_ropemark_suspect';
+	const META_MARKED   = '_ropemark_marked';
+	const COUNTS_CACHE  = 'ropemark_counts';
+	const BG_OPTION     = 'ropemark_bg_scan';
+	const BG_HOOK       = 'ropemark_bg_scan_run';
 
 	/**
 	 * Per-media visible disclosure: '' follows the settings, 'show' forces badge and label, 'hide' suppresses them.
@@ -125,7 +125,7 @@ class AIPK_Processor {
 		if ( ! $original || ! file_exists( $original ) ) {
 			return null;
 		}
-		$record = AIPK_Reader::read( $original );
+		$record = Ropemark_Reader::read( $original );
 		if ( ! $record['readable'] ) {
 			return null;
 		}
@@ -133,13 +133,13 @@ class AIPK_Processor {
 		// Original: optional cleaning of post-production traces.
 		$record['original_clean'] = self::maybe_clean_original( $original, $record );
 		if ( 'cleaned' === $record['original_clean'] ) {
-			$record = array_merge( AIPK_Reader::read( $original ), array( 'original_clean' => 'cleaned' ) );
+			$record = array_merge( Ropemark_Reader::read( $original ), array( 'original_clean' => 'cleaned' ) );
 		}
 
 		// Manual classification: writes the marking into the files.
 		$manual           = get_post_meta( $attachment_id, self::META_MANUAL, true );
 		$record['manual'] = is_string( $manual ) ? $manual : '';
-		$bundle           = AIPK_Segments::extract( $original );
+		$bundle           = Ropemark_Segments::extract( $original );
 		if ( '' !== $record['manual'] ) {
 			$record = self::apply_manual( $record, $bundle, $original );
 		}
@@ -199,15 +199,15 @@ class AIPK_Processor {
 		$record['suspect']             = false;
 		$record['source']              = 'manual';
 		if ( empty( $record['description'] ) ) {
-			$record['description'] = AIPK_Options::get( 'label_text' );
+			$record['description'] = Ropemark_Options::get( 'label_text' );
 		}
 		if ( null === $bundle ) {
 			return $record;
 		}
-		$bundle['xmp']          = AIPK_Segments::set_digital_source_type( $bundle['xmp'], $term, $record );
+		$bundle['xmp']          = Ropemark_Segments::set_digital_source_type( $bundle['xmp'], $term, $record );
 		$bundle['xmp_extended'] = array();
-		if ( AIPK_Options::get( 'manual_writes_original' ) && ! $record['has_c2pa'] ) {
-			$ok                        = AIPK_Segments::inject( $original, $bundle );
+		if ( Ropemark_Options::get( 'manual_writes_original' ) && ! $record['has_c2pa'] ) {
+			$ok                        = Ropemark_Segments::inject( $original, $bundle );
 			$record['original_marked'] = ( true === $ok ) ? 'written' : 'error';
 		} else {
 			$record['original_marked'] = $record['has_c2pa'] ? 'skipped-c2pa' : 'skipped';
@@ -245,7 +245,7 @@ class AIPK_Processor {
 	 */
 	public static function inject_all( $attachment_id, $metadata, $original, $record, $bundle = null ) {
 		$result = array();
-		$scope  = AIPK_Options::get( 'scope' );
+		$scope  = Ropemark_Options::get( 'scope' );
 		$want   = ( 'all' === $scope ) ? ( $record['has_xmp'] || $record['has_iptc'] ) : $record['ai'];
 		/**
 		 * Whether the marking is carried into derivatives for this attachment.
@@ -254,26 +254,26 @@ class AIPK_Processor {
 		 * @param int   $attachment_id Attachment id.
 		 * @param array $record        Record.
 		 */
-		$want = apply_filters( 'aipk_should_preserve', $want, $attachment_id, $record );
+		$want = apply_filters( 'ropemark_should_preserve', $want, $attachment_id, $record );
 		if ( ! $want ) {
 			return $result;
 		}
-		$mode = AIPK_Options::get( 'derivative_mode' );
+		$mode = Ropemark_Options::get( 'derivative_mode' );
 		if ( 'none' === $mode ) {
 			return $result;
 		}
 		if ( null === $bundle ) {
-			$bundle = AIPK_Segments::extract( $original );
+			$bundle = Ropemark_Segments::extract( $original );
 		}
 		if ( null === $bundle || ( '' === $bundle['xmp'] && '' === $bundle['iptc'] ) ) {
 			return $result;
 		}
 		if ( 'minimal' === $mode ) {
-			$bundle['xmp']          = AIPK_Segments::build_xmp( $record );
+			$bundle['xmp']          = Ropemark_Segments::build_xmp( $record );
 			$bundle['xmp_extended'] = array();
 			$bundle['iptc']         = '';
 		}
-		$skip    = (array) AIPK_Options::get( 'skip_sizes' );
+		$skip    = (array) Ropemark_Options::get( 'skip_sizes' );
 		$targets = self::derivative_paths( $attachment_id, $metadata, $original );
 		foreach ( $targets as $size => $path ) {
 			if ( in_array( $size, $skip, true ) ) {
@@ -285,7 +285,7 @@ class AIPK_Processor {
 				continue;
 			}
 			// One read per derivative: check the tag as text, write only when missing.
-			$ok              = AIPK_Segments::ensure( $path, $bundle, $record['digital_source_type'] );
+			$ok              = Ropemark_Segments::ensure( $path, $bundle, $record['digital_source_type'] );
 			$result[ $size ] = is_wp_error( $ok ) ? 'error: ' . $ok->get_error_message() : $ok;
 		}
 		/**
@@ -294,7 +294,7 @@ class AIPK_Processor {
 		 * @param int   $attachment_id Attachment id.
 		 * @param array $result        Per-size outcome.
 		 */
-		do_action( 'aipk_after_inject', $attachment_id, $result );
+		do_action( 'ropemark_after_inject', $attachment_id, $result );
 		return $result;
 	}
 
@@ -306,7 +306,7 @@ class AIPK_Processor {
 	 * @return string kept|cleaned|skipped-c2pa|skipped|error
 	 */
 	private static function maybe_clean_original( $original, $record ) {
-		if ( 'clean' !== AIPK_Options::get( 'original_mode' ) ) {
+		if ( 'clean' !== Ropemark_Options::get( 'original_mode' ) ) {
 			return 'kept';
 		}
 		if ( $record['has_c2pa'] ) {
@@ -315,17 +315,17 @@ class AIPK_Processor {
 		if ( ! $record['has_xmp'] ) {
 			return 'skipped';
 		}
-		$bundle = AIPK_Segments::extract( $original );
+		$bundle = Ropemark_Segments::extract( $original );
 		if ( null === $bundle || '' === $bundle['xmp'] ) {
 			return 'skipped';
 		}
-		$cleaned = AIPK_Segments::clean_xmp( $bundle['xmp'] );
+		$cleaned = Ropemark_Segments::clean_xmp( $bundle['xmp'] );
 		if ( $cleaned === $bundle['xmp'] ) {
 			return 'kept';
 		}
 		$bundle['xmp']          = $cleaned;
 		$bundle['xmp_extended'] = array();
-		$ok                     = AIPK_Segments::inject( $original, $bundle );
+		$ok                     = Ropemark_Segments::inject( $original, $bundle );
 		return ( true === $ok ) ? 'cleaned' : 'error';
 	}
 
@@ -378,7 +378,7 @@ class AIPK_Processor {
 	 */
 	public static function record( $attachment_id ) {
 		$r = get_post_meta( $attachment_id, self::META_KEY, true );
-		return is_array( $r ) ? array_merge( AIPK_Reader::empty_record(), $r ) : null;
+		return is_array( $r ) ? array_merge( Ropemark_Reader::empty_record(), $r ) : null;
 	}
 
 	/**
@@ -454,7 +454,7 @@ class AIPK_Processor {
 	 * Keep long loops flat: drop the per-request object caches WordPress accumulates.
 	 */
 	public static function release_memory() {
-		AIPK_Segments::forget();
+		Ropemark_Segments::forget();
 		global $wp_object_cache;
 		if ( is_object( $wp_object_cache ) && ! wp_using_ext_object_cache() ) {
 			$wp_object_cache->cache = array();
@@ -485,9 +485,9 @@ class AIPK_Processor {
 	 * @return array
 	 */
 	public static function cron_schedule( $schedules ) {
-		$schedules['aipk_minute'] = array(
+		$schedules['ropemark_minute'] = array(
 			'interval' => MINUTE_IN_SECONDS,
-			'display'  => __( 'Every minute (AI Act Image Marking scan)', 'ai-act-image-marking' ),
+			'display'  => __( 'Every minute (Ropemark Image Marking for the EU AI Act scan)', 'ropemark-image-marking-for-eu-ai-act' ),
 		);
 		return $schedules;
 	}
@@ -525,13 +525,13 @@ class AIPK_Processor {
 	 */
 	private static function bg_schedule_next( $delay ) {
 		if ( function_exists( 'as_schedule_single_action' ) && function_exists( 'as_has_scheduled_action' ) ) {
-			if ( ! as_has_scheduled_action( self::BG_HOOK, array(), 'ai-act-image-marking' ) ) {
-				as_schedule_single_action( time() + $delay, self::BG_HOOK, array(), 'ai-act-image-marking' );
+			if ( ! as_has_scheduled_action( self::BG_HOOK, array(), 'ropemark-image-marking-for-eu-ai-act' ) ) {
+				as_schedule_single_action( time() + $delay, self::BG_HOOK, array(), 'ropemark-image-marking-for-eu-ai-act' );
 			}
 			return;
 		}
 		if ( ! wp_next_scheduled( self::BG_HOOK ) ) {
-			wp_schedule_event( time() + $delay, 'aipk_minute', self::BG_HOOK );
+			wp_schedule_event( time() + $delay, 'ropemark_minute', self::BG_HOOK );
 		}
 	}
 
@@ -541,7 +541,7 @@ class AIPK_Processor {
 	public static function bg_stop() {
 		delete_option( self::BG_OPTION );
 		if ( function_exists( 'as_unschedule_all_actions' ) ) {
-			as_unschedule_all_actions( self::BG_HOOK, array(), 'ai-act-image-marking' );
+			as_unschedule_all_actions( self::BG_HOOK, array(), 'ropemark-image-marking-for-eu-ai-act' );
 		}
 		$ts = wp_next_scheduled( self::BG_HOOK );
 		while ( $ts ) {
@@ -573,7 +573,7 @@ class AIPK_Processor {
 		 *
 		 * @param int $batch Default 200.
 		 */
-		$batch = max( 1, (int) apply_filters( 'aipk_bg_batch', 200 ) );
+		$batch = max( 1, (int) apply_filters( 'ropemark_bg_batch', 200 ) );
 		$args  = array(
 			'post_type'      => 'attachment',
 			'post_mime_type' => array( 'image/jpeg', 'image/png', 'image/webp' ),
@@ -597,7 +597,7 @@ class AIPK_Processor {
 		$ids = get_posts( $args );
 		if ( empty( $ids ) ) {
 			self::bg_stop();
-			set_transient( 'aipk_bg_done', $s, DAY_IN_SECONDS );
+			set_transient( 'ropemark_bg_done', $s, DAY_IN_SECONDS );
 			return;
 		}
 		$res          = self::run_batch( $ids, self::time_budget( 25 ) );
@@ -607,7 +607,7 @@ class AIPK_Processor {
 		$s['last']    = time();
 		if ( $res['done'] >= count( $ids ) && count( $ids ) < $batch ) {
 			self::bg_stop();
-			set_transient( 'aipk_bg_done', $s, DAY_IN_SECONDS );
+			set_transient( 'ropemark_bg_done', $s, DAY_IN_SECONDS );
 			return;
 		}
 		update_option( self::BG_OPTION, $s, false );

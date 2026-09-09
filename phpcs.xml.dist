@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="AI Act Image Disclosure">
-	<description>WordPress coding standards for AI Act Image Disclosure.</description>
+<ruleset name="Ropemark Image Marking for the EU AI Act">
+	<description>WordPress coding standards for Ropemark Image Marking for the EU AI Act.</description>
 	<file>.</file>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
@@ -14,15 +14,15 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="ai-act-image-marking"/>
+				<element value="ropemark-image-marking-for-eu-ai-act"/>
 			</property>
 		</properties>
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="aipk"/>
-				<element value="AIPK"/>
+				<element value="ropemark"/>
+				<element value="Ropemark"/>
 			</property>
 		</properties>
 	</rule>

@@ -10,7 +10,7 @@
  * covers the exact bytes of the original file, so a copy inside a resized
  * derivative would validate as tampered.
  *
- * @package AI_Act_Image_Disclosure
+ * @package Ropemark_Image_Marking
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Segment level reader and writer.
  */
-class AIPK_Segments {
+class Ropemark_Segments {
 
 	const XMP_HEADER = "http://ns.adobe.com/xap/1.0/\0";
 	const XMP_EXT_HEADER = "http://ns.adobe.com/xmp/extension/\0";
@@ -89,7 +89,7 @@ class AIPK_Segments {
 	public static function ensure( $path, $bundle, $term ) {
 		$data = @file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.PHP.NoSilencedErrors.Discouraged
 		if ( false === $data || strlen( $data ) < 12 ) {
-			return new WP_Error( 'aipk_read', 'Cannot read file.' );
+			return new WP_Error( 'ropemark_read', 'Cannot read file.' );
 		}
 		$format = self::detect_format_data( $data );
 		if ( '' === $format ) {
@@ -125,13 +125,13 @@ class AIPK_Segments {
 	 * @return true|WP_Error
 	 */
 	private static function write_atomic( $path, $out ) {
-		$tmp = $path . '.aipk-tmp';
+		$tmp = $path . '.ropemark-tmp';
 		if ( false === file_put_contents( $tmp, $out ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			return new WP_Error( 'aipk_write', 'Could not write temporary file.' );
+			return new WP_Error( 'ropemark_write', 'Could not write temporary file.' );
 		}
 		if ( ! copy( $tmp, $path ) ) {
 			wp_delete_file( $tmp );
-			return new WP_Error( 'aipk_replace', 'Could not replace target file.' );
+			return new WP_Error( 'ropemark_replace', 'Could not replace target file.' );
 		}
 		wp_delete_file( $tmp );
 		self::forget();
@@ -166,10 +166,10 @@ class AIPK_Segments {
 	 */
 	public static function inject( $path, $bundle ) {
 		if ( ! is_readable( $path ) || ! wp_is_writable( $path ) ) {
-			return new WP_Error( 'aipk_unwritable', 'File is not writable.' );
+			return new WP_Error( 'ropemark_unwritable', 'File is not writable.' );
 		}
 		if ( empty( $bundle['xmp'] ) && empty( $bundle['iptc'] ) ) {
-			return new WP_Error( 'aipk_nothing', 'Nothing to inject.' );
+			return new WP_Error( 'ropemark_nothing', 'Nothing to inject.' );
 		}
 		$format = self::detect_format( $path );
 		switch ( $format ) {
@@ -183,19 +183,19 @@ class AIPK_Segments {
 				$out = self::inject_webp( $path, $bundle );
 				break;
 			default:
-				return new WP_Error( 'aipk_format', 'Unsupported format for injection.' );
+				return new WP_Error( 'ropemark_format', 'Unsupported format for injection.' );
 		}
 		if ( is_wp_error( $out ) ) {
 			return $out;
 		}
-		$tmp = $path . '.aipk-tmp';
+		$tmp = $path . '.ropemark-tmp';
 		if ( false === file_put_contents( $tmp, $out ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			return new WP_Error( 'aipk_write', 'Could not write temporary file.' );
+			return new WP_Error( 'ropemark_write', 'Could not write temporary file.' );
 		}
 		// Atomic replace: the derivative is never half-written while a visitor requests it.
 		if ( ! rename( $tmp, $path ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
 			wp_delete_file( $tmp );
-			return new WP_Error( 'aipk_rename', 'Could not replace target file.' );
+			return new WP_Error( 'ropemark_rename', 'Could not replace target file.' );
 		}
 		return true;
 	}
@@ -332,7 +332,7 @@ class AIPK_Segments {
 			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		}
 		if ( false === $data || "\xFF\xD8" !== substr( $data, 0, 2 ) ) {
-			return new WP_Error( 'aipk_jpeg', 'Not a JPEG.' );
+			return new WP_Error( 'ropemark_jpeg', 'Not a JPEG.' );
 		}
 		$walk = self::jpeg_segments( $data );
 		$head = array(); // APP0, EXIF first.
@@ -364,7 +364,7 @@ class AIPK_Segments {
 			$ours[] = self::jpeg_segment( 0xED, self::PHOTOSHOP_HEADER . $bundle['iptc'] );
 		}
 		if ( empty( $ours ) ) {
-			return new WP_Error( 'aipk_nothing', 'Nothing to inject.' );
+			return new WP_Error( 'ropemark_nothing', 'Nothing to inject.' );
 		}
 		return "\xFF\xD8" . implode( '', $head ) . implode( '', $ours ) . implode( '', $rest ) . substr( $data, $walk['offset'] );
 	}
@@ -548,13 +548,13 @@ class AIPK_Segments {
 	 */
 	private static function inject_png( $path, $bundle, $data = null ) {
 		if ( empty( $bundle['xmp'] ) ) {
-			return new WP_Error( 'aipk_nothing', 'PNG carries XMP only.' );
+			return new WP_Error( 'ropemark_nothing', 'PNG carries XMP only.' );
 		}
 		if ( null === $data ) {
 			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		}
 		if ( false === $data || self::PNG_SIGNATURE !== substr( $data, 0, 8 ) ) {
-			return new WP_Error( 'aipk_png', 'Not a PNG.' );
+			return new WP_Error( 'ropemark_png', 'Not a PNG.' );
 		}
 		$chunks = self::png_chunks_data( $data );
 		$out    = self::PNG_SIGNATURE;
@@ -644,13 +644,13 @@ class AIPK_Segments {
 	 */
 	private static function inject_webp( $path, $bundle, $data = null ) {
 		if ( empty( $bundle['xmp'] ) ) {
-			return new WP_Error( 'aipk_nothing', 'WebP carries XMP only.' );
+			return new WP_Error( 'ropemark_nothing', 'WebP carries XMP only.' );
 		}
 		if ( null === $data ) {
 			$data = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		}
 		if ( false === $data || 'RIFF' !== substr( $data, 0, 4 ) ) {
-			return new WP_Error( 'aipk_webp', 'Not a WebP.' );
+			return new WP_Error( 'ropemark_webp', 'Not a WebP.' );
 		}
 		$chunks = self::webp_chunks( $data );
 		$vp8x   = null;
@@ -665,7 +665,7 @@ class AIPK_Segments {
 		if ( null === $vp8x ) {
 			$dims = self::webp_dimensions( $chunks );
 			if ( ! $dims ) {
-				return new WP_Error( 'aipk_webp_dims', 'Cannot read WebP canvas size.' );
+				return new WP_Error( 'ropemark_webp_dims', 'Cannot read WebP canvas size.' );
 			}
 			$flags = 0;
 			foreach ( $body as $c ) {
@@ -746,7 +746,7 @@ class AIPK_Segments {
 			$dst = 'http://cv.iptc.org/newscodes/digitalsourcetype/' . $dst;
 		}
 		$x  = "<?xpacket begin=\"\xEF\xBB\xBF\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>";
-		$x .= '<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="AI Act Image Disclosure">'
+		$x .= '<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Ropemark Image Marking for the EU AI Act">'
 			. '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
 			. '<rdf:Description rdf:about="" xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/"'
 			. ' xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/"'

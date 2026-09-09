@@ -1,4 +1,4 @@
-# AI Act Image Marking translation template.
+# Ropemark translation template.
 # Copyright (C) 2026 The Chain S.r.l.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 20:17+0200\n"
+"POT-Creation-Date: 2026-09-09 18:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,353 +18,360 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: includes/class-aipk-admin.php:69
+#: includes/class-ropemark-admin.php:69
 msgid "Automatic (as declared by the file)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:70 includes/class-aipk-admin.php:1042
-#: includes/class-aipk-reader.php:266
+#: includes/class-ropemark-admin.php:70 includes/class-ropemark-admin.php:1037
+#: includes/class-ropemark-reader.php:266
 msgid "AI generated"
 msgstr ""
 
-#: includes/class-aipk-admin.php:71
+#: includes/class-ropemark-admin.php:71
 msgid "AI modified (real elements plus AI)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:72 includes/class-aipk-admin.php:307
-#: includes/class-aipk-admin.php:518
+#: includes/class-ropemark-admin.php:72 includes/class-ropemark-admin.php:307
+#: includes/class-ropemark-admin.php:518
 msgid "Not AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:83
+#: includes/class-ropemark-admin.php:83
 msgid "Follow the settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:84
+#: includes/class-ropemark-admin.php:84
 msgid "Always show badge and label"
 msgstr ""
 
-#: includes/class-aipk-admin.php:85
+#: includes/class-ropemark-admin.php:85
 msgid "Never show them on this image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:96
+#: includes/class-ropemark-admin.php:96
 msgid "All AI markings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:97 includes/class-aipk-admin.php:924
+#: includes/class-ropemark-admin.php:97 includes/class-ropemark-admin.php:924
 msgid "AI generated or modified"
 msgstr ""
 
-#: includes/class-aipk-admin.php:98 includes/class-aipk-admin.php:117
-#: includes/class-aipk-admin.php:616 includes/class-aipk-admin.php:925
+#: includes/class-ropemark-admin.php:98 includes/class-ropemark-admin.php:117
+#: includes/class-ropemark-admin.php:616 includes/class-ropemark-admin.php:925
 msgid "Suspected AI, to confirm"
 msgstr ""
 
-#: includes/class-aipk-admin.php:99
+#: includes/class-ropemark-admin.php:99
 msgid "With provenance marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:100
+#: includes/class-ropemark-admin.php:100
 msgid "Without marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:101 includes/class-aipk-admin.php:501
-#: includes/class-aipk-admin.php:926
+#: includes/class-ropemark-admin.php:101 includes/class-ropemark-admin.php:501
+#: includes/class-ropemark-admin.php:926
 msgid "Not scanned yet"
 msgstr ""
 
-#: includes/class-aipk-admin.php:120
+#: includes/class-ropemark-admin.php:120
 msgid "Not AI (set by hand)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:125
+#: includes/class-ropemark-admin.php:125
 msgid "No marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:136
+#: includes/class-ropemark-admin.php:136
 msgid "marked"
 msgstr ""
 
-#: includes/class-aipk-admin.php:137
+#: includes/class-ropemark-admin.php:137
 msgid "marking carried over"
 msgstr ""
 
-#: includes/class-aipk-admin.php:138
+#: includes/class-ropemark-admin.php:138
 msgid "marking written"
 msgstr ""
 
-#: includes/class-aipk-admin.php:139
+#: includes/class-ropemark-admin.php:139
 msgid "file missing"
 msgstr ""
 
-#: includes/class-aipk-admin.php:140
+#: includes/class-ropemark-admin.php:140
 msgid "format not supported"
 msgstr ""
 
-#: includes/class-aipk-admin.php:141
+#: includes/class-ropemark-admin.php:141
 msgid "skipped by settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:142
+#: includes/class-ropemark-admin.php:142
 msgid "left untouched: carries a C2PA manifest"
 msgstr ""
 
-#: includes/class-aipk-admin.php:143
+#: includes/class-ropemark-admin.php:143
 msgid "error"
 msgstr ""
 
-#: includes/class-aipk-admin.php:157
+#: includes/class-ropemark-admin.php:157
 msgid "declared in the file (XMP)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:159
+#: includes/class-ropemark-admin.php:159
 msgid "declared in the file (C2PA manifest)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:161
+#: includes/class-ropemark-admin.php:161
 msgid "set by hand in the Media Library"
 msgstr ""
 
-#: includes/class-aipk-admin.php:163 includes/class-aipk-admin.php:563
-#: includes/class-aipk-admin.php:808
+#: includes/class-ropemark-admin.php:163 includes/class-ropemark-admin.php:563
+#: includes/class-ropemark-admin.php:808
 msgid "none"
 msgstr ""
 
-#: includes/class-aipk-admin.php:242 includes/class-aipk-admin.php:246
-#: includes/class-aipk-admin.php:481
+#: includes/class-ropemark-admin.php:242 includes/class-ropemark-admin.php:246
+#: includes/class-ropemark-admin.php:481
 msgid "AI marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:267 includes/class-aipk-admin.php:758
+#: includes/class-ropemark-admin.php:267 includes/class-ropemark-admin.php:758
 msgid "Not scanned"
 msgstr ""
 
-#: includes/class-aipk-admin.php:269
+#: includes/class-ropemark-admin.php:269
 msgid "Scan now"
 msgstr ""
 
-#: includes/class-aipk-admin.php:281
+#: includes/class-ropemark-admin.php:281
 msgid "set by hand"
 msgstr ""
 
-#: includes/class-aipk-admin.php:285
+#: includes/class-ropemark-admin.php:285
 msgid "badge hidden"
 msgstr ""
 
-#: includes/class-aipk-admin.php:287
+#: includes/class-ropemark-admin.php:287
 msgid "badge forced"
 msgstr ""
 
-#: includes/class-aipk-admin.php:309
+#: includes/class-ropemark-admin.php:309
 msgid "Show badge"
 msgstr ""
 
-#: includes/class-aipk-admin.php:309
+#: includes/class-ropemark-admin.php:309
 msgid "Hide badge"
 msgstr ""
 
-#: includes/class-aipk-admin.php:311
+#: includes/class-ropemark-admin.php:311
 msgid "Mark as AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:326
+#: includes/class-ropemark-admin.php:326
 msgid "Filter by AI marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:373
+#: includes/class-ropemark-admin.php:373
 msgid "AI marking: AI generated"
 msgstr ""
 
-#: includes/class-aipk-admin.php:374
+#: includes/class-ropemark-admin.php:374
 msgid "AI marking: AI modified"
 msgstr ""
 
-#: includes/class-aipk-admin.php:375
+#: includes/class-ropemark-admin.php:375
 msgid "AI marking: not AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:376
+#: includes/class-ropemark-admin.php:376
 msgid "AI marking: back to automatic"
 msgstr ""
 
-#: includes/class-aipk-admin.php:377
+#: includes/class-ropemark-admin.php:377
 msgid "AI marking: re-scan"
 msgstr ""
 
-#: includes/class-aipk-admin.php:378
+#: includes/class-ropemark-admin.php:378
 msgid "AI badge: always show"
 msgstr ""
 
-#: includes/class-aipk-admin.php:379
+#: includes/class-ropemark-admin.php:379
 msgid "AI badge: never show"
 msgstr ""
 
-#: includes/class-aipk-admin.php:380
+#: includes/class-ropemark-admin.php:380
 msgid "AI badge: follow the settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:445 includes/class-aipk-admin.php:1090
-#: includes/class-aipk-admin.php:1103 includes/class-aipk-admin.php:1121
-#: includes/class-aipk-admin.php:1135 includes/class-aipk-admin.php:1178
-#: includes/class-aipk-admin.php:1196 includes/class-aipk-admin.php:1209
+#: includes/class-ropemark-admin.php:445 includes/class-ropemark-admin.php:1084
+#: includes/class-ropemark-admin.php:1097
+#: includes/class-ropemark-admin.php:1115
+#: includes/class-ropemark-admin.php:1129
+#: includes/class-ropemark-admin.php:1172
+#: includes/class-ropemark-admin.php:1190
+#: includes/class-ropemark-admin.php:1203
 msgid "Not allowed."
 msgstr ""
 
-#: includes/class-aipk-admin.php:503
+#: includes/class-ropemark-admin.php:503
 msgid "Scan file"
 msgstr ""
 
-#: includes/class-aipk-admin.php:515
+#: includes/class-ropemark-admin.php:515
 #, php-format
 msgid ""
 "The file carries traces of %s but no formal marking. Confirm to write it."
 msgstr ""
 
-#: includes/class-aipk-admin.php:518
+#: includes/class-ropemark-admin.php:518
 msgid "Confirm: AI generated"
 msgstr ""
 
-#: includes/class-aipk-admin.php:522 includes/class-aipk-admin.php:1042
-#: includes/class-aipk-frontend.php:203
+#: includes/class-ropemark-admin.php:522 includes/class-ropemark-admin.php:1037
+#: includes/class-ropemark-frontend.php:203
 msgid "Type"
 msgstr ""
 
-#: includes/class-aipk-admin.php:522
+#: includes/class-ropemark-admin.php:522
 msgid "absent"
 msgstr ""
 
-#: includes/class-aipk-admin.php:523 includes/class-aipk-admin.php:877
-#: includes/class-aipk-admin.php:1043 includes/class-aipk-frontend.php:204
+#: includes/class-ropemark-admin.php:523 includes/class-ropemark-admin.php:877
+#: includes/class-ropemark-admin.php:1038
+#: includes/class-ropemark-frontend.php:204
 msgid "Disclosure"
 msgstr ""
 
-#: includes/class-aipk-admin.php:524 includes/class-aipk-frontend.php:205
+#: includes/class-ropemark-admin.php:524
+#: includes/class-ropemark-frontend.php:205
 msgid "Creator"
 msgstr ""
 
-#: includes/class-aipk-admin.php:525 includes/class-aipk-frontend.php:206
+#: includes/class-ropemark-admin.php:525
+#: includes/class-ropemark-frontend.php:206
 msgid "Credit"
 msgstr ""
 
-#: includes/class-aipk-admin.php:526 includes/class-aipk-frontend.php:207
+#: includes/class-ropemark-admin.php:526
+#: includes/class-ropemark-frontend.php:207
 msgid "Rights"
 msgstr ""
 
-#: includes/class-aipk-admin.php:527
+#: includes/class-ropemark-admin.php:527
 msgid "C2PA"
 msgstr ""
 
-#: includes/class-aipk-admin.php:527
+#: includes/class-ropemark-admin.php:527
 msgid "present"
 msgstr ""
 
-#: includes/class-aipk-admin.php:528
+#: includes/class-ropemark-admin.php:528
 msgid "Traces"
 msgstr ""
 
-#: includes/class-aipk-admin.php:529
+#: includes/class-ropemark-admin.php:529
 msgid "Software"
 msgstr ""
 
-#: includes/class-aipk-admin.php:558
+#: includes/class-ropemark-admin.php:558
 #, php-format
 msgid "Sizes marked: %1$d of %2$d"
 msgstr ""
 
-#: includes/class-aipk-admin.php:560
+#: includes/class-ropemark-admin.php:560
 msgid "Generated sizes: nothing to carry"
 msgstr ""
 
-#: includes/class-aipk-admin.php:563
+#: includes/class-ropemark-admin.php:563
 msgid "Blocks in the original:"
 msgstr ""
 
-#: includes/class-aipk-admin.php:565
+#: includes/class-ropemark-admin.php:565
 msgid "Original:"
 msgstr ""
 
-#: includes/class-aipk-admin.php:568
+#: includes/class-ropemark-admin.php:568
 msgid "Scanned"
 msgstr ""
 
-#: includes/class-aipk-admin.php:576
+#: includes/class-ropemark-admin.php:576
 msgid "Classification"
 msgstr ""
 
-#: includes/class-aipk-admin.php:581
+#: includes/class-ropemark-admin.php:581
 msgid "Badge on this image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:586
+#: includes/class-ropemark-admin.php:586
 msgid "Apply"
 msgstr ""
 
-#: includes/class-aipk-admin.php:586
+#: includes/class-ropemark-admin.php:586
 msgid "Re-scan file"
 msgstr ""
 
-#: includes/class-aipk-admin.php:587
+#: includes/class-ropemark-admin.php:587
 msgid ""
 "An AI classification writes the IPTC digital source type into the generated "
 "sizes and, unless the original carries a C2PA manifest, into the original "
 "too."
 msgstr ""
 
-#: includes/class-aipk-admin.php:609
+#: includes/class-ropemark-admin.php:609
 msgid "AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:615
+#: includes/class-ropemark-admin.php:615
 msgid "AI?"
 msgstr ""
 
-#: includes/class-aipk-admin.php:621
+#: includes/class-ropemark-admin.php:621
 msgid "Marked"
 msgstr ""
 
-#: includes/class-aipk-admin.php:644
+#: includes/class-ropemark-admin.php:644
 msgid "Scanning…"
 msgstr ""
 
-#: includes/class-aipk-admin.php:645
+#: includes/class-ropemark-admin.php:645
 msgid "Scan complete."
 msgstr ""
 
-#: includes/class-aipk-admin.php:646
+#: includes/class-ropemark-admin.php:646
 msgid "Something went wrong."
 msgstr ""
 
-#: includes/class-aipk-admin.php:648
+#: includes/class-ropemark-admin.php:648
 #, php-format
 msgid "%1$d of %2$d scanned, %3$d marked as AI"
 msgstr ""
 
-#: includes/class-aipk-admin.php:649
+#: includes/class-ropemark-admin.php:649
 msgid "Choose badge image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:650
+#: includes/class-ropemark-admin.php:650
 msgid "Use this image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:651
+#: includes/class-ropemark-admin.php:651
 msgid "Reset every setting to its default?"
 msgstr ""
 
-#: includes/class-aipk-admin.php:667 includes/class-aipk-admin.php:884
-msgid "AI Act Image Marking"
+#: includes/class-ropemark-admin.php:667 includes/class-ropemark-admin.php:884
+msgid "Ropemark Image Marking for the EU AI Act"
 msgstr ""
 
-#: includes/class-aipk-admin.php:668
-msgid "AI Act Marking"
+#: includes/class-ropemark-admin.php:668
+msgid "Ropemark"
 msgstr ""
 
-#: includes/class-aipk-admin.php:687
+#: includes/class-ropemark-admin.php:687
 msgid "How it works"
 msgstr ""
 
-#: includes/class-aipk-admin.php:688
+#: includes/class-ropemark-admin.php:688
 msgid ""
 "WordPress keeps the uploaded original untouched but every size it generates "
 "loses XMP and IPTC. The plugin reads the provenance of the original (IPTC "
@@ -374,24 +381,24 @@ msgid ""
 "type."
 msgstr ""
 
-#: includes/class-aipk-admin.php:694
+#: includes/class-ropemark-admin.php:694
 msgid "Visible disclosure"
 msgstr ""
 
-#: includes/class-aipk-admin.php:695
+#: includes/class-ropemark-admin.php:695
 msgid ""
 "The AI Act separates the machine-readable marking of the file from the "
 "visible disclosure on the page. The badge, its popup, the text label, the "
-"site notice and the [ai_act_disclosure] shortcode are tools for the visible "
-"part. Each image can follow the settings, always show the badge or never "
-"show it."
+"site notice and the [ropemark_disclosure] shortcode are tools for the "
+"visible part. Each image can follow the settings, always show the badge or "
+"never show it."
 msgstr ""
 
-#: includes/class-aipk-admin.php:701
+#: includes/class-ropemark-admin.php:701
 msgid "Limits"
 msgstr ""
 
-#: includes/class-aipk-admin.php:702
+#: includes/class-ropemark-admin.php:702
 msgid ""
 "C2PA manifests are never copied into resized files, since their signature "
 "covers the original bytes only. AVIF sizes are not written yet. Image "
@@ -399,168 +406,168 @@ msgid ""
 "scan after they run. The plugin is not legal advice."
 msgstr ""
 
-#: includes/class-aipk-admin.php:715 includes/class-aipk-admin.php:761
+#: includes/class-ropemark-admin.php:715 includes/class-ropemark-admin.php:761
 msgid "Settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:727
-msgid "AI Act Image Marking is active."
+#: includes/class-ropemark-admin.php:727
+msgid "Ropemark Image Marking for the EU AI Act is active."
 msgstr ""
 
-#: includes/class-aipk-admin.php:727
+#: includes/class-ropemark-admin.php:727
 msgid ""
 "New uploads are processed automatically. Scan the images you already have "
 "and choose how to disclose them."
 msgstr ""
 
-#: includes/class-aipk-admin.php:727
+#: includes/class-ropemark-admin.php:727
 msgid "Open settings"
 msgstr ""
 
-#: includes/class-aipk-admin.php:733
+#: includes/class-ropemark-admin.php:733
 #, php-format
 msgid "%d image processed."
 msgid_plural "%d images processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-aipk-admin.php:736
+#: includes/class-ropemark-admin.php:736
 msgid "Settings reset to their defaults."
 msgstr ""
 
-#: includes/class-aipk-admin.php:747 includes/class-aipk-admin.php:756
+#: includes/class-ropemark-admin.php:747 includes/class-ropemark-admin.php:756
 msgid "AI images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:757
+#: includes/class-ropemark-admin.php:757
 msgid "To confirm"
 msgstr ""
 
-#: includes/class-aipk-admin.php:761
+#: includes/class-ropemark-admin.php:761
 msgid "Badge on the page: on."
 msgstr ""
 
-#: includes/class-aipk-admin.php:761
+#: includes/class-ropemark-admin.php:761
 msgid "Badge on the page: off."
 msgstr ""
 
-#: includes/class-aipk-admin.php:792
+#: includes/class-ropemark-admin.php:792
 msgid "Scaled copy served as full"
 msgstr ""
 
-#: includes/class-aipk-admin.php:808
+#: includes/class-ropemark-admin.php:808
 msgid "Image editor"
 msgstr ""
 
-#: includes/class-aipk-admin.php:808
+#: includes/class-ropemark-admin.php:808
 msgid ""
 "It strips XMP and IPTC from every generated size; the plugin carries them "
 "back after generation."
 msgstr ""
 
-#: includes/class-aipk-admin.php:813
+#: includes/class-ropemark-admin.php:813
 msgid "Big image threshold"
 msgstr ""
 
-#: includes/class-aipk-admin.php:816
+#: includes/class-ropemark-admin.php:816
 #, php-format
 msgid ""
 "%d px. Larger uploads are served as a scaled copy, which is marked like "
 "every other size."
 msgstr ""
 
-#: includes/class-aipk-admin.php:817
+#: includes/class-ropemark-admin.php:817
 msgid "Disabled: the original is served as full."
 msgstr ""
 
-#: includes/class-aipk-admin.php:823
+#: includes/class-ropemark-admin.php:823
 msgid "Output format conversion"
 msgstr ""
 
-#: includes/class-aipk-admin.php:823
+#: includes/class-ropemark-admin.php:823
 msgid "AVIF sizes cannot be written yet and stay unmarked."
 msgstr ""
 
-#: includes/class-aipk-admin.php:845 includes/class-aipk-admin.php:846
+#: includes/class-ropemark-admin.php:845 includes/class-ropemark-admin.php:846
 msgid "Image optimizers"
 msgstr ""
 
-#: includes/class-aipk-admin.php:845
+#: includes/class-ropemark-admin.php:845
 msgid ""
 "They rewrite image files after WordPress and may strip metadata: disable "
 "their \"strip metadata\" option, or re-scan the library after they run."
 msgstr ""
 
-#: includes/class-aipk-admin.php:846
+#: includes/class-ropemark-admin.php:846
 msgid "None detected."
 msgstr ""
 
-#: includes/class-aipk-admin.php:849 includes/class-aipk-admin.php:850
+#: includes/class-ropemark-admin.php:849 includes/class-ropemark-admin.php:850
 msgid "PHP"
 msgstr ""
 
-#: includes/class-aipk-admin.php:849
+#: includes/class-ropemark-admin.php:849
 msgid "IPTC parsing available."
 msgstr ""
 
-#: includes/class-aipk-admin.php:850
+#: includes/class-ropemark-admin.php:850
 msgid "iptcparse() unavailable: IPTC captions are not read (XMP still is)."
 msgstr ""
 
-#: includes/class-aipk-admin.php:853 includes/class-aipk-admin.php:854
+#: includes/class-ropemark-admin.php:853 includes/class-ropemark-admin.php:854
 msgid "Uploads folder"
 msgstr ""
 
-#: includes/class-aipk-admin.php:853
+#: includes/class-ropemark-admin.php:853
 msgid "Writable."
 msgstr ""
 
-#: includes/class-aipk-admin.php:854
+#: includes/class-ropemark-admin.php:854
 msgid "Not writable: the marking cannot be carried into sizes."
 msgstr ""
 
-#: includes/class-aipk-admin.php:876 includes/class-aipk-admin.php:1044
-#: includes/class-aipk-frontend.php:209
+#: includes/class-ropemark-admin.php:876 includes/class-ropemark-admin.php:1039
+#: includes/class-ropemark-frontend.php:209
 msgid "Marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:878 includes/class-aipk-admin.php:1061
+#: includes/class-ropemark-admin.php:878 includes/class-ropemark-admin.php:1055
 msgid "Environment"
 msgstr ""
 
-#: includes/class-aipk-admin.php:885
+#: includes/class-ropemark-admin.php:885
 msgid ""
 "Mark, keep and disclose AI-generated images. Every upload is processed "
 "automatically; scan the library once for what came before."
 msgstr ""
 
-#: includes/class-aipk-admin.php:889
+#: includes/class-ropemark-admin.php:889
 msgid "Stop background scan"
 msgstr ""
 
-#: includes/class-aipk-admin.php:891
+#: includes/class-ropemark-admin.php:891
 msgid "Scan new images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:892
+#: includes/class-ropemark-admin.php:892
 msgid "Re-scan everything"
 msgstr ""
 
-#: includes/class-aipk-admin.php:893
+#: includes/class-ropemark-admin.php:893
 msgid ""
 "Runs in the background (Action Scheduler when present, else WP-Cron), no "
 "need to keep this page open"
 msgstr ""
 
-#: includes/class-aipk-admin.php:893
+#: includes/class-ropemark-admin.php:893
 msgid "Scan in background"
 msgstr ""
 
-#: includes/class-aipk-admin.php:895
+#: includes/class-ropemark-admin.php:895
 msgid "Export CSV"
 msgstr ""
 
-#: includes/class-aipk-admin.php:902
+#: includes/class-ropemark-admin.php:902
 #, php-format
 msgid ""
 "Background scan running: %1$d of %2$d images, %3$d marked as AI. It "
@@ -568,294 +575,285 @@ msgid ""
 "every minute."
 msgstr ""
 
-#: includes/class-aipk-admin.php:911
+#: includes/class-ropemark-admin.php:911
 #, php-format
 msgid "Background scan finished: %1$d images processed, %2$d marked as AI."
 msgstr ""
 
-#: includes/class-aipk-admin.php:917
+#: includes/class-ropemark-admin.php:917
 msgid "Large library: use the background scan, or WP-CLI for the fastest run:"
 msgstr ""
 
-#: includes/class-aipk-admin.php:923
+#: includes/class-ropemark-admin.php:923
 msgid "Images in the library"
 msgstr ""
 
-#: includes/class-aipk-admin.php:930
+#: includes/class-ropemark-admin.php:930
 msgid "Settings sections"
 msgstr ""
 
-#: includes/class-aipk-admin.php:941
+#: includes/class-ropemark-admin.php:941
 msgid "Uploaded original"
 msgstr ""
 
-#: includes/class-aipk-admin.php:943
+#: includes/class-ropemark-admin.php:943
 msgid "Leave it exactly as uploaded"
 msgstr ""
 
-#: includes/class-aipk-admin.php:943
+#: includes/class-ropemark-admin.php:943
 msgid "Recommended. The file the client sent is the file you keep."
 msgstr ""
 
-#: includes/class-aipk-admin.php:944
+#: includes/class-ropemark-admin.php:944
 msgid "Remove post-production traces, keep the marking"
 msgstr ""
 
-#: includes/class-aipk-admin.php:944
+#: includes/class-ropemark-admin.php:944
 msgid ""
 "Drops Camera Raw settings, document history, ancestors and the creator tool "
 "from the XMP. Provenance, description, credits and rights stay. Files with a "
 "C2PA manifest are never touched."
 msgstr ""
 
-#: includes/class-aipk-admin.php:946
+#: includes/class-ropemark-admin.php:946
 msgid ""
 "When an image is classified as AI by hand, write the IPTC digital source "
 "type into the original too (never on files with a C2PA manifest)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:950
+#: includes/class-ropemark-admin.php:950
 msgid "Generated sizes"
 msgstr ""
 
-#: includes/class-aipk-admin.php:953
+#: includes/class-ropemark-admin.php:953
 msgid "Which images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:954
+#: includes/class-ropemark-admin.php:954
 msgid "AI generated and AI modified only"
 msgstr ""
 
-#: includes/class-aipk-admin.php:954 includes/class-aipk-admin.php:959
+#: includes/class-ropemark-admin.php:954 includes/class-ropemark-admin.php:959
 msgid "Recommended."
 msgstr ""
 
-#: includes/class-aipk-admin.php:955
+#: includes/class-ropemark-admin.php:955
 msgid "Every image with XMP or IPTC metadata"
 msgstr ""
 
-#: includes/class-aipk-admin.php:955
+#: includes/class-ropemark-admin.php:955
 msgid ""
 "Also carries photographer credits and captions, and with them any personal "
 "data the metadata may contain."
 msgstr ""
 
-#: includes/class-aipk-admin.php:958
+#: includes/class-ropemark-admin.php:958
 msgid "What to carry"
 msgstr ""
 
-#: includes/class-aipk-admin.php:959
+#: includes/class-ropemark-admin.php:959
 msgid "The whole XMP and IPTC blocks"
 msgstr ""
 
-#: includes/class-aipk-admin.php:960
+#: includes/class-ropemark-admin.php:960
 msgid "Only the provenance fields"
 msgstr ""
 
-#: includes/class-aipk-admin.php:960
+#: includes/class-ropemark-admin.php:960
 msgid ""
 "Digital source type, description, creator, credit, rights, usage terms. "
 "About one kilobyte per file."
 msgstr ""
 
-#: includes/class-aipk-admin.php:961
+#: includes/class-ropemark-admin.php:961
 msgid "Nothing"
 msgstr ""
 
-#: includes/class-aipk-admin.php:961
+#: includes/class-ropemark-admin.php:961
 msgid "Sizes stay as WordPress makes them."
 msgstr ""
 
-#: includes/class-aipk-admin.php:965
+#: includes/class-ropemark-admin.php:965
 msgid "Sizes to mark"
 msgstr ""
 
-#: includes/class-aipk-admin.php:969
+#: includes/class-ropemark-admin.php:969
 msgid ""
 "Unchecked sizes stay unmarked. Sizes registered by the theme later are "
 "marked by default."
 msgstr ""
 
-#: includes/class-aipk-admin.php:978
+#: includes/class-ropemark-admin.php:978
 msgid "AI badge on the image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:979
+#: includes/class-ropemark-admin.php:979
 msgid "Overlay a round, semi-transparent badge on AI generated images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:981 includes/class-aipk-admin.php:1016
+#: includes/class-ropemark-admin.php:981 includes/class-ropemark-admin.php:1016
 msgid "Text"
 msgstr ""
 
-#: includes/class-aipk-admin.php:982
+#: includes/class-ropemark-admin.php:982
 msgid "Position"
 msgstr ""
 
-#: includes/class-aipk-admin.php:987
+#: includes/class-ropemark-admin.php:987
 msgid "Diameter (px)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:988
+#: includes/class-ropemark-admin.php:988
 msgid "Hide under (px wide)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:989
+#: includes/class-ropemark-admin.php:989
 msgid "Background"
 msgstr ""
 
-#: includes/class-aipk-admin.php:990
+#: includes/class-ropemark-admin.php:990
 msgid "Opacity (%)"
 msgstr ""
 
-#: includes/class-aipk-admin.php:991
+#: includes/class-ropemark-admin.php:991
 msgid "Text color"
 msgstr ""
 
-#: includes/class-aipk-admin.php:992
+#: includes/class-ropemark-admin.php:992
 msgid "Tooltip and screen reader text"
 msgstr ""
 
-#: includes/class-aipk-admin.php:994
+#: includes/class-ropemark-admin.php:994
 msgid "Badge image instead of text"
 msgstr ""
 
-#: includes/class-aipk-admin.php:996
+#: includes/class-ropemark-admin.php:996
 msgid "Choose image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:997
+#: includes/class-ropemark-admin.php:997
 msgid "Remove"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1004
+#: includes/class-ropemark-admin.php:1004
 msgid "Popup on the badge"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1005
+#: includes/class-ropemark-admin.php:1005
 msgid "A click on the badge opens a panel with the provenance of the image"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1007
+#: includes/class-ropemark-admin.php:1007
 msgid "Panel title"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1009
+#: includes/class-ropemark-admin.php:1009
 msgid ""
-"Show a credit line in the panel: \"Marked with AI Act Image Marking by The "
-"Rope\", linking to therope.it"
+"Show a credit line in the panel: \"Marked with Ropemark Image Marking for "
+"the EU AI Act by The Rope\", linking to therope.it"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1010
+#: includes/class-ropemark-admin.php:1010
 msgid ""
 "The panel is plain HTML kept hidden until the badge is clicked, readable by "
 "search engines and assistive technology. The credit line is your choice and "
 "is off by default."
 msgstr ""
 
-#: includes/class-aipk-admin.php:1014
+#: includes/class-ropemark-admin.php:1014
 msgid "Text, notice, data"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1015
+#: includes/class-ropemark-admin.php:1015
 msgid "Print a short text under AI generated images"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1017
+#: includes/class-ropemark-admin.php:1017
 msgid "Also used as disclosure for images classified by hand that carry none."
 msgstr ""
 
-#: includes/class-aipk-admin.php:1018
+#: includes/class-ropemark-admin.php:1018
 msgid "Print a one-line transparency notice at the end of every page"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1019 assets/block.js:34
+#: includes/class-ropemark-admin.php:1019 assets/block.js:34
 msgid "Notice"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1020
+#: includes/class-ropemark-admin.php:1020
 msgid ""
-"The same text is the default of the [ai_act_disclosure] shortcode and the "
+"The same text is the default of the [ropemark_disclosure] shortcode and the "
 "\"AI disclosure notice\" block, which also show the number of AI images in "
 "the library."
 msgstr ""
 
-#: includes/class-aipk-admin.php:1021
+#: includes/class-ropemark-admin.php:1021
 msgid "Add data-digital-source-type and data-ai-generated to image tags"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1022
+#: includes/class-ropemark-admin.php:1022
 msgid ""
 "Print schema.org ImageObject data with digitalSourceType for the AI images "
 "on the page"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1026
-msgid "Custom CSS"
-msgstr ""
-
-#: includes/class-aipk-admin.php:1028
-msgid ""
-"Printed after the plugin styles. Selectors: .aipk-wrap, .aipk-ai-"
-"badge, .aipk-pos-bottom-right (and the other corners), .aipk-popup, .aipk-"
-"label, .aipk-site-notice, .aipk-disclosure, img[data-ai-generated]."
-msgstr ""
-
-#: includes/class-aipk-admin.php:1034
+#: includes/class-ropemark-admin.php:1029
 msgid "Live preview"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1040 includes/class-aipk-frontend.php:227
+#: includes/class-ropemark-admin.php:1035
+#: includes/class-ropemark-frontend.php:227
 msgid "Close"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1046 includes/class-aipk-frontend.php:236
+#: includes/class-ropemark-admin.php:1041
+#: includes/class-ropemark-frontend.php:236
 msgid "Marked under EU Regulation 2024/1689 (AI Act), article 50."
 msgstr ""
 
-#: includes/class-aipk-admin.php:1052
+#: includes/class-ropemark-admin.php:1047
 msgid "Updates as you type. Click the badge to see the popup."
 msgstr ""
 
-#: includes/class-aipk-admin.php:1069
+#: includes/class-ropemark-admin.php:1063
 msgid "Tools"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1070
+#: includes/class-ropemark-admin.php:1064
 msgid "Shortcode:"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1070
+#: includes/class-ropemark-admin.php:1064
 msgid "Block:"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1070 assets/block.js:16 assets/block.js:49
+#: includes/class-ropemark-admin.php:1064 assets/block.js:16 assets/block.js:49
 msgid "AI disclosure notice"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1071
+#: includes/class-ropemark-admin.php:1065
 msgid "Reset all settings to defaults"
 msgstr ""
 
-#: includes/class-aipk-admin.php:1075
+#: includes/class-ropemark-admin.php:1069
 msgid ""
 "Settings apply to every page immediately. Files already marked stay marked."
 msgstr ""
 
-#: includes/class-aipk-frontend.php:208
+#: includes/class-ropemark-frontend.php:208
 msgid "Generator"
 msgstr ""
 
-#: includes/class-aipk-frontend.php:214
+#: includes/class-ropemark-frontend.php:214
 msgid "C2PA manifest in the original"
 msgstr ""
 
-#: includes/class-aipk-frontend.php:240
+#: includes/class-ropemark-frontend.php:240
 #, php-format
 msgid "Marked with %1$s by %2$s"
 msgstr ""
 
-#: includes/class-aipk-frontend.php:403
+#: includes/class-ropemark-frontend.php:428
 #, php-format
 msgid "%d image in the media library is marked as AI generated or AI modified."
 msgid_plural ""
@@ -863,93 +861,94 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-aipk-options.php:33 includes/class-aipk-options.php:43
+#: includes/class-ropemark-options.php:33
+#: includes/class-ropemark-options.php:43
 msgid "Image generated with artificial intelligence"
 msgstr ""
 
-#: includes/class-aipk-options.php:45
+#: includes/class-ropemark-options.php:45
 msgid "About this image"
 msgstr ""
 
-#: includes/class-aipk-options.php:49
+#: includes/class-ropemark-options.php:49
 msgid ""
 "Some images on this site are generated with artificial intelligence and are "
 "marked as such."
 msgstr ""
 
-#: includes/class-aipk-options.php:165
+#: includes/class-ropemark-options.php:164
 msgid "Bottom right"
 msgstr ""
 
-#: includes/class-aipk-options.php:166
+#: includes/class-ropemark-options.php:165
 msgid "Bottom left"
 msgstr ""
 
-#: includes/class-aipk-options.php:167
+#: includes/class-ropemark-options.php:166
 msgid "Top right"
 msgstr ""
 
-#: includes/class-aipk-options.php:168
+#: includes/class-ropemark-options.php:167
 msgid "Top left"
 msgstr ""
 
-#: includes/class-aipk-processor.php:490
-msgid "Every minute (AI Act Image Marking scan)"
+#: includes/class-ropemark-processor.php:490
+msgid "Every minute (Ropemark Image Marking for the EU AI Act scan)"
 msgstr ""
 
-#: includes/class-aipk-reader.php:267
+#: includes/class-ropemark-reader.php:267
 msgid "AI modified"
 msgstr ""
 
-#: includes/class-aipk-reader.php:268
+#: includes/class-ropemark-reader.php:268
 msgid "Algorithmically generated (no AI training)"
 msgstr ""
 
-#: includes/class-aipk-reader.php:269
+#: includes/class-ropemark-reader.php:269
 msgid "Composite of synthetic elements"
 msgstr ""
 
-#: includes/class-aipk-reader.php:270
+#: includes/class-ropemark-reader.php:270
 msgid "Virtual recording"
 msgstr ""
 
-#: includes/class-aipk-reader.php:271
+#: includes/class-ropemark-reader.php:271
 msgid "Digital capture (camera)"
 msgstr ""
 
-#: includes/class-aipk-reader.php:272
+#: includes/class-ropemark-reader.php:272
 msgid "Scanned negative"
 msgstr ""
 
-#: includes/class-aipk-reader.php:273
+#: includes/class-ropemark-reader.php:273
 msgid "Scanned positive"
 msgstr ""
 
-#: includes/class-aipk-reader.php:274
+#: includes/class-ropemark-reader.php:274
 msgid "Scanned print"
 msgstr ""
 
-#: includes/class-aipk-reader.php:275
+#: includes/class-ropemark-reader.php:275
 msgid "Human edits"
 msgstr ""
 
-#: includes/class-aipk-reader.php:276
+#: includes/class-ropemark-reader.php:276
 msgid "Composite of captures"
 msgstr ""
 
-#: includes/class-aipk-reader.php:277
+#: includes/class-ropemark-reader.php:277
 msgid "Algorithmically enhanced"
 msgstr ""
 
-#: includes/class-aipk-reader.php:278
+#: includes/class-ropemark-reader.php:278
 msgid "Data driven media"
 msgstr ""
 
-#: includes/class-aipk-reader.php:279
+#: includes/class-ropemark-reader.php:279
 msgid "Digital art"
 msgstr ""
 
-#: includes/class-aipk-reader.php:280
+#: includes/class-ropemark-reader.php:280
 msgid "Screen capture"
 msgstr ""
 

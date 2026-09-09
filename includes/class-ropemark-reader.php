@@ -4,7 +4,7 @@
  * disclosure text, attribution, C2PA generator names and generator
  * signatures for images that carry no formal marking.
  *
- * @package AI_Act_Image_Disclosure
+ * @package Ropemark_Image_Marking
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Provenance reader.
  */
-class AIPK_Reader {
+class Ropemark_Reader {
 
 	const CV = 'http://cv.iptc.org/newscodes/digitalsourcetype/';
 
@@ -64,7 +64,7 @@ class AIPK_Reader {
 	 */
 	public static function read( $path ) {
 		$record = self::empty_record();
-		$bundle = AIPK_Segments::extract( $path );
+		$bundle = Ropemark_Segments::extract( $path );
 		if ( null === $bundle ) {
 			return $record;
 		}
@@ -222,7 +222,7 @@ class AIPK_Reader {
 		if ( ! function_exists( 'iptcparse' ) ) {
 			return $out;
 		}
-		$parsed = @iptcparse( AIPK_Segments::PHOTOSHOP_HEADER . $irb ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		$parsed = @iptcparse( Ropemark_Segments::PHOTOSHOP_HEADER . $irb ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		if ( ! is_array( $parsed ) ) {
 			return $out;
 		}
@@ -263,21 +263,21 @@ class AIPK_Reader {
 	 */
 	public static function term_label( $term ) {
 		$labels = array(
-			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ai-act-image-marking' ),
-			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified', 'ai-act-image-marking' ),
-			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ai-act-image-marking' ),
-			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ai-act-image-marking' ),
-			'virtualRecording'                     => __( 'Virtual recording', 'ai-act-image-marking' ),
-			'digitalCapture'                       => __( 'Digital capture (camera)', 'ai-act-image-marking' ),
-			'negativeFilm'                         => __( 'Scanned negative', 'ai-act-image-marking' ),
-			'positiveFilm'                         => __( 'Scanned positive', 'ai-act-image-marking' ),
-			'print'                                => __( 'Scanned print', 'ai-act-image-marking' ),
-			'humanEdits'                           => __( 'Human edits', 'ai-act-image-marking' ),
-			'compositeCapture'                     => __( 'Composite of captures', 'ai-act-image-marking' ),
-			'algorithmicallyEnhanced'              => __( 'Algorithmically enhanced', 'ai-act-image-marking' ),
-			'dataDrivenMedia'                      => __( 'Data driven media', 'ai-act-image-marking' ),
-			'digitalArt'                           => __( 'Digital art', 'ai-act-image-marking' ),
-			'screenCapture'                        => __( 'Screen capture', 'ai-act-image-marking' ),
+			'trainedAlgorithmicMedia'              => __( 'AI generated', 'ropemark-image-marking-for-eu-ai-act' ),
+			'compositeWithTrainedAlgorithmicMedia' => __( 'AI modified', 'ropemark-image-marking-for-eu-ai-act' ),
+			'algorithmicMedia'                     => __( 'Algorithmically generated (no AI training)', 'ropemark-image-marking-for-eu-ai-act' ),
+			'compositeSynthetic'                   => __( 'Composite of synthetic elements', 'ropemark-image-marking-for-eu-ai-act' ),
+			'virtualRecording'                     => __( 'Virtual recording', 'ropemark-image-marking-for-eu-ai-act' ),
+			'digitalCapture'                       => __( 'Digital capture (camera)', 'ropemark-image-marking-for-eu-ai-act' ),
+			'negativeFilm'                         => __( 'Scanned negative', 'ropemark-image-marking-for-eu-ai-act' ),
+			'positiveFilm'                         => __( 'Scanned positive', 'ropemark-image-marking-for-eu-ai-act' ),
+			'print'                                => __( 'Scanned print', 'ropemark-image-marking-for-eu-ai-act' ),
+			'humanEdits'                           => __( 'Human edits', 'ropemark-image-marking-for-eu-ai-act' ),
+			'compositeCapture'                     => __( 'Composite of captures', 'ropemark-image-marking-for-eu-ai-act' ),
+			'algorithmicallyEnhanced'              => __( 'Algorithmically enhanced', 'ropemark-image-marking-for-eu-ai-act' ),
+			'dataDrivenMedia'                      => __( 'Data driven media', 'ropemark-image-marking-for-eu-ai-act' ),
+			'digitalArt'                           => __( 'Digital art', 'ropemark-image-marking-for-eu-ai-act' ),
+			'screenCapture'                        => __( 'Screen capture', 'ropemark-image-marking-for-eu-ai-act' ),
 		);
 		return isset( $labels[ $term ] ) ? $labels[ $term ] : $term;
 	}

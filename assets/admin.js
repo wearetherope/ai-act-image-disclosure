@@ -1,47 +1,47 @@
-/* global AIPK, jQuery, wp */
+/* global Ropemark, jQuery, wp */
 ( function ( $ ) {
 	'use strict';
 
 	/* ---------- attachment panel ---------- */
 	function panelPost( $btn, action, extra ) {
-		var $panel = $btn.closest( '.aipk-panel' ),
+		var $panel = $btn.closest( '.ropemark-panel' ),
 			data = $.extend( { action: action, id: $panel.data( 'id' ), nonce: $panel.data( 'nonce' ) }, extra || {} );
 		$panel.find( 'button, select' ).prop( 'disabled', true );
-		$.post( AIPK.ajax, data )
+		$.post( Ropemark.ajax, data )
 			.done( function ( res ) {
 				if ( res && res.success ) {
 					$panel.replaceWith( res.data.html );
 				} else {
 					$panel.find( 'button, select' ).prop( 'disabled', false );
-					window.alert( ( res && res.data && res.data.message ) || AIPK.i18n.error );
+					window.alert( ( res && res.data && res.data.message ) || Ropemark.i18n.error );
 				}
 			} )
 			.fail( function () {
 				$panel.find( 'button, select' ).prop( 'disabled', false );
-				window.alert( AIPK.i18n.error );
+				window.alert( Ropemark.i18n.error );
 			} );
 	}
-	$( document ).on( 'click', '.aipk-rescan', function () {
-		panelPost( $( this ), 'aipk_rescan' );
+	$( document ).on( 'click', '.ropemark-rescan', function () {
+		panelPost( $( this ), 'ropemark_rescan' );
 	} );
-	$( document ).on( 'click', '.aipk-classify', function () {
-		panelPost( $( this ), 'aipk_classify', { value: $( this ).data( 'value' ) } );
+	$( document ).on( 'click', '.ropemark-classify', function () {
+		panelPost( $( this ), 'ropemark_classify', { value: $( this ).data( 'value' ) } );
 	} );
-	$( document ).on( 'click', '.aipk-classify-apply', function () {
-		var $p = $( this ).closest( '.aipk-panel' );
-		panelPost( $( this ), 'aipk_classify', { value: $p.find( '.aipk-classify-select' ).val(), disclose: $p.find( '.aipk-disclose-select' ).val() } );
+	$( document ).on( 'click', '.ropemark-classify-apply', function () {
+		var $p = $( this ).closest( '.ropemark-panel' );
+		panelPost( $( this ), 'ropemark_classify', { value: $p.find( '.ropemark-classify-select' ).val(), disclose: $p.find( '.ropemark-disclose-select' ).val() } );
 	} );
 
 	/* ---------- settings: tabs ---------- */
-	var $tabs = $( '.aipk-tabs .nav-tab' );
+	var $tabs = $( '.ropemark-tabs .nav-tab' );
 	if ( $tabs.length ) {
 		function showTab( id ) {
-			if ( ! $( '.aipk-tab[data-tab="' + id + '"]' ).length ) {
+			if ( ! $( '.ropemark-tab[data-tab="' + id + '"]' ).length ) {
 				id = $tabs.first().data( 'tab' );
 			}
 			$tabs.removeClass( 'nav-tab-active' ).filter( '[data-tab="' + id + '"]' ).addClass( 'nav-tab-active' );
-			$( '.aipk-tab' ).removeClass( 'is-active' ).filter( '[data-tab="' + id + '"]' ).addClass( 'is-active' );
-			try { window.localStorage.setItem( 'aipk-tab', id ); } catch ( e ) {}
+			$( '.ropemark-tab' ).removeClass( 'is-active' ).filter( '[data-tab="' + id + '"]' ).addClass( 'is-active' );
+			try { window.localStorage.setItem( 'ropemark-tab', id ); } catch ( e ) {}
 		}
 		$tabs.on( 'click', function ( e ) {
 			e.preventDefault();
@@ -55,31 +55,31 @@
 		} );
 		var initial = ( window.location.hash || '' ).replace( '#', '' );
 		if ( ! initial ) {
-			try { initial = window.localStorage.getItem( 'aipk-tab' ) || ''; } catch ( e ) {}
+			try { initial = window.localStorage.getItem( 'ropemark-tab' ) || ''; } catch ( e ) {}
 		}
 		showTab( initial || $tabs.first().data( 'tab' ) );
 	}
 
 	/* ---------- settings: library scan with progress ---------- */
-	$( document ).on( 'click', '#aipk-scan, #aipk-scan-all', function () {
+	$( document ).on( 'click', '#ropemark-scan, #ropemark-scan-all', function () {
 		var all = $( this ).data( 'all' ) === 1,
-			$status = $( '#aipk-scan-status' ),
-			$bar = $status.find( '.aipk-progress-bar span' ),
+			$status = $( '#ropemark-scan-status' ),
+			$bar = $status.find( '.ropemark-progress-bar span' ),
 			$text = $status.find( 'p' ),
-			$buttons = $( '#aipk-scan, #aipk-scan-all' ),
+			$buttons = $( '#ropemark-scan, #ropemark-scan-all' ),
 			done = 0,
 			ai = 0;
 
 		$buttons.prop( 'disabled', true );
 		$status.prop( 'hidden', false );
 		$bar.css( 'width', '2%' );
-		$text.text( AIPK.i18n.scanning );
+		$text.text( Ropemark.i18n.scanning );
 
 		function step( offset ) {
-			$.post( AIPK.ajax, { action: 'aipk_scan', nonce: AIPK.scanNonce, offset: offset, all: all ? 1 : 0 } )
+			$.post( Ropemark.ajax, { action: 'ropemark_scan', nonce: Ropemark.scanNonce, offset: offset, all: all ? 1 : 0 } )
 				.done( function ( res ) {
 					if ( ! res || ! res.success ) {
-						$text.text( AIPK.i18n.error );
+						$text.text( Ropemark.i18n.error );
 						$buttons.prop( 'disabled', false );
 						return;
 					}
@@ -87,10 +87,10 @@
 					ai += res.data.ai;
 					var total = Math.max( res.data.total, done, 1 );
 					$bar.css( 'width', Math.min( 100, Math.round( done / total * 100 ) ) + '%' );
-					$text.text( AIPK.i18n.progress.replace( '%1$d', done ).replace( '%2$d', total ).replace( '%3$d', ai ) );
+					$text.text( Ropemark.i18n.progress.replace( '%1$d', done ).replace( '%2$d', total ).replace( '%3$d', ai ) );
 					if ( res.data.finished ) {
 						$bar.css( 'width', '100%' );
-						$text.text( AIPK.i18n.done + ' ' + $text.text() );
+						$text.text( Ropemark.i18n.done + ' ' + $text.text() );
 						$buttons.prop( 'disabled', false );
 						window.setTimeout( function () { window.location.reload(); }, 1200 );
 					} else {
@@ -98,7 +98,7 @@
 					}
 				} )
 				.fail( function () {
-					$text.text( AIPK.i18n.error );
+					$text.text( Ropemark.i18n.error );
 					$buttons.prop( 'disabled', false );
 				} );
 		}
@@ -106,43 +106,42 @@
 	} );
 
 	/* ---------- settings: badge image chooser ---------- */
-	$( document ).on( 'click', '#aipk-badge-image-choose', function ( e ) {
+	$( document ).on( 'click', '#ropemark-badge-image-choose', function ( e ) {
 		e.preventDefault();
 		if ( ! window.wp || ! wp.media ) {
 			return;
 		}
-		var frame = wp.media( { title: AIPK.i18n.choose, button: { text: AIPK.i18n.use }, multiple: false, library: { type: 'image' } } );
+		var frame = wp.media( { title: Ropemark.i18n.choose, button: { text: Ropemark.i18n.use }, multiple: false, library: { type: 'image' } } );
 		frame.on( 'select', function () {
 			var a = frame.state().get( 'selection' ).first().toJSON(),
 				url = ( a.sizes && a.sizes.thumbnail ) ? a.sizes.thumbnail.url : a.url;
-			$( '#aipk-badge-image' ).val( a.id ).attr( 'data-url', url ).trigger( 'change' );
-			$( '#aipk-badge-image-preview' ).html( '<img src="' + url + '" alt="">' );
+			$( '#ropemark-badge-image' ).val( a.id ).attr( 'data-url', url ).trigger( 'change' );
+			$( '#ropemark-badge-image-preview' ).html( '<img src="' + url + '" alt="">' );
 		} );
 		frame.open();
 	} );
-	$( document ).on( 'click', '#aipk-badge-image-clear', function ( e ) {
+	$( document ).on( 'click', '#ropemark-badge-image-clear', function ( e ) {
 		e.preventDefault();
-		$( '#aipk-badge-image' ).val( 0 ).attr( 'data-url', '' ).trigger( 'change' );
-		$( '#aipk-badge-image-preview' ).empty();
+		$( '#ropemark-badge-image' ).val( 0 ).attr( 'data-url', '' ).trigger( 'change' );
+		$( '#ropemark-badge-image-preview' ).empty();
 	} );
 
 	/* ---------- settings: reset ---------- */
-	$( document ).on( 'click', '#aipk-reset', function ( e ) {
-		if ( ! window.confirm( AIPK.i18n.reset ) ) {
+	$( document ).on( 'click', '#ropemark-reset', function ( e ) {
+		if ( ! window.confirm( Ropemark.i18n.reset ) ) {
 			e.preventDefault();
 		}
 	} );
 
 	/* ---------- settings: live preview ---------- */
-	var $preview = $( '#aipk-preview' );
+	var $preview = $( '#ropemark-preview' );
 	if ( $preview.length ) {
-		var $form = $( '#aipk-form' ),
-			$badge = $( '#aipk-preview-badge' ),
-			$popup = $( '#aipk-preview-popup' ),
-			$css = $( '#aipk-preview-css' );
+		var $form = $( '#ropemark-form' ),
+			$badge = $( '#ropemark-preview-badge' ),
+			$popup = $( '#ropemark-preview-popup' );
 
 		function field( name ) {
-			return $form.find( '[name="aipk_settings[' + name + ']"]' );
+			return $form.find( '[name="ropemark_settings[' + name + ']"]' );
 		}
 		function hexToRgb( hex ) {
 			hex = ( hex || '#000000' ).replace( '#', '' );
@@ -159,7 +158,7 @@
 				opacity = Math.max( 0, Math.min( 100, parseInt( field( 'badge_opacity' ).val(), 10 ) ) ) / 100,
 				color = field( 'badge_color' ).val() || '#fff',
 				text = field( 'badge_text' ).val() || 'AI',
-				imgUrl = $( '#aipk-badge-image' ).attr( 'data-url' ),
+				imgUrl = $( '#ropemark-badge-image' ).attr( 'data-url' ),
 				popupOn = field( 'popup_enabled' ).is( ':checked' ),
 				css = '';
 
@@ -172,7 +171,7 @@
 			} );
 			var place = { 'bottom-right': { bottom: offset, right: offset }, 'bottom-left': { bottom: offset, left: offset }, 'top-right': { top: offset, right: offset }, 'top-left': { top: offset, left: offset } };
 			$badge.css( place[ pos ] || place['bottom-right'] );
-			$badge.attr( 'class', 'aipk-ai-badge aipk-pos-' + pos );
+			$badge.attr( 'class', 'ropemark-ai-badge ropemark-pos-' + pos );
 			if ( imgUrl ) {
 				$badge.html( '<img src="' + imgUrl + '" alt="">' );
 			} else {
@@ -181,11 +180,10 @@
 			if ( ! popupOn || ! enabled ) {
 				$popup.prop( 'hidden', true );
 			}
-			$popup.find( '.aipk-popup-title' ).text( field( 'popup_title' ).val() );
-			$popup.find( '.aipk-preview-disclosure' ).text( field( 'label_text' ).val() );
-			$( '#aipk-preview-credit' ).prop( 'hidden', ! field( 'credit_link' ).is( ':checked' ) );
-			$( '#aipk-preview-label' ).prop( 'hidden', ! field( 'frontend_label' ).is( ':checked' ) ).text( field( 'label_text' ).val() );
-			$css.text( field( 'custom_css' ).val() || '' );
+			$popup.find( '.ropemark-popup-title' ).text( field( 'popup_title' ).val() );
+			$popup.find( '.ropemark-preview-disclosure' ).text( field( 'label_text' ).val() );
+			$( '#ropemark-preview-credit' ).prop( 'hidden', ! field( 'credit_link' ).is( ':checked' ) );
+			$( '#ropemark-preview-label' ).prop( 'hidden', ! field( 'frontend_label' ).is( ':checked' ) ).text( field( 'label_text' ).val() );
 		}
 		$form.on( 'input change', '[data-preview]', render );
 		$badge.on( 'click', function () {
@@ -193,7 +191,7 @@
 				$popup.prop( 'hidden', ! $popup.prop( 'hidden' ) );
 			}
 		} );
-		$popup.on( 'click', '.aipk-popup-close', function () {
+		$popup.on( 'click', '.ropemark-popup-close', function () {
 			$popup.prop( 'hidden', true );
 		} );
 		render();
@@ -206,23 +204,23 @@
 
 		Attachment.prototype.render = function () {
 			render0.apply( this, arguments );
-			var a = this.model.get( 'aipk' );
-			this.$el.find( '.aipk-badge' ).remove();
+			var a = this.model.get( 'ropemark' );
+			this.$el.find( '.ropemark-badge' ).remove();
 			if ( a && a.badge ) {
 				this.$el.find( '.thumbnail' ).append(
-					$( '<span class="aipk-badge"></span>' ).addClass( 'aipk-badge-' + a.kind ).attr( 'title', a.title ).text( a.badge )
+					$( '<span class="ropemark-badge"></span>' ).addClass( 'ropemark-badge-' + a.kind ).attr( 'title', a.title ).text( a.badge )
 				);
 			}
 			return this;
 		};
 
 		if ( wp.media.view.AttachmentFilters && wp.media.view.AttachmentsBrowser ) {
-			wp.media.view.AttachmentFilters.Aipk = wp.media.view.AttachmentFilters.extend( {
-				className: 'attachment-filters aipk-filter',
+			wp.media.view.AttachmentFilters.Ropemark = wp.media.view.AttachmentFilters.extend( {
+				className: 'attachment-filters ropemark-filter',
 				createFilters: function () {
 					var filters = {}, priority = 10;
-					$.each( AIPK.filters, function ( value, text ) {
-						filters[ value || 'all' ] = { text: text, props: { aipk_filter: value }, priority: priority };
+					$.each( Ropemark.filters, function ( value, text ) {
+						filters[ value || 'all' ] = { text: text, props: { ropemark_filter: value }, priority: priority };
 						priority += 10;
 					} );
 					this.filters = filters;
@@ -235,7 +233,7 @@
 				if ( this.options.filters === false ) {
 					return;
 				}
-				this.toolbar.set( 'aipkFilter', new wp.media.view.AttachmentFilters.Aipk( { controller: this.controller, model: this.collection.props, priority: -75 } ).render() );
+				this.toolbar.set( 'ropemarkFilter', new wp.media.view.AttachmentFilters.Ropemark( { controller: this.controller, model: this.collection.props, priority: -75 } ).render() );
 			};
 		}
 	}
